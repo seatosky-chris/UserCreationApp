@@ -1,0 +1,14 @@
+<Style xmlns="https://github.com/avaloniaui"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:sys="clr-namespace:System;assembly=netstandard">
+	<Style.Resources>
+		<!-- Colors -->
+		<Color x:Key="_hyperlinkColor">#FF0074CC</Color>
+		<Color x:Key="_hyperlinkColorHover">#FF0A95FF</Color>
+		<Color x:Key="_hyperlinkColorPressed">#FF0A95FF</Color>
+		<StaticResource x:Key="HyperlinkColor" ResourceKey="_hyperlinkColor" />
+		<StaticResource x:Key="HyperlinkColorHover" ResourceKey="_hyperlinkColorHover" />
+		<StaticResource x:Key="HyperlinkColorPressed" ResourceKey="_hyperlinkColorPressed" />
+		
+	</Style.Resources>
+</Style>

@@ -1,0 +1,64 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+        <Border Padding="20">
+            <!-- Add Controls for Previewer Here -->
+        </Border>
+    </Design.PreviewWith>
+
+	<StyleInclude Source="avares://UserCreationUI/StyleResources.axaml" />
+	
+	<Style Selector="StackPanel.ControlGroup TextBlock.Label">
+		<Setter Property="Margin" Value="0,10,0,5" />
+	</Style>
+
+	<!-- Buttons -->
+	<Style Selector="Button.SmallTextBtn">
+		<Setter Property="BorderThickness" Value="1" />
+		<Setter Property="FontSize" Value="13" />
+		<Setter Property="Padding" Value="5,2,5,2" />
+	</Style>
+
+	<Style Selector="ListBox.ListWithDelete > ListBoxItem">
+		<Setter Property="Padding" Value="12,4,10,6" />
+	</Style>
+	<Style Selector="ListBox.ListWithDelete > ListBoxItem > DockPanel > TextBlock">
+		<Setter Property="VerticalAlignment" Value="Center" />
+		<Setter Property="MaxWidth" Value="{Binding $parent.Bounds.Width, Converter={StaticResource MathConverter}, ConverterParameter=@VALUE-26}" />
+	</Style>
+	<Style Selector="ListBox.ListWithDelete > ListBoxItem Button">
+		<Setter Property="BorderThickness" Value="0" />
+		<Setter Property="BorderBrush" Value="Transparent" />
+		<Setter Property="Background" Value="Transparent" />
+		<Setter Property="Padding" Value="2" />
+		<Setter Property="HorizontalAlignment" Value="Right" />
+	</Style>
+	<Style Selector="ListBox.ListWithDelete > ListBoxItem Button > PathIcon">
+		<Setter Property="Height" Value="24" />
+		<Setter Property="Width" Value="24" />
+		<Setter Property="Padding" Value="0" />
+		<Setter Property="Foreground" Value="#797775" />
+	</Style>
+	<Style Selector="ListBox.ListWithDelete > ListBoxItem Button:pointerover > PathIcon">
+		<Setter Property="Foreground" Value="#000000" />
+	</Style>
+	<Style Selector="ListBox.ListWithDelete > ListBoxItem Button:pressed > PathIcon">
+		<Setter Property="Foreground" Value="#000000" />
+	</Style>
+
+	<Style Selector="Button.LinkButton">
+		<Setter Property="Background" Value="Transparent"/>
+		<Setter Property="BorderThickness" Value="0"/>
+		<Setter Property="Padding" Value="0"/>
+		<Setter Property="TextBlock.Foreground" Value="{DynamicResource HyperlinkColor}" />
+	</Style>
+	<Style Selector="Button.LinkButton:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="TextBlock.Foreground" Value="{DynamicResource HyperlinkColorHover}" />
+		<Setter Property="Background" Value="Transparent" />
+	</Style>
+	<Style Selector="Button.LinkButton:pressed /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="TextBlock.Foreground" Value="{DynamicResource HyperlinkColorPressed}" />
+		<Setter Property="Background" Value="Transparent" />
+	</Style>
+	
+</Styles>

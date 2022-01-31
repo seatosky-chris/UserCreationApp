@@ -1,0 +1,1236 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+        <Border Padding="20">
+            <!-- Add Controls for Previewer Here -->
+        </Border>
+    </Design.PreviewWith>
+
+    <!-- Text Headers and Body -->
+	<Style Selector="TextBlock.Caption">
+		<Setter Property="FontSize" Value="12" />
+	</Style>
+	
+	<Style Selector="TextBlock.BodyStrong">
+		<Setter Property="FontSize" Value="14" />
+		<Setter Property="FontWeight" Value="SemiBold" />
+	</Style>
+
+	<Style Selector="TextBlock.BodyLarge">
+		<Setter Property="FontSize" Value="18" />
+	</Style>
+
+	<Style Selector="TextBlock.Subtitle">
+		<Setter Property="FontSize" Value="20" />
+		<Setter Property="FontWeight" Value="SemiBold" />
+	</Style>
+	
+	<Style Selector="TextBlock.Title">
+		<Setter Property="FontSize" Value="28" />
+		<Setter Property="FontWeight" Value="SemiBold" />
+	</Style>
+
+	<Style Selector="TextBlock.TitleLarge">
+		<Setter Property="FontSize" Value="40" />
+		<Setter Property="FontWeight" Value="SemiBold" />
+	</Style>
+	<!-- END Text Headers and Body -->
+
+	<!-- Theme Colors -->
+	<!-- Darker -->
+	<Style Selector="TextBlock.ThemeDarkerForeground">
+		<Setter Property="Foreground" Value="#004578" />
+	</Style>
+	<Style Selector=":is(Panel).ThemeDarkerBackground">
+		<Setter Property="Background" Value="#004578" />
+	</Style>
+	<Style Selector="Border.ThemeDarkerBackground">
+		<Setter Property="Background" Value="#004578" />
+	</Style>
+	<Style Selector="Border.ThemeDarkerBorder">
+		<Setter Property="BorderBrush" Value="#004578" />
+	</Style>
+	<Style Selector=":is(ContentControl).ThemeDarker">
+		<Setter Property="Background" Value="#004578" />
+		<Setter Property="TextBlock.Foreground" Value="{StaticResource SystemChromeWhiteColor}" />
+	</Style>
+	<Style Selector=":is(ContentControl).ThemeDarker:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="Background" Value="#005A9E" />
+		<Setter Property="TextBlock.Foreground" Value="{StaticResource SystemChromeWhiteColor}" />
+	</Style>
+	<Style Selector=":is(ContentControl).ThemeDarker:pressed /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="Background" Value="#00345a" />
+		<Setter Property="TextBlock.Foreground" Value="{StaticResource SystemChromeWhiteColor}" />
+	</Style>
+	<Style Selector="Border.ThemeDarker">
+		<Setter Property="Background" Value="#004578" />
+		<Setter Property="BorderBrush" Value="#004578" />
+	</Style>
+	<Style Selector=":is(Panel).ThemeDarker">
+		<Setter Property="Background" Value="#004578" />
+	</Style>
+	<Style Selector="TextBlock.ThemeDarker">
+		<Setter Property="Background" Value="#004578" />
+		<Setter Property="Foreground" Value="{StaticResource SystemChromeWhiteColor}" />
+	</Style>
+	<!-- Dark -->
+	<Style Selector="TextBlock.ThemeDarkForeground">
+		<Setter Property="Foreground" Value="#005A9E" />
+	</Style>
+	<Style Selector=":is(Panel).ThemeDarkBackground">
+		<Setter Property="Background" Value="#005A9E" />
+	</Style>
+	<Style Selector="Border.ThemeDarkBackground">
+		<Setter Property="Background" Value="#005A9E" />
+	</Style>
+	<Style Selector="Border.ThemeDarkBorder">
+		<Setter Property="BorderBrush" Value="#005A9E" />
+	</Style>
+	<Style Selector=":is(ContentControl).ThemeDark">
+		<Setter Property="Background" Value="#005A9E" />
+		<Setter Property="TextBlock.Foreground" Value="{StaticResource SystemChromeWhiteColor}" />
+	</Style>
+	<Style Selector=":is(ContentControl).ThemeDark:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="Background" Value="#106EBE" />
+		<Setter Property="TextBlock.Foreground" Value="{StaticResource SystemChromeWhiteColor}" />
+	</Style>
+	<Style Selector=":is(ContentControl).ThemeDark:pressed /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="Background" Value="#004578" />
+		<Setter Property="TextBlock.Foreground" Value="{StaticResource SystemChromeWhiteColor}" />
+	</Style>
+	<Style Selector="Border.ThemeDark">
+		<Setter Property="Background" Value="#005A9E" />
+		<Setter Property="BorderBrush" Value="#005A9E" />
+	</Style>
+	<Style Selector=":is(Panel).ThemeDark">
+		<Setter Property="Background" Value="#005A9E" />
+	</Style>
+	<Style Selector="TextBlock.ThemeDark">
+		<Setter Property="Background" Value="#005A9E" />
+		<Setter Property="Foreground" Value="{StaticResource SystemChromeWhiteColor}" />
+	</Style>
+	<!-- DarkAlt -->
+	<Style Selector="TextBlock.ThemeDarkAltForeground">
+		<Setter Property="Foreground" Value="#106EBE" />
+	</Style>
+	<Style Selector=":is(Panel).ThemeDarkAltBackground">
+		<Setter Property="Background" Value="#106EBE" />
+	</Style>
+	<Style Selector="Border.ThemeDarkAltBackground">
+		<Setter Property="Background" Value="#106EBE" />
+	</Style>
+	<Style Selector="Border.ThemeDarkAltBorder">
+		<Setter Property="BorderBrush" Value="#106EBE" />
+	</Style>
+	<Style Selector=":is(ContentControl).ThemeDarkAlt">
+		<Setter Property="Background" Value="#106EBE" />
+		<Setter Property="TextBlock.Foreground" Value="{StaticResource SystemChromeWhiteColor}" />
+	</Style>
+	<Style Selector=":is(ContentControl).ThemeDarkAlt:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="Background" Value="#4c92ce" />
+		<Setter Property="TextBlock.Foreground" Value="{StaticResource SystemChromeWhiteColor}" />
+	</Style>
+	<Style Selector=":is(ContentControl).ThemeDarkAlt:pressed /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="Background" Value="#005A9E" />
+		<Setter Property="TextBlock.Foreground" Value="{StaticResource SystemChromeWhiteColor}" />
+	</Style>
+	<Style Selector="Border.ThemeDarkAlt">
+		<Setter Property="Background" Value="#106EBE" />
+		<Setter Property="BorderBrush" Value="#106EBE" />
+	</Style>
+	<Style Selector=":is(Panel).ThemeDarkAlt">
+		<Setter Property="Background" Value="#106EBE" />
+	</Style>
+	<Style Selector="TextBlock.ThemeDarkAlt">
+		<Setter Property="Background" Value="#106EBE" />
+		<Setter Property="Foreground" Value="{StaticResource SystemChromeWhiteColor}" />
+	</Style>
+	<!-- Primary -->
+	<Style Selector="TextBlock.ThemePrimaryForeground">
+		<Setter Property="Foreground" Value="#0078D7" />
+	</Style>
+	<Style Selector=":is(Panel).ThemePrimaryBackground">
+		<Setter Property="Background" Value="#0078D7" />
+	</Style>
+	<Style Selector="Border.ThemePrimaryBackground">
+		<Setter Property="Background" Value="#0078D7" />
+	</Style>
+	<Style Selector="Border.ThemePrimaryBorder">
+		<Setter Property="BorderBrush" Value="#0078D7" />
+	</Style>
+	<Style Selector=":is(ContentControl).ThemePrimary">
+		<Setter Property="Background" Value="#0078D7" />
+		<Setter Property="TextBlock.Foreground" Value="{StaticResource SystemChromeWhiteColor}" />
+	</Style>
+	<Style Selector=":is(ContentControl).ThemePrimary:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="Background" Value="#2b88D8" />
+		<Setter Property="TextBlock.Foreground" Value="{StaticResource SystemChromeWhiteColor}" />
+	</Style>
+	<Style Selector=":is(ContentControl).ThemePrimary:pressed /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="Background" Value="#005aa1" />
+		<Setter Property="TextBlock.Foreground" Value="{StaticResource SystemChromeWhiteColor}" />
+	</Style>
+	<Style Selector="Border.ThemePrimary">
+		<Setter Property="Background" Value="#0078D7" />
+		<Setter Property="BorderBrush" Value="#0078D7" />
+	</Style>
+	<Style Selector=":is(Panel).ThemePrimary">
+		<Setter Property="Background" Value="#0078D7" />
+	</Style>
+	<Style Selector="TextBlock.ThemePrimary">
+		<Setter Property="Background" Value="#0078D7" />
+		<Setter Property="Foreground" Value="{StaticResource SystemChromeWhiteColor}" />
+	</Style>
+	<!-- Secondary -->
+	<Style Selector="TextBlock.ThemeSecondaryForeground">
+		<Setter Property="Foreground" Value="#2b88D8" />
+	</Style>
+	<Style Selector=":is(Panel).ThemeSecondaryBackground">
+		<Setter Property="Background" Value="#2b88D8" />
+	</Style>
+	<Style Selector="Border.ThemeSecondaryBackground">
+		<Setter Property="Background" Value="#2b88D8" />
+	</Style>
+	<Style Selector="Border.ThemeSecondaryBorder">
+		<Setter Property="BorderBrush" Value="#2b88D8" />
+	</Style>
+	<Style Selector=":is(ContentControl).ThemeSecondary">
+		<Setter Property="Background" Value="#2b88D8" />
+		<Setter Property="TextBlock.Foreground" Value="{StaticResource SystemChromeWhiteColor}" />
+	</Style>
+	<Style Selector=":is(ContentControl).ThemeSecondary:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="Background" Value="#71AFE5" />
+		<Setter Property="TextBlock.Foreground" Value="{StaticResource SystemChromeWhiteColor}" />
+	</Style>
+	<Style Selector=":is(ContentControl).ThemeSecondary:pressed /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="Background" Value="#0078D7" />
+		<Setter Property="TextBlock.Foreground" Value="{StaticResource SystemChromeWhiteColor}" />
+	</Style>
+	<Style Selector="Border.ThemeSecondary">
+		<Setter Property="Background" Value="#2b88D8" />
+		<Setter Property="BorderBrush" Value="#2b88D8" />
+	</Style>
+	<Style Selector=":is(Panel).ThemeSecondary">
+		<Setter Property="Background" Value="#2b88D8" />
+	</Style>
+	<Style Selector="TextBlock.ThemeSecondary">
+		<Setter Property="Background" Value="#2b88D8" />
+	</Style>
+	<!-- Tertiary -->
+	<Style Selector="TextBlock.ThemeTertiaryForeground">
+		<Setter Property="Foreground" Value="#71AFE5" />
+	</Style>
+	<Style Selector=":is(Panel).ThemeTertiaryBackground">
+		<Setter Property="Background" Value="#71AFE5" />
+	</Style>
+	<Style Selector="Border.ThemeTertiaryBackground">
+		<Setter Property="Background" Value="#71AFE5" />
+	</Style>
+	<Style Selector="Border.ThemeTertiaryBorder">
+		<Setter Property="BorderBrush" Value="#71AFE5" />
+	</Style>
+	<Style Selector=":is(ContentControl).ThemeTertiary">
+		<Setter Property="Background" Value="#71AFE5" />
+	</Style>
+	<Style Selector=":is(ContentControl).ThemeTertiary:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="Background" Value="#95c3ec" />
+	</Style>
+	<Style Selector=":is(ContentControl).ThemeTertiary:pressed /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="Background" Value="#2b88D8" />
+	</Style>
+	<Style Selector="Border.ThemeTertiary">
+		<Setter Property="Background" Value="#71AFE5" />
+		<Setter Property="BorderBrush" Value="#71AFE5" />
+	</Style>
+	<Style Selector=":is(Panel).ThemeTertiary">
+		<Setter Property="Background" Value="#71AFE5" />
+	</Style>
+	<Style Selector="TextBlock.ThemeTertiary">
+		<Setter Property="Background" Value="#71AFE5" />
+	</Style>
+	<!-- Light -->
+	<Style Selector="TextBlock.ThemeLightForeground">
+		<Setter Property="Foreground" Value="#C7E0F4" />
+	</Style>
+	<Style Selector=":is(Panel).ThemeLightBackground">
+		<Setter Property="Background" Value="#C7E0F4" />
+	</Style>
+	<Style Selector="Border.ThemeLightBackground">
+		<Setter Property="Background" Value="#C7E0F4" />
+	</Style>
+	<Style Selector="Border.ThemeLightBorder">
+		<Setter Property="BorderBrush" Value="#C7E0F4" />
+	</Style>
+	<Style Selector=":is(ContentControl).ThemeLight">
+		<Setter Property="Background" Value="#C7E0F4" />
+	</Style>
+	<Style Selector=":is(ContentControl).ThemeLight:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="Background" Value="#DEECF9" />
+	</Style>
+	<Style Selector=":is(ContentControl).ThemeLight:pressed /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="Background" Value="#71AFE5" />
+	</Style>
+	<Style Selector="Border.ThemeLight">
+		<Setter Property="Background" Value="#C7E0F4" />
+		<Setter Property="BorderBrush" Value="#C7E0F4" />
+	</Style>
+	<Style Selector=":is(Panel).ThemeLight">
+		<Setter Property="Background" Value="#C7E0F4" />
+	</Style>
+	<Style Selector="TextBlock.ThemeLight">
+		<Setter Property="Background" Value="#C7E0F4" />
+	</Style>
+	<!-- Lighter -->
+	<Style Selector="TextBlock.ThemeLighterForeground">
+		<Setter Property="Foreground" Value="#DEECF9" />
+	</Style>
+	<Style Selector=":is(Panel).ThemeLighterBackground">
+		<Setter Property="Background" Value="#DEECF9" />
+	</Style>
+	<Style Selector="Border.ThemeLighterBackground">
+		<Setter Property="Background" Value="#DEECF9" />
+	</Style>
+	<Style Selector="Border.ThemeLighterBorder">
+		<Setter Property="BorderBrush" Value="#DEECF9" />
+	</Style>
+	<Style Selector=":is(ContentControl).ThemeLighter">
+		<Setter Property="Background" Value="#DEECF9" />
+	</Style>
+	<Style Selector=":is(ContentControl).ThemeLighter:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="Background" Value="#EFF6FC" />
+	</Style>
+	<Style Selector=":is(ContentControl).ThemeLighter:pressed /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="Background" Value="#C7E0F4" />
+	</Style>
+	<Style Selector="Border.ThemeLighter">
+		<Setter Property="Background" Value="#DEECF9" />
+		<Setter Property="BorderBrush" Value="#DEECF9" />
+	</Style>
+	<Style Selector=":is(Panel).ThemeLighter">
+		<Setter Property="Background" Value="#DEECF9" />
+	</Style>
+	<Style Selector="TextBlock.ThemeLighter">
+		<Setter Property="Background" Value="#DEECF9" />
+	</Style>
+	<!-- LighterAlt -->
+	<Style Selector="TextBlock.ThemeLighterAltForeground">
+		<Setter Property="Foreground" Value="#EFF6FC" />
+	</Style>
+	<Style Selector=":is(Panel).ThemeLighterAltBackground">
+		<Setter Property="Background" Value="#EFF6FC" />
+	</Style>
+	<Style Selector="Border.ThemeLighterAltBackground">
+		<Setter Property="Background" Value="#EFF6FC" />
+	</Style>
+	<Style Selector="Border.ThemeLighterAltBorder">
+		<Setter Property="BorderBrush" Value="#EFF6FC" />
+	</Style>
+	<Style Selector=":is(ContentControl).ThemeLighterAlt">
+		<Setter Property="Background" Value="#EFF6FC" />
+	</Style>
+	<Style Selector=":is(ContentControl).ThemeLighterAlt:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="Background" Value="#f7fbfe" />
+	</Style>
+	<Style Selector=":is(ContentControl).ThemeLighterAlt:pressed /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="Background" Value="#DEECF9" />
+	</Style>
+	<Style Selector="Border.ThemeLighterAlt">
+		<Setter Property="Background" Value="#EFF6FC" />
+		<Setter Property="BorderBrush" Value="#EFF6FC" />
+	</Style>
+	<Style Selector=":is(Panel).ThemeLighterAlt">
+		<Setter Property="Background" Value="#EFF6FC" />
+	</Style>
+	<Style Selector="TextBlock.ThemeLighterAlt">
+		<Setter Property="Background" Value="#EFF6FC" />
+	</Style>
+	<!-- END Theme Colors -->
+
+	<!-- Accent Colors -->
+	<!-- Yellow -->
+	<Style Selector="TextBlock.AccentYellowForeground">
+		<Setter Property="Foreground" Value="#FFB900" />
+	</Style>
+	<Style Selector=":is(Panel).AccentYellowBackground">
+		<Setter Property="Background" Value="#FFB900" />
+	</Style>
+	<Style Selector="Border.AccentYellowBackground">
+		<Setter Property="Background" Value="#FFB900" />
+	</Style>
+	<Style Selector="Border.AccentYellowBorder">
+		<Setter Property="BorderBrush" Value="#FFB900" />
+	</Style>
+	<Style Selector=":is(ContentControl).AccentYellow">
+		<Setter Property="Background" Value="#FFB900" />
+	</Style>
+	<Style Selector=":is(ContentControl).AccentYellow:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="Background" Value="#ffcb40" />
+	</Style>
+	<Style Selector=":is(ContentControl).AccentYellow:pressed /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="Background" Value="#bf8b00" />
+	</Style>
+	<Style Selector="Border.AccentYellow">
+		<Setter Property="Background" Value="#FFB900" />
+		<Setter Property="BorderBrush" Value="#FFB900" />
+	</Style>
+	<Style Selector=":is(Panel).AccentYellow">
+		<Setter Property="Background" Value="#FFB900" />
+	</Style>
+	<Style Selector="TextBlock.AccentYellow">
+		<Setter Property="Background" Value="#FFB900" />
+	</Style>
+	<!-- LightYellow -->
+	<Style Selector="TextBlock.AccentLightYellowForeground">
+		<Setter Property="Foreground" Value="#FFF100" />
+	</Style>
+	<Style Selector=":is(Panel).AccentLightYellowBackground">
+		<Setter Property="Background" Value="#FFF100" />
+	</Style>
+	<Style Selector="Border.AccentLightYellowBackground">
+		<Setter Property="Background" Value="#FFF100" />
+	</Style>
+	<Style Selector="Border.AccentLightYellowBorder">
+		<Setter Property="BorderBrush" Value="#FFF100" />
+	</Style>
+	<Style Selector=":is(ContentControl).AccentLightYellow">
+		<Setter Property="Background" Value="#FFF100" />
+	</Style>
+	<Style Selector=":is(ContentControl).AccentLightYellow:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="Background" Value="#fff880" />
+	</Style>
+	<Style Selector=":is(ContentControl).AccentLightYellow:pressed /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="Background" Value="#bfb500" />
+	</Style>
+	<Style Selector="Border.AccentLightYellow">
+		<Setter Property="Background" Value="#FFF100" />
+		<Setter Property="BorderBrush" Value="#FFF100" />
+	</Style>
+	<Style Selector=":is(Panel).AccentLightYellow">
+		<Setter Property="Background" Value="#FFF100" />
+	</Style>
+	<Style Selector="TextBlock.AccentLightYellow">
+		<Setter Property="Background" Value="#FFF100" />
+	</Style>
+	<!-- Orange -->
+	<Style Selector="TextBlock.AccentOrangeForeground">
+		<Setter Property="Foreground" Value="#D83B01" />
+	</Style>
+	<Style Selector=":is(Panel).AccentOrangeBackground">
+		<Setter Property="Background" Value="#D83B01" />
+	</Style>
+	<Style Selector="Border.AccentOrangeBackground">
+		<Setter Property="Background" Value="#D83B01" />
+	</Style>
+	<Style Selector="Border.AccentOrangeBorder">
+		<Setter Property="BorderBrush" Value="#D83B01" />
+	</Style>
+	<Style Selector=":is(ContentControl).AccentOrange">
+		<Setter Property="Background" Value="#D83B01" />
+	</Style>
+	<Style Selector=":is(ContentControl).AccentOrange:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="Background" Value="#EA4300" />
+	</Style>
+	<Style Selector=":is(ContentControl).AccentOrange:pressed /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="Background" Value="#a22c01" />
+	</Style>
+	<Style Selector="Border.AccentOrange">
+		<Setter Property="Background" Value="#D83B01" />
+		<Setter Property="BorderBrush" Value="#D83B01" />
+	</Style>
+	<Style Selector=":is(Panel).AccentOrange">
+		<Setter Property="Background" Value="#D83B01" />
+	</Style>
+	<Style Selector="TextBlock.AccentOrange">
+		<Setter Property="Background" Value="#D83B01" />
+	</Style>
+	<!-- LightOrange -->
+	<Style Selector="TextBlock.AccentLightOrangeForeground">
+		<Setter Property="Foreground" Value="#EA4300" />
+	</Style>
+	<Style Selector=":is(Panel).AccentLightOrangeBackground">
+		<Setter Property="Background" Value="#EA4300" />
+	</Style>
+	<Style Selector="Border.AccentLightOrangeBackground">
+		<Setter Property="Background" Value="#EA4300" />
+	</Style>
+	<Style Selector="Border.AccentLightOrangeBorder">
+		<Setter Property="BorderBrush" Value="#EA4300" />
+	</Style>
+	<Style Selector=":is(ContentControl).AccentLightOrange">
+		<Setter Property="Background" Value="#EA4300" />
+	</Style>
+	<Style Selector=":is(ContentControl).AccentLightOrange:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="Background" Value="#FF8C00" />
+	</Style>
+	<Style Selector=":is(ContentControl).AccentLightOrange:pressed /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="Background" Value="#D83B01" />
+	</Style>
+	<Style Selector="Border.AccentLightOrange">
+		<Setter Property="Background" Value="#EA4300" />
+		<Setter Property="BorderBrush" Value="#EA4300" />
+	</Style>
+	<Style Selector=":is(Panel).AccentLightOrange">
+		<Setter Property="Background" Value="#EA4300" />
+	</Style>
+	<Style Selector="TextBlock.AccentLightOrange">
+		<Setter Property="Background" Value="#EA4300" />
+	</Style>
+	<!-- LighterOrange -->
+	<Style Selector="TextBlock.AccentLighterOrangeForeground">
+		<Setter Property="Foreground" Value="#FF8C00" />
+	</Style>
+	<Style Selector=":is(Panel).AccentLighterOrangeBackground">
+		<Setter Property="Background" Value="#FF8C00" />
+	</Style>
+	<Style Selector="Border.AccentLighterOrangeBackground">
+		<Setter Property="Background" Value="#FF8C00" />
+	</Style>
+	<Style Selector="Border.AccentLighterOrangeBorder">
+		<Setter Property="BorderBrush" Value="#FF8C00" />
+	</Style>
+	<Style Selector=":is(ContentControl).AccentLighterOrange">
+		<Setter Property="Background" Value="#FF8C00" />
+	</Style>
+	<Style Selector=":is(ContentControl).AccentLighterOrange:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="Background" Value="#ffa940" />
+	</Style>
+	<Style Selector=":is(ContentControl).AccentLighterOrange:pressed /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="Background" Value="#EA4300" />
+	</Style>
+	<Style Selector="Border.AccentLighterOrange">
+		<Setter Property="Background" Value="#FF8C00" />
+		<Setter Property="BorderBrush" Value="#FF8C00" />
+	</Style>
+	<Style Selector=":is(Panel).AccentLighterOrange">
+		<Setter Property="Background" Value="#FF8C00" />
+	</Style>
+	<Style Selector="TextBlock.AccentLighterOrange">
+		<Setter Property="Background" Value="#FF8C00" />
+	</Style>
+	<!-- DarkRed -->
+	<Style Selector="TextBlock.AccentDarkRedForeground">
+		<Setter Property="Foreground" Value="#A80000" />
+	</Style>
+	<Style Selector=":is(Panel).AccentDarkRedBackground">
+		<Setter Property="Background" Value="#A80000" />
+	</Style>
+	<Style Selector="Border.AccentDarkRedBackground">
+		<Setter Property="Background" Value="#A80000" />
+	</Style>
+	<Style Selector="Border.AccentDarkRedBorder">
+		<Setter Property="BorderBrush" Value="#A80000" />
+	</Style>
+	<Style Selector=":is(ContentControl).AccentDarkRed">
+		<Setter Property="Background" Value="#A80000" />
+		<Setter Property="TextBlock.Foreground" Value="{StaticResource SystemChromeWhiteColor}" />
+	</Style>
+	<Style Selector=":is(ContentControl).AccentDarkRed:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="Background" Value="#E81123" />
+		<Setter Property="TextBlock.Foreground" Value="{StaticResource SystemChromeWhiteColor}" />
+	</Style>
+	<Style Selector=":is(ContentControl).AccentDarkRed:pressed /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="Background" Value="#7e0000" />
+		<Setter Property="TextBlock.Foreground" Value="{StaticResource SystemChromeWhiteColor}" />
+	</Style>
+	<Style Selector="Border.AccentDarkRed">
+		<Setter Property="Background" Value="#A80000" />
+		<Setter Property="BorderBrush" Value="#A80000" />
+	</Style>
+	<Style Selector=":is(Panel).AccentDarkRed">
+		<Setter Property="Background" Value="#A80000" />
+	</Style>
+	<Style Selector="TextBlock.AccentDarkRed">
+		<Setter Property="Background" Value="#A80000" />
+		<Setter Property="Foreground" Value="{StaticResource SystemChromeWhiteColor}" />
+	</Style>
+	<!-- Red -->
+	<Style Selector="TextBlock.AccentRedForeground">
+		<Setter Property="Foreground" Value="#E81123" />
+	</Style>
+	<Style Selector=":is(Panel).AccentRedBackground">
+		<Setter Property="Background" Value="#E81123" />
+	</Style>
+	<Style Selector="Border.AccentRedBackground">
+		<Setter Property="Background" Value="#E81123" />
+	</Style>
+	<Style Selector="Border.AccentRedBorder">
+		<Setter Property="BorderBrush" Value="#E81123" />
+	</Style>
+	<Style Selector=":is(ContentControl).AccentRed">
+		<Setter Property="Background" Value="#E81123" />
+		<Setter Property="TextBlock.Foreground" Value="{StaticResource SystemChromeWhiteColor}" />
+	</Style>
+	<Style Selector=":is(ContentControl).AccentRed:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="Background" Value="#ee4d5a" />
+		<Setter Property="TextBlock.Foreground" Value="{StaticResource SystemChromeWhiteColor}" />
+	</Style>
+	<Style Selector=":is(ContentControl).AccentRed:pressed /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="Background" Value="#A80000" />
+		<Setter Property="TextBlock.Foreground" Value="{StaticResource SystemChromeWhiteColor}" />
+	</Style>
+	<Style Selector="Border.AccentRed">
+		<Setter Property="Background" Value="#E81123" />
+		<Setter Property="BorderBrush" Value="#E81123" />
+	</Style>
+	<Style Selector=":is(Panel).AccentRed">
+		<Setter Property="Background" Value="#E81123" />
+	</Style>
+	<Style Selector="TextBlock.AccentRed">
+		<Setter Property="Background" Value="#E81123" />
+		<Setter Property="Foreground" Value="{StaticResource SystemChromeWhiteColor}" />
+	</Style>
+	<!-- LightMagenta -->
+	<Style Selector="TextBlock.AccentLightMagentaForeground">
+		<Setter Property="Foreground" Value="#E3008C" />
+	</Style>
+	<Style Selector=":is(Panel).AccentLightMagentaBackground">
+		<Setter Property="Background" Value="#E3008C" />
+	</Style>
+	<Style Selector="Border.AccentLightMagentaBackground">
+		<Setter Property="Background" Value="#E3008C" />
+	</Style>
+	<Style Selector="Border.AccentLightMagentaBorder">
+		<Setter Property="BorderBrush" Value="#E3008C" />
+	</Style>
+	<Style Selector=":is(ContentControl).AccentLightMagenta">
+		<Setter Property="Background" Value="#E3008C" />
+		<Setter Property="TextBlock.Foreground" Value="{StaticResource SystemChromeWhiteColor}" />
+	</Style>
+	<Style Selector=":is(ContentControl).AccentLightMagenta:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="Background" Value="#ea40a9" />
+		<Setter Property="TextBlock.Foreground" Value="{StaticResource SystemChromeWhiteColor}" />
+	</Style>
+	<Style Selector=":is(ContentControl).AccentLightMagenta:pressed /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="Background" Value="#B4009E" />
+		<Setter Property="TextBlock.Foreground" Value="{StaticResource SystemChromeWhiteColor}" />
+	</Style>
+	<Style Selector="Border.AccentLightMagenta">
+		<Setter Property="Background" Value="#E3008C" />
+		<Setter Property="BorderBrush" Value="#E3008C" />
+	</Style>
+	<Style Selector=":is(Panel).AccentLightMagenta">
+		<Setter Property="Background" Value="#E3008C" />
+	</Style>
+	<Style Selector="TextBlock.AccentLightMagenta">
+		<Setter Property="Background" Value="#E3008C" />
+		<Setter Property="Foreground" Value="{StaticResource SystemChromeWhiteColor}" />
+	</Style>
+	<!-- Magenta -->
+	<Style Selector="TextBlock.AccentMagentaForeground">
+		<Setter Property="Foreground" Value="#B4009E" />
+	</Style>
+	<Style Selector=":is(Panel).AccentMagentaBackground">
+		<Setter Property="Background" Value="#B4009E" />
+	</Style>
+	<Style Selector="Border.AccentMagentaBackground">
+		<Setter Property="Background" Value="#B4009E" />
+	</Style>
+	<Style Selector="Border.AccentMagentaBorder">
+		<Setter Property="BorderBrush" Value="#B4009E" />
+	</Style>
+	<Style Selector=":is(ContentControl).AccentMagenta">
+		<Setter Property="Background" Value="#B4009E" />
+		<Setter Property="TextBlock.Foreground" Value="{StaticResource SystemChromeWhiteColor}" />
+	</Style>
+	<Style Selector=":is(ContentControl).AccentMagenta:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="Background" Value="#E3008C" />
+		<Setter Property="TextBlock.Foreground" Value="{StaticResource SystemChromeWhiteColor}" />
+	</Style>
+	<Style Selector=":is(ContentControl).AccentMagenta:pressed /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="Background" Value="#5C005C" />
+		<Setter Property="TextBlock.Foreground" Value="{StaticResource SystemChromeWhiteColor}" />
+	</Style>
+	<Style Selector="Border.AccentMagenta">
+		<Setter Property="Background" Value="#B4009E" />
+		<Setter Property="BorderBrush" Value="#B4009E" />
+	</Style>
+	<Style Selector=":is(Panel).AccentMagenta">
+		<Setter Property="Background" Value="#B4009E" />
+	</Style>
+	<Style Selector="TextBlock.AccentMagenta">
+		<Setter Property="Background" Value="#B4009E" />
+		<Setter Property="Foreground" Value="{StaticResource SystemChromeWhiteColor}" />
+	</Style>
+	<!-- DarkMagenta -->
+	<Style Selector="TextBlock.AccentDarkMagentaForeground">
+		<Setter Property="Foreground" Value="#5C005C" />
+	</Style>
+	<Style Selector=":is(Panel).AccentDarkMagentaBackground">
+		<Setter Property="Background" Value="#5C005C" />
+	</Style>
+	<Style Selector="Border.AccentDarkMagentaBackground">
+		<Setter Property="Background" Value="#5C005C" />
+	</Style>
+	<Style Selector="Border.AccentDarkMagentaBorder">
+		<Setter Property="BorderBrush" Value="#5C005C" />
+	</Style>
+	<Style Selector=":is(ContentControl).AccentDarkMagenta">
+		<Setter Property="Background" Value="#5C005C" />
+		<Setter Property="TextBlock.Foreground" Value="{StaticResource SystemChromeWhiteColor}" />
+	</Style>
+	<Style Selector=":is(ContentControl).AccentDarkMagenta:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="Background" Value="#B4009E" />
+		<Setter Property="TextBlock.Foreground" Value="{StaticResource SystemChromeWhiteColor}" />
+	</Style>
+	<Style Selector=":is(ContentControl).AccentDarkMagenta:pressed /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="Background" Value="#450045" />
+		<Setter Property="TextBlock.Foreground" Value="{StaticResource SystemChromeWhiteColor}" />
+	</Style>
+	<Style Selector="Border.AccentDarkMagenta">
+		<Setter Property="Background" Value="#5C005C" />
+		<Setter Property="BorderBrush" Value="#5C005C" />
+	</Style>
+	<Style Selector=":is(Panel).AccentDarkMagenta">
+		<Setter Property="Background" Value="#5C005C" />
+	</Style>
+	<Style Selector="TextBlock.AccentDarkMagenta">
+		<Setter Property="Background" Value="#5C005C" />
+		<Setter Property="Foreground" Value="{StaticResource SystemChromeWhiteColor}" />
+	</Style>
+	<!-- LightPurple -->
+	<Style Selector="TextBlock.AccentLightPurpleForeground">
+		<Setter Property="Foreground" Value="#B4A0FF" />
+	</Style>
+	<Style Selector=":is(Panel).AccentLightPurpleBackground">
+		<Setter Property="Background" Value="#B4A0FF" />
+	</Style>
+	<Style Selector="Border.AccentLightPurpleBackground">
+		<Setter Property="Background" Value="#B4A0FF" />
+	</Style>
+	<Style Selector="Border.AccentLightPurpleBorder">
+		<Setter Property="BorderBrush" Value="#B4A0FF" />
+	</Style>
+	<Style Selector=":is(ContentControl).AccentLightPurple">
+		<Setter Property="Background" Value="#B4A0FF" />
+	</Style>
+	<Style Selector=":is(ContentControl).AccentLightPurple:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="Background" Value="#c7b8ff" />
+		
+	</Style>
+	<Style Selector=":is(ContentControl).AccentLightPurple:pressed /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="Background" Value="#5C2D91" />
+		
+	</Style>
+	<Style Selector="Border.AccentLightPurple">
+		<Setter Property="Background" Value="#B4A0FF" />
+		<Setter Property="BorderBrush" Value="#B4A0FF" />
+	</Style>
+	<Style Selector=":is(Panel).AccentLightPurple">
+		<Setter Property="Background" Value="#B4A0FF" />
+	</Style>
+	<Style Selector="TextBlock.AccentLightPurple">
+		<Setter Property="Background" Value="#B4A0FF" />
+	</Style>
+	<!-- Purple -->
+	<Style Selector="TextBlock.AccentPurpleForeground">
+		<Setter Property="Foreground" Value="#5C2D91" />
+	</Style>
+	<Style Selector=":is(Panel).AccentPurpleBackground">
+		<Setter Property="Background" Value="#5C2D91" />
+	</Style>
+	<Style Selector="Border.AccentPurpleBackground">
+		<Setter Property="Background" Value="#5C2D91" />
+	</Style>
+	<Style Selector="Border.AccentPurpleBorder">
+		<Setter Property="BorderBrush" Value="#5C2D91" />
+	</Style>
+	<Style Selector=":is(ContentControl).AccentPurple">
+		<Setter Property="Background" Value="#5C2D91" />
+		<Setter Property="TextBlock.Foreground" Value="{StaticResource SystemChromeWhiteColor}" />
+	</Style>
+	<Style Selector=":is(ContentControl).AccentPurple:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="Background" Value="#B4A0FF" />
+		<Setter Property="TextBlock.Foreground" Value="{StaticResource SystemChromeWhiteColor}" />
+	</Style>
+	<Style Selector=":is(ContentControl).AccentPurple:pressed /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="Background" Value="#32145A" />
+		<Setter Property="TextBlock.Foreground" Value="{StaticResource SystemChromeWhiteColor}" />
+	</Style>
+	<Style Selector="Border.AccentPurple">
+		<Setter Property="Background" Value="#5C2D91" />
+		<Setter Property="BorderBrush" Value="#5C2D91" />
+	</Style>
+	<Style Selector=":is(Panel).AccentPurple">
+		<Setter Property="Background" Value="#5C2D91" />
+	</Style>
+	<Style Selector="TextBlock.AccentPurple">
+		<Setter Property="Background" Value="#5C2D91" />
+		<Setter Property="Foreground" Value="{StaticResource SystemChromeWhiteColor}" />
+	</Style>
+	<!-- DarkPurple -->
+	<Style Selector="TextBlock.AccentDarkPurpleForeground">
+		<Setter Property="Foreground" Value="#32145A" />
+	</Style>
+	<Style Selector=":is(Panel).AccentDarkPurpleBackground">
+		<Setter Property="Background" Value="#32145A" />
+	</Style>
+	<Style Selector="Border.AccentDarkPurpleBackground">
+		<Setter Property="Background" Value="#32145A" />
+	</Style>
+	<Style Selector="Border.AccentDarkPurpleBorder">
+		<Setter Property="BorderBrush" Value="#32145A" />
+	</Style>
+	<Style Selector=":is(ContentControl).AccentDarkPurple">
+		<Setter Property="Background" Value="#32145A" />
+		<Setter Property="TextBlock.Foreground" Value="{StaticResource SystemChromeWhiteColor}" />
+	</Style>
+	<Style Selector=":is(ContentControl).AccentDarkPurple:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="Background" Value="#5C2D91" />
+		<Setter Property="TextBlock.Foreground" Value="{StaticResource SystemChromeWhiteColor}" />
+	</Style>
+	<Style Selector=":is(ContentControl).AccentDarkPurple:pressed /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="Background" Value="#260f44" />
+		<Setter Property="TextBlock.Foreground" Value="{StaticResource SystemChromeWhiteColor}" />
+	</Style>
+	<Style Selector="Border.AccentDarkPurple">
+		<Setter Property="Background" Value="#32145A" />
+		<Setter Property="BorderBrush" Value="#32145A" />
+	</Style>
+	<Style Selector=":is(Panel).AccentDarkPurple">
+		<Setter Property="Background" Value="#32145A" />
+	</Style>
+	<Style Selector="TextBlock.AccentDarkPurple">
+		<Setter Property="Background" Value="#32145A" />
+		<Setter Property="Foreground" Value="{StaticResource SystemChromeWhiteColor}" />
+	</Style>
+	<!-- LightBlue -->
+	<Style Selector="TextBlock.AccentLightBlueForeground">
+		<Setter Property="Foreground" Value="#00BCF2" />
+	</Style>
+	<Style Selector=":is(Panel).AccentLightBlueBackground">
+		<Setter Property="Background" Value="#00BCF2" />
+	</Style>
+	<Style Selector="Border.AccentLightBlueBackground">
+		<Setter Property="Background" Value="#00BCF2" />
+	</Style>
+	<Style Selector="Border.AccentLightBlueBorder">
+		<Setter Property="BorderBrush" Value="#00BCF2" />
+	</Style>
+	<Style Selector=":is(ContentControl).AccentLightBlue">
+		<Setter Property="Background" Value="#00BCF2" />
+	</Style>
+	<Style Selector=":is(ContentControl).AccentLightBlue:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="Background" Value="#40cdf5" />
+	</Style>
+	<Style Selector=":is(ContentControl).AccentLightBlue:pressed /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="Background" Value="#008db6" />
+	</Style>
+	<Style Selector="Border.AccentLightBlue">
+		<Setter Property="Background" Value="#00BCF2" />
+		<Setter Property="BorderBrush" Value="#00BCF2" />
+	</Style>
+	<Style Selector=":is(Panel).AccentLightBlue">
+		<Setter Property="Background" Value="#00BCF2" />
+	</Style>
+	<Style Selector="TextBlock.AccentLightBlue">
+		<Setter Property="Background" Value="#00BCF2" />
+	</Style>
+	<!-- Blue -->
+	<Style Selector="TextBlock.AccentBlueForeground">
+		<Setter Property="Foreground" Value="#0078d7" />
+	</Style>
+	<Style Selector=":is(Panel).AccentBlueBackground">
+		<Setter Property="Background" Value="#0078d7" />
+	</Style>
+	<Style Selector="Border.AccentBlueBackground">
+		<Setter Property="Background" Value="#0078d7" />
+	</Style>
+	<Style Selector="Border.AccentBlueBorder">
+		<Setter Property="BorderBrush" Value="#0078d7" />
+	</Style>
+	<Style Selector=":is(ContentControl).AccentBlue">
+		<Setter Property="Background" Value="#0078d7" />
+		<Setter Property="TextBlock.Foreground" Value="{StaticResource SystemChromeWhiteColor}" />
+	</Style>
+	<Style Selector=":is(ContentControl).AccentBlue:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="Background" Value="#00BCF2" />
+		<Setter Property="TextBlock.Foreground" Value="{StaticResource SystemChromeWhiteColor}" />
+	</Style>
+	<Style Selector=":is(ContentControl).AccentBlue:pressed /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="Background" Value="#00188F" />
+		<Setter Property="TextBlock.Foreground" Value="{StaticResource SystemChromeWhiteColor}" />
+	</Style>
+	<Style Selector="Border.AccentBlue">
+		<Setter Property="Background" Value="#0078d7" />
+		<Setter Property="BorderBrush" Value="#0078d7" />
+	</Style>
+	<Style Selector=":is(Panel).AccentBlue">
+		<Setter Property="Background" Value="#0078d7" />
+	</Style>
+	<Style Selector="TextBlock.AccentBlue">
+		<Setter Property="Background" Value="#0078d7" />
+		<Setter Property="Foreground" Value="{StaticResource SystemChromeWhiteColor}" />
+	</Style>
+	<!-- MidBlue -->
+	<Style Selector="TextBlock.AccentMidBlueForeground">
+		<Setter Property="Foreground" Value="#00188F" />
+	</Style>
+	<Style Selector=":is(Panel).AccentMidBlueBackground">
+		<Setter Property="Background" Value="#00188F" />
+	</Style>
+	<Style Selector="Border.AccentMidBlueBackground">
+		<Setter Property="Background" Value="#00188F" />
+	</Style>
+	<Style Selector="Border.AccentMidBlueBorder">
+		<Setter Property="BorderBrush" Value="#00188F" />
+	</Style>
+	<Style Selector=":is(ContentControl).AccentMidBlue">
+		<Setter Property="Background" Value="#00188F" />
+		<Setter Property="TextBlock.Foreground" Value="{StaticResource SystemChromeWhiteColor}" />
+	</Style>
+	<Style Selector=":is(ContentControl).AccentMidBlue:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="Background" Value="#0078d7" />
+		<Setter Property="TextBlock.Foreground" Value="{StaticResource SystemChromeWhiteColor}" />
+	</Style>
+	<Style Selector=":is(ContentControl).AccentMidBlue:pressed /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="Background" Value="#002050" />
+		<Setter Property="TextBlock.Foreground" Value="{StaticResource SystemChromeWhiteColor}" />
+	</Style>
+	<Style Selector="Border.AccentMidBlue">
+		<Setter Property="Background" Value="#00188F" />
+		<Setter Property="BorderBrush" Value="#00188F" />
+	</Style>
+	<Style Selector=":is(Panel).AccentMidBlue">
+		<Setter Property="Background" Value="#00188F" />
+	</Style>
+	<Style Selector="TextBlock.AccentMidBlue">
+		<Setter Property="Background" Value="#00188F" />
+		<Setter Property="Foreground" Value="{StaticResource SystemChromeWhiteColor}" />
+	</Style>
+	<!-- DarkBlue -->
+	<Style Selector="TextBlock.AccentDarkBlueForeground">
+		<Setter Property="Foreground" Value="#002050" />
+	</Style>
+	<Style Selector=":is(Panel).AccentDarkBlueBackground">
+		<Setter Property="Background" Value="#002050" />
+	</Style>
+	<Style Selector="Border.AccentDarkBlueBackground">
+		<Setter Property="Background" Value="#002050" />
+	</Style>
+	<Style Selector="Border.AccentDarkBlueBorder">
+		<Setter Property="BorderBrush" Value="#002050" />
+	</Style>
+	<Style Selector=":is(ContentControl).AccentDarkBlue">
+		<Setter Property="Background" Value="#002050" />
+		<Setter Property="TextBlock.Foreground" Value="{StaticResource SystemChromeWhiteColor}" />
+	</Style>
+	<Style Selector=":is(ContentControl).AccentDarkBlue:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="Background" Value="#00188F" />
+		<Setter Property="TextBlock.Foreground" Value="{StaticResource SystemChromeWhiteColor}" />
+	</Style>
+	<Style Selector=":is(ContentControl).AccentDarkBlue:pressed /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="Background" Value="#00183c" />
+		<Setter Property="TextBlock.Foreground" Value="{StaticResource SystemChromeWhiteColor}" />
+	</Style>
+	<Style Selector="Border.AccentDarkBlue">
+		<Setter Property="Background" Value="#002050" />
+		<Setter Property="BorderBrush" Value="#002050" />
+	</Style>
+	<Style Selector=":is(Panel).AccentDarkBlue">
+		<Setter Property="Background" Value="#002050" />
+	</Style>
+	<Style Selector="TextBlock.AccentDarkBlue">
+		<Setter Property="Background" Value="#002050" />
+		<Setter Property="Foreground" Value="{StaticResource SystemChromeWhiteColor}" />
+	</Style>
+	<!-- LightTeal -->
+	<Style Selector="TextBlock.AccentLightTealForeground">
+		<Setter Property="Foreground" Value="#00B294" />
+	</Style>
+	<Style Selector=":is(Panel).AccentLightTealBackground">
+		<Setter Property="Background" Value="#00B294" />
+	</Style>
+	<Style Selector="Border.AccentLightTealBackground">
+		<Setter Property="Background" Value="#00B294" />
+	</Style>
+	<Style Selector="Border.AccentLightTealBorder">
+		<Setter Property="BorderBrush" Value="#00B294" />
+	</Style>
+	<Style Selector=":is(ContentControl).AccentLightTeal">
+		<Setter Property="Background" Value="#00B294" />
+	</Style>
+	<Style Selector=":is(ContentControl).AccentLightTeal:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="Background" Value="#40c5af" />
+	</Style>
+	<Style Selector=":is(ContentControl).AccentLightTeal:pressed /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="Background" Value="#008272" />
+	</Style>
+	<Style Selector="Border.AccentLightTeal">
+		<Setter Property="Background" Value="#00B294" />
+		<Setter Property="BorderBrush" Value="#00B294" />
+	</Style>
+	<Style Selector=":is(Panel).AccentLightTeal">
+		<Setter Property="Background" Value="#00B294" />
+	</Style>
+	<Style Selector="TextBlock.AccentLightTeal">
+		<Setter Property="Background" Value="#00B294" />
+	</Style>
+	<!-- Teal -->
+	<Style Selector="TextBlock.AccentTealForeground">
+		<Setter Property="Foreground" Value="#008272" />
+	</Style>
+	<Style Selector=":is(Panel).AccentTealBackground">
+		<Setter Property="Background" Value="#008272" />
+	</Style>
+	<Style Selector="Border.AccentTealBackground">
+		<Setter Property="Background" Value="#008272" />
+	</Style>
+	<Style Selector="Border.AccentTealBorder">
+		<Setter Property="BorderBrush" Value="#008272" />
+	</Style>
+	<Style Selector=":is(ContentControl).AccentTeal">
+		<Setter Property="Background" Value="#008272" />
+		<Setter Property="TextBlock.Foreground" Value="{StaticResource SystemChromeWhiteColor}" />
+	</Style>
+	<Style Selector=":is(ContentControl).AccentTeal:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="Background" Value="#00B294" />
+		<Setter Property="TextBlock.Foreground" Value="{StaticResource SystemChromeWhiteColor}" />
+	</Style>
+	<Style Selector=":is(ContentControl).AccentTeal:pressed /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="Background" Value="#004B50" />
+		<Setter Property="TextBlock.Foreground" Value="{StaticResource SystemChromeWhiteColor}" />
+	</Style>
+	<Style Selector="Border.AccentTeal">
+		<Setter Property="Background" Value="#008272" />
+		<Setter Property="BorderBrush" Value="#008272" />
+	</Style>
+	<Style Selector=":is(Panel).AccentTeal">
+		<Setter Property="Background" Value="#008272" />
+	</Style>
+	<Style Selector="TextBlock.AccentTeal">
+		<Setter Property="Background" Value="#008272" />
+		<Setter Property="Foreground" Value="{StaticResource SystemChromeWhiteColor}" />
+	</Style>
+	<!-- DarkTeal -->
+	<Style Selector="TextBlock.AccentDarkTealForeground">
+		<Setter Property="Foreground" Value="#004B50" />
+	</Style>
+	<Style Selector=":is(Panel).AccentDarkTealBackground">
+		<Setter Property="Background" Value="#004B50" />
+	</Style>
+	<Style Selector="Border.AccentDarkTealBackground">
+		<Setter Property="Background" Value="#004B50" />
+	</Style>
+	<Style Selector="Border.AccentDarkTealBorder">
+		<Setter Property="BorderBrush" Value="#004B50" />
+	</Style>
+	<Style Selector=":is(ContentControl).AccentDarkTeal">
+		<Setter Property="Background" Value="#004B50" />
+		<Setter Property="TextBlock.Foreground" Value="{StaticResource SystemChromeWhiteColor}" />
+	</Style>
+	<Style Selector=":is(ContentControl).AccentDarkTeal:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="Background" Value="#008272" />
+		<Setter Property="TextBlock.Foreground" Value="{StaticResource SystemChromeWhiteColor}" />
+	</Style>
+	<Style Selector=":is(ContentControl).AccentDarkTeal:pressed /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="Background" Value="#00383c" />
+		<Setter Property="TextBlock.Foreground" Value="{StaticResource SystemChromeWhiteColor}" />
+	</Style>
+	<Style Selector="Border.AccentDarkTeal">
+		<Setter Property="Background" Value="#004B50" />
+		<Setter Property="BorderBrush" Value="#004B50" />
+	</Style>
+	<Style Selector=":is(Panel).AccentDarkTeal">
+		<Setter Property="Background" Value="#004B50" />
+	</Style>
+	<Style Selector="TextBlock.AccentDarkTeal">
+		<Setter Property="Background" Value="#004B50" />
+		<Setter Property="Foreground" Value="{StaticResource SystemChromeWhiteColor}" />
+	</Style>
+	<!-- LightGreen -->
+	<Style Selector="TextBlock.AccentLightGreenForeground">
+		<Setter Property="Foreground" Value="#90C418" />
+	</Style>
+	<Style Selector=":is(Panel).AccentLightGreenBackground">
+		<Setter Property="Background" Value="#BAD80A" />
+	</Style>
+	<Style Selector="Border.AccentLightGreenBackground">
+		<Setter Property="Background" Value="#BAD80A" />
+	</Style>
+	<Style Selector="Border.AccentLightGreenBorder">
+		<Setter Property="BorderBrush" Value="#90C418" />
+	</Style>
+	<Style Selector=":is(ContentControl).AccentLightGreen">
+		<Setter Property="Background" Value="#BAD80A" />
+		<Setter Property="BorderBrush" Value="#90C418" />
+	</Style>
+	<Style Selector=":is(ContentControl).AccentLightGreen:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="Background" Value="#cbe247" />
+		<Setter Property="BorderBrush" Value="#90C418" />
+	</Style>
+	<Style Selector=":is(ContentControl).AccentLightGreen:pressed /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="Background" Value="#107C10" />
+	</Style>
+	<Style Selector="Border.AccentLightGreen">
+		<Setter Property="Background" Value="#BAD80A" />
+		<Setter Property="BorderBrush" Value="#90C418" />
+	</Style>
+	<Style Selector=":is(Panel).AccentLightGreen">
+		<Setter Property="Background" Value="#BAD80A" />
+	</Style>
+	<Style Selector="TextBlock.AccentLightGreen">
+		<Setter Property="Background" Value="#BAD80A" />
+	</Style>
+	<!-- Green -->
+	<Style Selector="TextBlock.AccentGreenForeground">
+		<Setter Property="Foreground" Value="#107C10" />
+	</Style>
+	<Style Selector=":is(Panel).AccentGreenBackground">
+		<Setter Property="Background" Value="#107C10" />
+	</Style>
+	<Style Selector="Border.AccentGreenBackground">
+		<Setter Property="Background" Value="#107C10" />
+	</Style>
+	<Style Selector="Border.AccentGreenBorder">
+		<Setter Property="BorderBrush" Value="#107C10" />
+	</Style>
+	<Style Selector=":is(ContentControl).AccentGreen">
+		<Setter Property="Background" Value="#107C10" />
+		<Setter Property="TextBlock.Foreground" Value="{StaticResource SystemChromeWhiteColor}" />
+	</Style>
+	<Style Selector=":is(ContentControl).AccentGreen:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="Background" Value="#BAD80A" />
+		<Setter Property="TextBlock.Foreground" Value="{StaticResource SystemChromeWhiteColor}" />
+	</Style>
+	<Style Selector=":is(ContentControl).AccentGreen:pressed /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="Background" Value="#004B1C" />
+		<Setter Property="TextBlock.Foreground" Value="{StaticResource SystemChromeWhiteColor}" />
+	</Style>
+	<Style Selector="Border.AccentGreen">
+		<Setter Property="Background" Value="#107C10" />
+		<Setter Property="BorderBrush" Value="#107C10" />
+	</Style>
+	<Style Selector=":is(Panel).AccentGreen">
+		<Setter Property="Background" Value="#107C10" />
+	</Style>
+	<Style Selector="TextBlock.AccentGreen">
+		<Setter Property="Background" Value="#107C10" />
+		<Setter Property="Foreground" Value="{StaticResource SystemChromeWhiteColor}" />
+	</Style>
+	<!-- DarkGreen -->
+	<Style Selector="TextBlock.AccentDarkGreenForeground">
+		<Setter Property="Foreground" Value="#004B1C" />
+	</Style>
+	<Style Selector=":is(Panel).AccentDarkGreenBackground">
+		<Setter Property="Background" Value="#004B1C" />
+	</Style>
+	<Style Selector="Border.AccentDarkGreenBackground">
+		<Setter Property="Background" Value="#004B1C" />
+	</Style>
+	<Style Selector="Border.AccentDarkGreenBorder">
+		<Setter Property="BorderBrush" Value="#004B1C" />
+	</Style>
+	<Style Selector=":is(ContentControl).AccentDarkGreen">
+		<Setter Property="Background" Value="#004B1C" />
+		<Setter Property="TextBlock.Foreground" Value="{StaticResource SystemChromeWhiteColor}" />
+	</Style>
+	<Style Selector=":is(ContentControl).AccentDarkGreen:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="Background" Value="#107C10" />
+		<Setter Property="TextBlock.Foreground" Value="{StaticResource SystemChromeWhiteColor}" />
+	</Style>
+	<Style Selector=":is(ContentControl).AccentDarkGreen:pressed /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="Background" Value="#003815" />
+		<Setter Property="TextBlock.Foreground" Value="{StaticResource SystemChromeWhiteColor}" />
+	</Style>
+	<Style Selector="Border.AccentDarkGreen">
+		<Setter Property="Background" Value="#004B1C" />
+		<Setter Property="BorderBrush" Value="#004B1C" />
+	</Style>
+	<Style Selector=":is(Panel).AccentDarkGreen">
+		<Setter Property="Background" Value="#004B1C" />
+	</Style>
+	<Style Selector="TextBlock.AccentDarkGreen">
+		<Setter Property="Background" Value="#004B1C" />
+		<Setter Property="Foreground" Value="{StaticResource SystemChromeWhiteColor}" />
+	</Style>
+	<!-- END Accent Colors -->
+
+	
+
+	<!-- Message Colors -->
+	<Style Selector="TextBlock.InfoForeground">
+		<Setter Property="Foreground" Value="#797775" />
+	</Style>
+	<Style Selector="TextBlock.InfoBackground">
+		<Setter Property="Background" Value="#f4f4f4" />
+	</Style>
+	<Style Selector="Border.InfoBorder">
+		<Setter Property="BorderBrush" Value="#797775" />
+	</Style>
+	<Style Selector="TextBlock.Info">
+		<Setter Property="Background" Value="#f4f4f4" />
+		<Setter Property="Foreground" Value="#797775" />
+	</Style>
+	<Style Selector="Border.Info">
+		<Setter Property="Background" Value="#f4f4f4" />
+		<Setter Property="BorderBrush" Value="#797775" />
+	</Style>
+	<Style Selector=":is(Panel).Info">
+		<Setter Property="Background" Value="#f4f4f4" />
+	</Style>
+
+	<Style Selector="TextBlock.AlertForeground">
+		<Setter Property="Foreground" Value="#d83b01" />
+	</Style>
+	<Style Selector="TextBlock.AlertBackground">
+		<Setter Property="Background" Value="#fde7e9" />
+	</Style>
+	<Style Selector="Border.AlertBorder">
+		<Setter Property="BorderBrush" Value="#d83b01" />
+	</Style>
+	<Style Selector="TextBlock.Alert">
+		<Setter Property="Background" Value="#fde7e9" />
+		<Setter Property="Foreground" Value="#d83b01" />
+	</Style>
+	<Style Selector="Border.Alert">
+		<Setter Property="Background" Value="#fde7e9" />
+		<Setter Property="BorderBrush" Value="#d83b01" />
+	</Style>
+	<Style Selector=":is(Panel).Alert">
+		<Setter Property="Background" Value="#fde7e9" />
+	</Style>
+
+	<Style Selector="TextBlock.ErrorForeground">
+		<Setter Property="Foreground" Value="#a80000" />
+	</Style>
+	<Style Selector="TextBlock.ErrorBackground">
+		<Setter Property="Background" Value="#fed9cc" />
+	</Style>
+	<Style Selector="Border.ErrorBorder">
+		<Setter Property="BorderBrush" Value="#a80000" />
+	</Style>
+	<Style Selector="TextBlock.Error">
+		<Setter Property="Background" Value="#fed9cc" />
+		<Setter Property="Foreground" Value="#a80000" />
+	</Style>
+	<Style Selector="Border.Error">
+		<Setter Property="Background" Value="#fed9cc" />
+		<Setter Property="BorderBrush" Value="#a80000" />
+	</Style>
+	<Style Selector=":is(Panel).Error">
+		<Setter Property="Background" Value="#fed9cc" />
+	</Style>
+
+	<Style Selector="TextBlock.SuccessForeground">
+		<Setter Property="Foreground" Value="#107c10" />
+	</Style>
+	<Style Selector="TextBlock.SuccessBackground">
+		<Setter Property="Background" Value="#dff6dd" />
+	</Style>
+	<Style Selector="Border.SuccessBorder">
+		<Setter Property="BorderBrush" Value="#107c10" />
+	</Style>
+	<Style Selector="TextBlock.Success">
+		<Setter Property="Background" Value="#dff6dd" />
+		<Setter Property="Foreground" Value="#107c10" />
+	</Style>
+	<Style Selector="Border.Success">
+		<Setter Property="Background" Value="#dff6dd" />
+		<Setter Property="BorderBrush" Value="#107c10" />
+	</Style>
+	<Style Selector=":is(Panel).Success">
+		<Setter Property="Background" Value="#dff6dd" />
+	</Style>
+	<!-- END Message Colors -->
+
+</Styles>

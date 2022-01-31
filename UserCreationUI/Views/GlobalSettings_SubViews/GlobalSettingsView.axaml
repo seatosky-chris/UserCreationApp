@@ -1,0 +1,145 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="650"
+             x:Class="UserCreationUI.GlobalSettings.Views.GlobalSettingsView">
+
+	<Grid x:Name="PrimaryGrid" ColumnDefinitions="*, Auto" RowDefinitions="Auto, *, Auto" Margin="15 15 15 10" Width="{Binding $parent.Bounds.Width, Converter={StaticResource MathConverter}, ConverterParameter=@VALUE-30}">
+
+		<StackPanel x:Name="TopPanel" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="0 0 0 10">
+			<TextBlock Classes="Title" Text="Global Settings" Margin="0 0 0 5" />
+			<TextBlock Width="{Binding #PrimaryGrid.Bounds.Width}" HorizontalAlignment="Left" MinWidth="300" MaxWidth="770" TextWrapping="Wrap" Text="These settings will apply to all user setups for this company. Please be careful when modifying this configuration. You can hover over configuration settings for instructions." />
+		</StackPanel>
+
+		<Panel x:Name="MainPanelLeftCol" Grid.Row="1" Grid.Column="0">
+			<StackPanel Spacing="40" Margin="5,0,20,0">
+				<StackPanel x:Name="PrimarySettings" Spacing="0">
+					<!-- Primary Settings -->
+					<StackPanel Classes="ControlGroup" ToolTip.Placement="Bottom">
+						<TextBlock Text="Username Format" Classes="Label" />
+						<TextBox x:Name="UsernameFormatTxt" Text="{Binding UsernameFormat}" Watermark="[First].[Last]" />
+						<ToolTip.Tip>
+							<TextBlock>
+Create the format using the following variables:
+- [First] (first name)
+- [Last] (last name)
+- [Middle] (middle name)
+
+Include the brackets to use that variable. Any other characters or symbols will be kept as-is.
+
+Example: "[First].[Last]"  (will make "John.Smith")
+							</TextBlock>
+						</ToolTip.Tip>
+					</StackPanel>
+					<StackPanel Classes="ControlGroup">
+						<TextBlock Text="AD Type" Classes="Label" />
+						<ComboBox x:Name="ADTypes" SelectedIndex="{Binding ADTypeSelected}" HorizontalAlignment="Left" MinWidth="180" Width="{Binding #MainPanelLeftCol.Bounds.Width, Converter={StaticResource MathConverter}, ConverterParameter=@VALUE/2}" />
+					</StackPanel>
+					<WrapPanel Orientation="Horizontal">
+						<StackPanel Classes="ControlGroup" Margin="0,0,10,0" MinWidth="180" Width="{Binding #PrimarySettings.Bounds.Width, Converter={StaticResource MathConverter}, ConverterParameter=(@VALUE-21)/2}">
+							<TextBlock Text="Email Type" Classes="Label" />
+							<ComboBox x:Name="EmailTypes" SelectedIndex="{Binding EmailTypeSelected}" HorizontalAlignment="Left" Width="{Binding $parent[StackPanel].Bounds.Width}" />
+						</StackPanel>
+						<StackPanel Classes="ControlGroup" IsEnabled="{Binding ExchangeServerFQDNIsEnabled}" MinWidth="180" Width="{Binding #PrimarySettings.Bounds.Width, Converter={StaticResource MathConverter}, ConverterParameter=(@VALUE-21)/2}">
+							<TextBlock Text="Exchange Server FQDN" Classes="Label" />
+							<TextBox x:Name="ExchangeServerFQDN" Text="{Binding ExchangeServerFQDN}" HorizontalAlignment="Left" Width="{Binding $parent[StackPanel].Bounds.Width}" />
+						</StackPanel>
+					</WrapPanel>
+					<WrapPanel Orientation="Horizontal" Margin="0,10,0,0">
+						<ToggleSwitch Content="Password Expiry" IsChecked="{Binding PasswordExpiry}" Margin="0,0,20,0" />
+						<ToggleSwitch Content="AD to O365 Sync" IsChecked="{Binding ADO365Sync}" />
+					</WrapPanel>
+				</StackPanel>
+
+				<StackPanel Spacing="0" Margin="0,30,0,0">
+					<!-- API Credentials -->
+					<WrapPanel Orientation="Horizontal" Margin="0,0,0,10">
+						<TextBlock Classes="Subtitle" Text="API Credentials" Margin="0,0,10, 0" />
+						<Button Content="Edit" Command="{Binding $parent[Window].DataContext.GoEditView}" CommandParameter="APICredentials" Classes="SmallTextBtn ThemeSecondary" />
+					</WrapPanel>
+					<WrapPanel Orientation="Horizontal" x:Name="AzureO365APIIndicatorBlock" Margin="0,0,0,8">
+						<TextBlock Margin="0,0,10,0" Text="Azure / O365 API:" />
+						<TextBlock x:Name="AzureO365APIIndicator" Text="Not Set" Classes="BodyStrong AccentRedForeground" />
+					</WrapPanel>
+					<WrapPanel Orientation="Horizontal" x:Name="ITGAPIIndicatorBlock" Margin="0,0,0,8">
+						<TextBlock Margin="0,0,10,0">ITG API:</TextBlock>
+						<TextBlock x:Name="ITGAPIIndicator" Text="Set" Classes="BodyStrong AccentLightGreenForeground" />
+					</WrapPanel>
+					<WrapPanel Orientation="Horizontal" x:Name="EmailForwarderAPIIIndicatorBlock" Margin="0,0,0,8">
+						<TextBlock Margin="0,0,10,0">Email Forwarder:</TextBlock>
+						<TextBlock x:Name="EmailForwarderAPIIIndicator" Text="Not Set" Classes="BodyStrong AccentRedForeground" />
+					</WrapPanel>
+				</StackPanel>
+			</StackPanel>
+		</Panel>
+
+		<Panel x:Name="MainPanelRightCol" Grid.Row="1" Grid.Column="1">
+			<StackPanel Spacing="40" Margin="10,0,20,0">
+				<Grid RowDefinitions="Auto, *" ColumnDefinitions="110, 20, Auto">
+					<!-- Other Settings -->
+					<TextBlock Classes="Subtitle" Text="Other Settings" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Margin="0,0,0,10" />
+
+					<StackPanel Spacing="10" Grid.Row="1" Grid.Column="0">
+						<TextBlock Text="Email Formats:" />
+						<TextBlock Text="Email Domains:" />
+						<TextBlock Text="Companies:" />
+						<TextBlock Text="Departments:" />
+						<TextBlock Text="AD Folders:" />
+						<TextBlock Text="Software:" />
+						<TextBlock Text="Custom Fields:" />
+					</StackPanel>
+
+					<StackPanel Spacing="10" Grid.Row="1" Grid.Column="1">
+						<TextBlock x:Name="EmailFormatsCount" Text="0" />
+						<TextBlock x:Name="EmailDomainsCount" Text="0" />
+						<TextBlock x:Name="CompaniesCount" Text="0" />
+						<TextBlock x:Name="DeparmentsCount" Text="0" />
+						<TextBlock x:Name="ADFoldersCount" Text="0" />
+						<TextBlock x:Name="SoftwareCount" Text="0" />
+						<TextBlock x:Name="CustomFieldsCount" Text="0" />
+					</StackPanel>
+
+					<StackPanel Spacing="5" Grid.Row="1" Grid.Column="2" Margin="0,-2,0,0">
+						<Button Content="Edit" x:Name="EmailFormatsBtn" Classes="SmallTextBtn" Command="{Binding $parent[Window].DataContext.GoEditView}" CommandParameter="EmailFormats" />
+						<Button Content="Edit" x:Name="EmailDomainsBtn" Classes="SmallTextBtn" Command="{Binding $parent[Window].DataContext.GoEditView}" CommandParameter="EmailDomains" />
+						<Button Content="Edit" x:Name="CompanyDefaultsBtn" Classes="SmallTextBtn" Command="{Binding $parent[Window].DataContext.GoEditView}" CommandParameter="CompanyDefaults" />
+						<Button Content="Edit" x:Name="DepartmentDefaultsBtn" Classes="SmallTextBtn" Command="{Binding $parent[Window].DataContext.GoEditView}" CommandParameter="DepartmentDefaults" />
+						<Button Content="Edit" x:Name="ADFolderLocationsBtn" Classes="SmallTextBtn" Command="{Binding $parent[Window].DataContext.GoEditView}" CommandParameter="ADFolderLocations" />
+						<Button Content="Edit" Classes="SmallTextBtn" />
+						<Button Content="Edit" Classes="SmallTextBtn" />
+					</StackPanel>
+				</Grid>
+
+				<Grid RowDefinitions="Auto, *" ColumnDefinitions="140, 20, Auto">
+					<!-- Sets -->
+					<TextBlock Classes="Subtitle" Text="Sets" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Margin="0,0,0,10" />
+
+					<StackPanel Spacing="10" Grid.Row="1" Grid.Column="0">
+						<TextBlock Text="AD Permission Sets:" />
+						<TextBlock Text="O365 Group Sets:" />
+						<TextBlock Text="O365 License Sets:" />
+					</StackPanel>
+
+					<StackPanel Spacing="10" Grid.Row="1" Grid.Column="1">
+						<TextBlock x:Name="ADPermissionSetsCount" Text="0" />
+						<TextBlock x:Name="O365GroupSetsCount" Text="0" />
+						<TextBlock x:Name="O365LicenseSetsCount" Text="0" />
+					</StackPanel>
+
+					<StackPanel Spacing="5" Grid.Row="1" Grid.Column="2" Margin="0,-2,0,0">
+						<Button Content="Edit" Classes="SmallTextBtn" />
+						<Button Content="Edit" Classes="SmallTextBtn" />
+						<Button Content="Edit" Classes="SmallTextBtn" />
+					</StackPanel>
+				</Grid>
+			</StackPanel>
+		</Panel>
+
+		<Panel x:Name="BottomPanel" Height="40" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
+			<Button Click="SaveAndClose" HorizontalAlignment="Right" Classes="ThemePrimary" Content="Save Settings" />
+		</Panel>
+
+	</Grid>
+	
+</UserControl>

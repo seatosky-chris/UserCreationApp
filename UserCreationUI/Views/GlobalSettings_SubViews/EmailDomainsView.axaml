@@ -1,0 +1,51 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="700" d:DesignHeight="350"
+             x:Class="UserCreationUI.GlobalSettings.Views.EmailDomainsView">
+
+	<Grid x:Name="PrimaryGrid" ColumnDefinitions="*, *" RowDefinitions="Auto, *, Auto" Margin="15 15 15 10" Width="{Binding $parent.Bounds.Width, Converter={StaticResource MathConverter}, ConverterParameter=@VALUE-30}">
+
+		<Panel x:Name="TopPanel" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="0 0 0 15">
+			<TextBlock Classes="Title" Text="Email Domains" Margin="0 0 0 5" />
+			<Button Command="{Binding BackButton}" Classes="ThemeSecondary" ToolTip.Tip="Back to Global Settings" HorizontalAlignment="Right">
+				<PathIcon Data="{StaticResource arrow_left_regular}" Foreground="{DynamicResource AccentButtonForeground}" />
+			</Button>
+		</Panel>
+
+		<Panel x:Name="MainPanelLeftCol" Grid.Row="1" Grid.Column="0">
+			<StackPanel Spacing="15" Margin="5,0,20,0">
+				<TextBlock Text="Current Domains" Classes="Label BodyStrong" />
+				<ListBox x:Name="CurrentDomainsListBox" Items="{Binding CurrentDomains}" SelectedItem="{Binding CurrentPrimarySelected}" Classes="ListWithDelete" MinHeight="152" MaxHeight="228">
+					<ListBox.ItemTemplate>
+						<DataTemplate>
+							<DockPanel>
+								<TextBlock Text="{Binding}" DockPanel.Dock="Left" />
+								<Button Click="DeleteListItem" DockPanel.Dock="Right">
+									<PathIcon Data="{StaticResource delete_regular}" />
+								</Button>
+							</DockPanel>
+						</DataTemplate>
+					</ListBox.ItemTemplate>
+				</ListBox>
+			</StackPanel>
+		</Panel>
+
+		<Panel x:Name="MainPanelRightCol" Grid.Row="1" Grid.Column="1">
+			<StackPanel Classes="ControlGroup">
+				<TextBlock Text="Add New Domain" Classes="Label" />
+				<TextBox x:Name="NewDomain" Text="{Binding AddNewPrimary}" Watermark="seatosky.com" />
+			</StackPanel>
+		</Panel>
+
+		<Panel x:Name="BottomPanel" Height="40" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Width="{Binding #PrimaryGrid.Bounds.Width}">
+			<StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Spacing="10">
+				<Button HorizontalAlignment="Right" Command="{Binding SaveDomains}" IsEnabled="{Binding Saveable}" Classes="ThemePrimary" Content="Save Changes" />
+				<Button HorizontalAlignment="Right" IsDefault="True" Command="{Binding AddDomain}" IsEnabled="{Binding AddNewPrimary, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" Classes="AccentGreen" Content="Add" />
+			</StackPanel>
+		</Panel>
+		
+	</Grid>
+	
+</UserControl>

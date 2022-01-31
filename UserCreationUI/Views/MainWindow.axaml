@@ -1,0 +1,53 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:UserCreationUI.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="670" d:DesignHeight="500"
+        x:Class="UserCreationUI.Views.MainWindow"
+		Width="670" Height="500" MinWidth="370" MinHeight="180"
+		WindowStartupLocation="CenterOwner"
+        Icon="/Assets/new-user.ico"
+        Title="User Creation App">
+	
+    <Design.DataContext>
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+
+	<Grid x:Name="PrimaryGrid" ColumnDefinitions="Auto" RowDefinitions="Auto, Auto, *, Auto" Margin="15 15 15 10">
+		
+		<Grid ColumnDefinitions="Auto, *" RowDefinitions="Auto" x:Name="TopPanel" Grid.Row="0" Margin="0 0 0 10">
+			<TextBlock Grid.Column="0" Width="{Binding #PrimaryGrid.Bounds.Width, Converter={StaticResource MathConverter}, ConverterParameter=@VALUE-40}}" MinWidth="300" MaxWidth="600" TextWrapping="Wrap" Text="Welcome! &#x0a;&#x0a;Either start a new user creation or load an existing, incomplete user to finish the setup. &#x0a;Alternatively, delete an incomplete setup.These incomplete attempts will remain until deleted or completed. Select the settings icon at the top-right to change global settings." />
+			<Panel Grid.Column="1">
+				<Button Command="{Binding OpenSettingsWindow}" Classes="ThemeSecondary" ToolTip.Tip="Global Settings" Width="40" VerticalAlignment="Top" HorizontalAlignment="Right">
+					<PathIcon Data="{StaticResource settings_regular}" Foreground="{DynamicResource AccentButtonForeground}" />
+				</Button>
+			</Panel>
+		</Grid>
+
+		<Panel x:Name="SubtitlePanel" Grid.Row="1" Margin="0 0 0 10">
+			<TextBlock DockPanel.Dock="Bottom" Text="Incomplete User Creations:" />
+		</Panel>
+
+		<Panel x:Name="MainPanel" Grid.Row="2" HorizontalAlignment="Left" Width="{Binding #PrimaryGrid.Bounds.Width}" MinWidth="340">
+			<ListBox Items="{Binding IncompleteUserCreations}" SelectedItem="{Binding IncompleteUserCreationSelected}" />
+		</Panel>
+
+		<Panel x:Name="BottomPanel" Height="40" MinWidth="340" Grid.Row="3">
+			<Grid ColumnDefinitions="Auto, Auto, *" RowDefinitions="Auto" VerticalAlignment="Bottom">
+				<Panel Grid.Column="0" Margin="0,0,10,0">
+					<Button Command="{Binding DeleteUserCreation}" Classes="AccentRed" IsEnabled="{Binding IncompleteUserCreationSelected, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" Content="Delete Existing" />
+				</Panel>
+				<Panel Grid.Column="1">
+					<Button Command="{Binding LoadUserCreation}" Classes="ThemeTertiary" IsEnabled="{Binding IncompleteUserCreationSelected, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" Content="Load Existing" />
+				</Panel>
+				<Panel Grid.Column="2">
+					<Button Command="{Binding NewUserCreation}" Content="New User" Classes="ThemePrimary" HorizontalAlignment="Right" />
+				</Panel>
+			</Grid>
+		</Panel>
+		
+	</Grid>
+	
+
+</Window>

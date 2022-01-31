@@ -1,0 +1,24 @@
+<Window xmlns="https://github.com/avaloniaui"
+		xmlns:rxui="clr-namespace:Avalonia.ReactiveUI;assembly=Avalonia.ReactiveUI"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="650"
+		Width="800" Height="650"
+		WindowStartupLocation="CenterOwner"
+        x:Class="UserCreationUI.Views.SettingsWindow"
+		Icon="/Assets/settings.ico"
+        Title="User Creation App - Global Settings">
+
+	<rxui:RoutedViewHost x:Name="RoutedViewHost" Router="{Binding Router}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+		<rxui:RoutedViewHost.DefaultContent>
+			<StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+				<ProgressRing IsIndeterminate="True" Margin="0,0,0,30" />
+				<TextBlock>
+					Loading Global Settings...
+				</TextBlock>
+			</StackPanel>
+		</rxui:RoutedViewHost.DefaultContent>
+	</rxui:RoutedViewHost>
+	
+</Window>

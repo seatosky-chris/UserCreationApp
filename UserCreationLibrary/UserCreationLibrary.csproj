@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\..\SharedLibrary\UserAppSharedLibrary\ADFolderDefaultModel.cs" Link="ADFolderDefaultModel.cs" />
+    <Compile Include="..\..\SharedLibrary\UserAppSharedLibrary\APICredentialsModel.cs" Link="APICredentialsModel.cs" />
+    <Compile Include="..\..\SharedLibrary\UserAppSharedLibrary\CompanyConfigurationSharedModel.cs" Link="CompanyConfigurationSharedModel.cs" />
+  </ItemGroup>
+
+</Project>

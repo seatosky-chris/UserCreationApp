@@ -1,0 +1,78 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="760" d:DesignHeight="700"
+			 x:Class="UserCreationUI.GlobalSettings.Views.EmailFormatsView">
+
+	<Grid x:Name="PrimaryGrid" ColumnDefinitions="*, *" RowDefinitions="Auto, *, Auto" Margin="15 15 15 10" Width="{Binding $parent.Bounds.Width, Converter={StaticResource MathConverter}, ConverterParameter=@VALUE-30}">
+
+		<Panel x:Name="TopPanel" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="0 0 0 15">
+			<TextBlock Classes="Title" Text="Email Formats" Margin="0 0 0 5" />
+			<Button Command="{Binding BackButton}" Classes="ThemeSecondary" ToolTip.Tip="Back to Global Settings" HorizontalAlignment="Right">
+				<PathIcon Data="{StaticResource arrow_left_regular}" Foreground="{DynamicResource AccentButtonForeground}" />
+			</Button>
+		</Panel>
+
+		<Panel x:Name="MainPanelLeftCol" Grid.Row="1" Grid.Column="0">
+			<StackPanel Spacing="15" Margin="5,0,20,0">
+				<TextBlock Text="Current Formats" Classes="Label BodyStrong" />
+				<ListBox x:Name="CurrentFormatsListBox" Items="{Binding CurrentFormats}" SelectedItem="{Binding CurrentPrimarySelected}" Classes="ListWithDelete" MinHeight="266" MaxHeight="304">
+					<ListBox.ItemTemplate>
+						<DataTemplate>
+							<DockPanel>
+								<TextBlock Text="{Binding}" ToolTip.Tip="{Binding}" DockPanel.Dock="Left" />
+								<Button Click="DeleteListItem" DockPanel.Dock="Right">
+									<PathIcon Data="{StaticResource delete_regular}" />
+								</Button>
+							</DockPanel>
+						</DataTemplate>
+					</ListBox.ItemTemplate>
+				</ListBox>
+
+				<TextBlock TextWrapping="Wrap" Width="{Binding $parent.Bounds.Width}">
+Instructions:
+
+Create the format using the following variables:
+- [First] (first name)
+- [Middle] (middle initial)
+- [Last] (last name)
+
+Include the brackets to use that variables. Any other characters or symbols will be kept as-is.
+
+Choose the domain to be used with this format.
+Then choose the Locations and/or Employee Types to apply this format to. If Locations and Employee Types are both chosen, it will filter by both, and will only apply to employee types within those selected locations.
+				</TextBlock>
+			</StackPanel>
+		</Panel>
+
+		<StackPanel x:Name="MainPanelRightCol" Grid.Row="1" Grid.Column="1" Spacing="10">
+			<StackPanel Classes="ControlGroup">
+				<TextBlock Text="Add New Format" Classes="Label" />
+				<TextBox x:Name="NewFormat" Text="{Binding AddNewPrimary}" Watermark="[First].[Last]" />
+			</StackPanel>
+			<StackPanel Classes="ControlGroup">
+				<TextBlock Text="Domain" Classes="Label" />
+				<ComboBox x:Name="DomainSelect" Items="{Binding Domains}" SelectedIndex="{Binding SelectedDomain}" />
+			</StackPanel>
+
+			<StackPanel Classes="ControlGroup">
+				<TextBlock Text="Locations" Classes="Label" />
+				<ListBox x:Name="LocationSelect" SelectionMode="Multiple,Toggle" Items="{Binding Locations}" Selection="{Binding SelectedLocations}" Height="140" />
+			</StackPanel>
+			<StackPanel Classes="ControlGroup">
+				<TextBlock Text="Employee Type" Classes="Label" />
+				<ListBox x:Name="EmployeeTypeSelect" SelectionMode="Multiple,Toggle" Items="{Binding EmployeeTypes}" Selection="{Binding SelectedEmployeeTypes}" Height="140" />
+			</StackPanel>
+		</StackPanel>
+
+		<Panel x:Name="BottomPanel" Height="40" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Width="{Binding #PrimaryGrid.Bounds.Width}">
+			<StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Spacing="10">
+				<Button HorizontalAlignment="Right" Command="{Binding SaveFormats}" IsEnabled="{Binding Saveable}" Classes="ThemePrimary" Content="Save Changes" />
+				<Button HorizontalAlignment="Right" IsDefault="True" Command="{Binding AddFormat}" IsEnabled="{Binding AddNewPrimary, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" Classes="AccentGreen" Content="Add" />
+			</StackPanel>
+		</Panel>
+
+	</Grid>
+	
+</UserControl>

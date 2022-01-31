@@ -1,0 +1,60 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="760" d:DesignHeight="450"
+             x:Class="UserCreationUI.GlobalSettings.Views.DepartmentDefaultsView">
+
+	<Grid x:Name="PrimaryGrid" ColumnDefinitions="*, *" RowDefinitions="Auto, *, Auto" Margin="15 15 15 10" Width="{Binding $parent.Bounds.Width, Converter={StaticResource MathConverter}, ConverterParameter=@VALUE-30}">
+
+		<Panel x:Name="TopPanel" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="0 0 0 15">
+			<TextBlock Classes="Title" Text="Department Defaults" Margin="0 0 0 5" />
+			<Button Command="{Binding BackButton}" Classes="ThemeSecondary" ToolTip.Tip="Back to Global Settings" HorizontalAlignment="Right">
+				<PathIcon Data="{StaticResource arrow_left_regular}" Foreground="{DynamicResource AccentButtonForeground}" />
+			</Button>
+		</Panel>
+
+		<Panel x:Name="MainPanelLeftCol" Grid.Row="1" Grid.Column="0">
+			<StackPanel Spacing="15" Margin="5,0,20,0">
+				<TextBlock Text="Current Formats" Classes="Label BodyStrong" />
+				<ListBox x:Name="CurrentDepartmentsListBox" Items="{Binding CurrentDepartments}" SelectedItem="{Binding CurrentPrimarySelected}" Classes="ListWithDelete" MinHeight="152" MaxHeight="266">
+					<ListBox.ItemTemplate>
+						<DataTemplate>
+							<DockPanel>
+								<TextBlock Text="{Binding}" ToolTip.Tip="{Binding}" DockPanel.Dock="Left" />
+								<Button Click="DeleteListItem" DockPanel.Dock="Right">
+									<PathIcon Data="{StaticResource delete_regular}" />
+								</Button>
+							</DockPanel>
+						</DataTemplate>
+					</ListBox.ItemTemplate>
+				</ListBox>
+			</StackPanel>
+		</Panel>
+
+		<StackPanel x:Name="MainPanelRightCol" Grid.Row="1" Grid.Column="1" Spacing="10">
+			<StackPanel Classes="ControlGroup">
+				<TextBlock Text="Add New Department Default" Classes="Label" />
+				<TextBox x:Name="NewDepartment" Text="{Binding AddNewPrimary}" Watermark="Department Name" />
+			</StackPanel>
+			<StackPanel Classes="ControlGroup">
+				<TextBlock Text="Locations" Classes="Label" />
+				<ListBox x:Name="LocationSelect" SelectionMode="Multiple,Toggle" Items="{Binding Locations}" Selection="{Binding SelectedLocations}" MinHeight="140" MaxHeight="190" />
+			</StackPanel>
+		</StackPanel>
+
+		<Panel x:Name="BottomPanel" Height="40" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Width="{Binding #PrimaryGrid.Bounds.Width}">
+			<TextBlock TextWrapping="Wrap" HorizontalAlignment="Left" Margin="0,-15,0,0" MaxWidth="{Binding #BottomPanel.Bounds.Width, Converter={StaticResource MathConverter}, ConverterParameter=@VALUE-178}">
+This will be used to set the Department field in AD.
+By choosing a Location, this can determine the default options when creating a new user.
+			</TextBlock>
+
+			<StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Spacing="10">
+				<Button HorizontalAlignment="Right" Command="{Binding SaveDepartments}" IsEnabled="{Binding Saveable}" Classes="ThemePrimary" Content="Save Changes" />
+				<Button HorizontalAlignment="Right" IsDefault="True" Command="{Binding AddDepartment}" IsEnabled="{Binding AddNewPrimary, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" Classes="AccentGreen" Content="Add" />
+			</StackPanel>
+		</Panel>
+
+	</Grid>
+
+</UserControl>
