@@ -1,0 +1,3 @@
+[submodule "SharedLibrary"]
+	path = SharedLibrary
+	url = https://github.com/seatosky-chris/UserCreationDisablement-SharedLibrary
