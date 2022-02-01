@@ -32,7 +32,7 @@ namespace UserCreationUI.Views
 
         public void ResizeWindow(double width, double height)
         {
-            var screen = this.Screens.ScreenFromPoint(Position);
+            var screen = this.Screens.Primary;
             var maxScreenWidth = screen.Bounds.Width;
             var maxScreenHeight = screen.Bounds.Height;
 
@@ -42,7 +42,7 @@ namespace UserCreationUI.Views
 
         public void ResizeWindow(double width, double height, double? minWidth, double? minHeight)
         {
-            var screen = this.Screens.ScreenFromPoint(Position);
+            var screen = this.Screens.Primary;
             var maxScreenWidth = screen.Bounds.Width;
             var maxScreenHeight = screen.Bounds.Height;
 
@@ -61,7 +61,7 @@ namespace UserCreationUI.Views
 
         public void ResizeWindow(double width, double height, double? minWidth, double? minHeight, double? maxWidth, double? maxHeight)
         {
-            var screen = this.Screens.ScreenFromPoint(Position);
+            var screen = this.Screens.Primary;
             var maxScreenWidth = screen.Bounds.Width;
             var maxScreenHeight = screen.Bounds.Height;
 
