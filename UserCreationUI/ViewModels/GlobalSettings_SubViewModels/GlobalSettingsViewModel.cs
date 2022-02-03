@@ -11,13 +11,13 @@ namespace UserCreationUI.GlobalSettings.ViewModels
 {
     public class GlobalSettingsViewModel: ReactiveObject, IRoutableViewModel
     {
-        private string _usernameFormat = "[First].[Last]";
-        private int _ADTypeSelected;
-        private int _emailTypeSelected;
-        private string _exchangeServerFQDN = "";
-        private bool _exchangeServerFQDNIsEnabled;
-        private bool _passwordExpiry;
-        private bool _ADO365Sync = false;
+        private string _usernameFormat = Program.GlobalConfig.UsernameFormat ?? "[First].[Last]";
+        private int _ADTypeSelected = (int)Enum.Parse(typeof(CompanyConfigurationSharedModel.ADTypeConfiguration), Program.GlobalConfig.ADType.ToString());
+        private int _emailTypeSelected = (int)Enum.Parse(typeof(CompanyConfigurationSharedModel.EmailTypeConfiguration), Program.GlobalConfig.EmailType.ToString());
+        private string _exchangeServerFQDN = Program.GlobalConfig.ExchangeServerFQDN ?? "";
+        private bool _exchangeServerFQDNIsEnabled = Program.GlobalConfig.EmailType == CompanyConfigurationSharedModel.EmailTypeConfiguration.Exchange ? true : false;
+        private bool _passwordExpiry = Program.GlobalConfig.PasswordExpiryOn;
+        private bool _ADO365Sync = Program.GlobalConfig.ADO365SyncOn;
 
         // Reference to IScreen that owns the routable view model.
         public IScreen HostScreen { get; }
@@ -77,16 +77,13 @@ namespace UserCreationUI.GlobalSettings.ViewModels
 
         public void SaveGlobalSettings()
         {
-            // If loaded, edit instead
-            CompanyConfigurationModel NewConfiguration = new CompanyConfigurationModel
-            {
-                UsernameFormat = UsernameFormat,
-                ExchangeServerFQDN = ExchangeServerFQDN,
-                PasswordExpiryOn = PasswordExpiry,
-                ADO365SyncOn = ADO365Sync,
-                ADType = (CompanyConfigurationSharedModel.ADTypeConfiguration)ADTypeSelected,
-                EmailType = (CompanyConfigurationSharedModel.EmailTypeConfiguration)EmailTypeSelected
-            };
+            // Update loaded global config
+            Program.GlobalConfig.UsernameFormat = UsernameFormat;
+            Program.GlobalConfig.ExchangeServerFQDN = ExchangeServerFQDN;
+            Program.GlobalConfig.PasswordExpiryOn = PasswordExpiry;
+            Program.GlobalConfig.ADO365SyncOn = ADO365Sync;
+            Program.GlobalConfig.ADType = (CompanyConfigurationSharedModel.ADTypeConfiguration)ADTypeSelected;
+            Program.GlobalConfig.EmailType = (CompanyConfigurationSharedModel.EmailTypeConfiguration)EmailTypeSelected;
 
             // Code to save to DB here
             System.Diagnostics.Debug.WriteLine("Saving Global Settings");

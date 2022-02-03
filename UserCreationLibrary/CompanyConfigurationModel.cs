@@ -203,7 +203,7 @@ namespace UserCreationLibrary
         /// <remarks>
         /// If enabled, the value can be set during the user creation process.
         /// </remarks>
-        public string CustomFieldName1 { get; set; }
+        public string CustomFieldName1 { get; set; } = "";
 
         /// <summary>
         /// A custom field that is enabled if this variable is set.
@@ -212,7 +212,7 @@ namespace UserCreationLibrary
         /// <remarks>
         /// If enabled, the value can be set during the user creation process.
         /// </remarks>
-        public string CustomFieldName2 { get; set; }
+        public string CustomFieldName2 { get; set; } = "";
 
         /// <summary>
         /// A custom field that is enabled if this variable is set.
@@ -221,7 +221,7 @@ namespace UserCreationLibrary
         /// <remarks>
         /// If enabled, the value can be set during the user creation process.
         /// </remarks>
-        public string CustomFieldName3 { get; set; }
+        public string CustomFieldName3 { get; set; } = "";
 
         /// <summary>
         /// A custom field that is enabled if this variable is set.
@@ -230,7 +230,7 @@ namespace UserCreationLibrary
         /// <remarks>
         /// If enabled, the value can be set during the user creation process.
         /// </remarks>
-        public string CustomFieldName4 { get; set; }
+        public string CustomFieldName4 { get; set; } = "";
 
         /// <summary>
         /// A custom field that is enabled if this variable is set.
@@ -239,7 +239,7 @@ namespace UserCreationLibrary
         /// <remarks>
         /// If enabled, the value can be set during the user creation process.
         /// </remarks>
-        public string CustomFieldName5 { get; set; }
+        public string CustomFieldName5 { get; set; } = "";
 
     }
 }
