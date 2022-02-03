@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UserCreationLibrary;
+using UserAppSharedLibrary;
 
 namespace UserCreationUI.GlobalSettings.ViewModels
 {
@@ -12,7 +14,7 @@ namespace UserCreationUI.GlobalSettings.ViewModels
         private string _usernameFormat = "[First].[Last]";
         private int _ADTypeSelected;
         private int _emailTypeSelected;
-        private string? _exchangeServerFQDN;
+        private string _exchangeServerFQDN = "";
         private bool _exchangeServerFQDNIsEnabled;
         private bool _passwordExpiry;
         private bool _ADO365Sync = false;
@@ -75,6 +77,17 @@ namespace UserCreationUI.GlobalSettings.ViewModels
 
         public void SaveGlobalSettings()
         {
+            // If loaded, edit instead
+            CompanyConfigurationModel NewConfiguration = new CompanyConfigurationModel
+            {
+                UsernameFormat = UsernameFormat,
+                ExchangeServerFQDN = ExchangeServerFQDN,
+                PasswordExpiryOn = PasswordExpiry,
+                ADO365SyncOn = ADO365Sync,
+                ADType = (CompanyConfigurationSharedModel.ADTypeConfiguration)ADTypeSelected,
+                EmailType = (CompanyConfigurationSharedModel.EmailTypeConfiguration)EmailTypeSelected
+            };
+
             // Code to save to DB here
             System.Diagnostics.Debug.WriteLine("Saving Global Settings");
         }

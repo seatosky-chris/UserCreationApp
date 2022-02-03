@@ -124,19 +124,9 @@ namespace UserCreationLibrary
 
 
         /// <summary>
-        /// The API credential details needed to connect to Azure / O365.
+        /// The API credential details
         /// </summary>
-        public APICredentialsModel AzureO365APICredentials { get; set; }
-
-        /// <summary>
-        /// The API credential details needed to connect to IT Glue.
-        /// </summary>
-        public APICredentialsModel ITGAPICredentials { get; set; }
-
-        /// <summary>
-        /// The API credential details needed to connect to the Email Forwarder.
-        /// </summary>
-        public APICredentialsModel EmailForwarderAPICredentials { get; set; }
+        public APICredentialsModel APICredentials { get; set; }
 
         /// <summary>
         /// The API URL needed to connect to PW Push.
