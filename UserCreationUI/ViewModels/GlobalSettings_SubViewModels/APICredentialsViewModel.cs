@@ -1,13 +1,11 @@
 ﻿using Avalonia;
 using ReactiveUI;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Reactive;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
+using UserAppSharedLibrary;
 
 namespace UserCreationUI.GlobalSettings.ViewModels
 {
@@ -96,7 +94,25 @@ namespace UserCreationUI.GlobalSettings.ViewModels
 
         public void SaveAPICredentials()
         {
+            // If loaded, modify instead (to keep data from disablement app)
+            APICredentialsModel NewAPICreds = new APICredentialsModel
+            {
+                ITGCompanyID = ITGCompanyID,
+                ITGURL = ITGURL,
+                ITGKey = ITGKey,
+
+                EmailForwarderURL = EmailForwarderURL,
+                EmailForwarderKey = EmailForwarderKey,
+
+                EmailUsername = O365LoginEmail,
+                AppID = O365AppID,
+                TenantID = O365TenantID,
+                Organization = O365Organization,
+                CertificateThumbprint = O365CertThumbprint
+            };
+
             // Code to save data
+
             System.Diagnostics.Debug.WriteLine("Saving API Creds");
             HostScreen.Router.NavigateBack.Execute(Unit.Default);
         }
