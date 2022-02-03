@@ -1,5 +1,6 @@
 ﻿using ReactiveUI;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Reactive;
 
 namespace UserCreationUI.GlobalSettings.ViewModels
@@ -11,14 +12,10 @@ namespace UserCreationUI.GlobalSettings.ViewModels
 
         public EmailDomainsViewModel(IScreen screen) : base(screen)
         {
-            // TEST data
-            CurrentDomains.Add("canmine.ca");
-            CurrentDomains.Add("highstandard.ca");
-            CurrentDomains.Add("pinnacledrilling.ca");
-            CurrentDomains.Add("traxxon.com");
+
         }
 
-        public ObservableCollection<string> CurrentDomains { get; } = new();
+        public ObservableCollection<string> CurrentDomains { get; } = new ObservableCollection<string>(Program.GlobalConfig.EmailDomains);
 
         public void AddDomain()
         {
@@ -39,6 +36,8 @@ namespace UserCreationUI.GlobalSettings.ViewModels
         {
             if (Saveable)
             {
+                Program.GlobalConfig.EmailDomains = CurrentDomains.ToList();
+
                 // Code to save to DB here
                 System.Diagnostics.Debug.WriteLine("Saving Domain Settings");
                 HostScreen.Router.NavigateBack.Execute(Unit.Default);
