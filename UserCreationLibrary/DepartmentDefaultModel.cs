@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace UserCreationLibrary
 {
-    public class DeparmentDefaultModel
+    public class DepartmentDefaultModel
     {
         /// <summary>
         /// A randomly generated uuid that is unique to this entry.

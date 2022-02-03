@@ -44,8 +44,8 @@ namespace UserCreationLibrary
         /// This is configured in the global settings.
         /// It is stored and loaded from the DB on load.
         /// </remarks>
-        /// <see cref="DeparmentDefaultModel"/>
-        public List<DeparmentDefaultModel> Departments { get; set; } = new List<DeparmentDefaultModel>();
+        /// <see cref="DepartmentDefaultModel"/>
+        public List<DepartmentDefaultModel> Departments { get; set; } = new List<DepartmentDefaultModel>();
 
         /// <summary>
         /// A list of all the AD Company defaults. 
