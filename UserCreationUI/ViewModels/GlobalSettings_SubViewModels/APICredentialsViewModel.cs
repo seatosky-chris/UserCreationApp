@@ -11,16 +11,16 @@ namespace UserCreationUI.GlobalSettings.ViewModels
 {
     public class APICredentialsViewModel : ReactiveObject, IRoutableViewModel
     {
-        private string _o365LoginEmail;
-        private string _o365AppID;
-        private string _o365TenantID;
-        private string _o365Organization;
-        private string _o365CertThumbprint;
-        private int _itgCompanyID;
-        private string _itgURL;
-        private string _itgKey;
-        private string _emailForwarderURL;
-        private string _emailForwarderKey;
+        private string _o365LoginEmail = Program.GlobalConfig.APICredentials.EmailUsername ?? "";
+        private string _o365AppID = Program.GlobalConfig.APICredentials.AppID ?? "";
+        private string _o365TenantID = Program.GlobalConfig.APICredentials.TenantID ?? "";
+        private string _o365Organization = Program.GlobalConfig.APICredentials.Organization ?? "";
+        private string _o365CertThumbprint = Program.GlobalConfig.APICredentials.CertificateThumbprint ?? "";
+        private int _itgCompanyID = Program.GlobalConfig.APICredentials.ITGCompanyID;
+        private string _itgURL = Program.GlobalConfig.APICredentials.ITGURL ?? "";
+        private string _itgKey = Program.GlobalConfig.APICredentials.ITGKey ?? "";
+        private string _emailForwarderURL = Program.GlobalConfig.APICredentials.EmailForwarderURL ?? "";
+        private string _emailForwarderKey = Program.GlobalConfig.APICredentials.EmailForwarderKey ?? "";
 
         // Reference to IScreen that owns the routable view model.
         public IScreen HostScreen { get; }
@@ -95,21 +95,18 @@ namespace UserCreationUI.GlobalSettings.ViewModels
         public void SaveAPICredentials()
         {
             // If loaded, modify instead (to keep data from disablement app)
-            APICredentialsModel NewAPICreds = new APICredentialsModel
-            {
-                ITGCompanyID = ITGCompanyID,
-                ITGURL = ITGURL,
-                ITGKey = ITGKey,
+            Program.GlobalConfig.APICredentials.ITGCompanyID = ITGCompanyID;
+            Program.GlobalConfig.APICredentials.ITGURL = ITGURL;
+            Program.GlobalConfig.APICredentials.ITGKey = ITGKey;
 
-                EmailForwarderURL = EmailForwarderURL,
-                EmailForwarderKey = EmailForwarderKey,
+            Program.GlobalConfig.APICredentials.EmailForwarderURL = EmailForwarderURL;
+            Program.GlobalConfig.APICredentials.EmailForwarderKey = EmailForwarderKey;
 
-                EmailUsername = O365LoginEmail,
-                AppID = O365AppID,
-                TenantID = O365TenantID,
-                Organization = O365Organization,
-                CertificateThumbprint = O365CertThumbprint
-            };
+            Program.GlobalConfig.APICredentials.EmailUsername = O365LoginEmail;
+            Program.GlobalConfig.APICredentials.AppID = O365AppID;
+            Program.GlobalConfig.APICredentials.TenantID = O365TenantID;
+            Program.GlobalConfig.APICredentials.Organization = O365Organization;
+            Program.GlobalConfig.APICredentials.CertificateThumbprint = O365CertThumbprint;
 
             // Code to save data
 
