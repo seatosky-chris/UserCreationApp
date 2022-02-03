@@ -82,6 +82,9 @@ namespace UserCreationUI.ViewModels
                 case "ADFolderLocations":
                     Router.Navigate.Execute(new ADFolderLocationsViewModel(this));
                     break;
+                case "SoftwareSettings":
+                    Router.Navigate.Execute(new SoftwareSettingsViewModel(this));
+                    break;
                 default:
                     break;
             }

@@ -19,6 +19,10 @@
 		<Setter Property="Padding" Value="5,2,5,2" />
 	</Style>
 
+	<Style Selector="Button.TextCenterButton AccessText">
+		<Setter Property="TextAlignment" Value="Center" />
+	</Style>
+
 	<Style Selector="ListBox.ListWithDelete > ListBoxItem">
 		<Setter Property="Padding" Value="12,4,10,6" />
 	</Style>

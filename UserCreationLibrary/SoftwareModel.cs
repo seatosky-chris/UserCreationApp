@@ -30,5 +30,10 @@ namespace UserCreationLibrary
         /// <see cref="O365GroupModel"/>
         public List<O365GroupModel> O365Groups { get; set; } = new List<O365GroupModel>();
 
+        /// <summary>
+        /// A list of O365 Licenses to apply if this piece of software is chosen.
+        /// </summary>
+        public List<O365LicenseModel> O365Licenses { get; set; } = new List<O365LicenseModel>();
+
     }
 }

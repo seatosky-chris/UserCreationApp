@@ -44,6 +44,13 @@ namespace UserCreationLibrary
         public string ITGApprover { get; set; }
 
         /// <summary>
+        ///  A calculated property that contains both WhoToAdd and the Approver.
+        /// </summary>
+        public string ITGWhoToAddAndApprover { 
+            get { return ITGApprover + " / " + ITGWhoToAdd; } 
+        }
+
+        /// <summary>
         /// The link to the group in ITG glue, if available.
         /// </summary>
         public string ITGLink { get; set; }
