@@ -20,8 +20,8 @@ namespace UserCreationUI.GlobalSettings.ViewModels
         private string? _addNewSecondary;
         private bool _saveable;
 
-        private List<string> _locations = new List<string>();
-        private List<string> _employeeTypes = new List<string>();
+        private Dictionary<int, string> _locations = Program.GlobalConfig.Locations;
+        private Dictionary<int, string> _employeeTypes = Program.GlobalConfig.EmployeeTypes;
 
         // Reference to IScreen that owns the routable view model.
         public IScreen HostScreen { get; }
@@ -32,26 +32,13 @@ namespace UserCreationUI.GlobalSettings.ViewModels
         {
             HostScreen = screen;
 
-            SelectedEmployeeTypes = new SelectionModel<string>();
-            SelectedLocations = new SelectionModel<string>();
+            SelectedEmployeeTypes = new SelectionModel<KeyValuePair<int, string>>();
+            SelectedLocations = new SelectionModel<KeyValuePair<int, string>>();
             SelectedEmployeeTypes.SingleSelect = false;
             SelectedLocations.SingleSelect = false;
 
             // TODO: Save using:
             // SelectedLocations.SelectedIndexes
-
-            // Load Locations
-            Locations.Add("Canmine Contracting");
-            Locations.Add("High Standard Scaffolding");
-            Locations.Add("NorLand Limited");
-            Locations.Add("Pinnacle Drilling");
-            Locations.Add("Traxxon Rock Drills");
-
-            // Load Employee Types
-            EmployeeTypes.Add("Employee - Full Time");
-            EmployeeTypes.Add("Employee - Part Time");
-            EmployeeTypes.Add("Employee - Email Only");
-            EmployeeTypes.Add("External User");
         }
 
         public bool Saveable
@@ -78,19 +65,19 @@ namespace UserCreationUI.GlobalSettings.ViewModels
         }
 
 
-        public List<string> Locations
+        public Dictionary<int, string> Locations
         {
             get => _locations;
             set => this.RaiseAndSetIfChanged(ref _locations, value);
         }
-        public List<string> EmployeeTypes
+        public Dictionary<int, string> EmployeeTypes
         {
             get => _employeeTypes;
             set => this.RaiseAndSetIfChanged(ref _employeeTypes, value);
         }
         
-        public SelectionModel<string> SelectedEmployeeTypes { get; }
-        public SelectionModel<string> SelectedLocations { get; }
+        public SelectionModel<KeyValuePair<int, string>> SelectedEmployeeTypes { get; }
+        public SelectionModel<KeyValuePair<int, string>> SelectedLocations { get; }
 
 
         public void BackButton()
