@@ -21,7 +21,7 @@
 					<ListBox.ItemTemplate>
 						<DataTemplate>
 							<DockPanel>
-								<TextBlock Text="{Binding}" ToolTip.Tip="{Binding}" DockPanel.Dock="Left" />
+								<TextBlock Text="{Binding FriendlyName}" ToolTip.Tip="{Binding FriendlyName}" DockPanel.Dock="Left" />
 								<Button Click="DeleteListItem" DockPanel.Dock="Right">
 									<PathIcon Data="{StaticResource delete_regular}" />
 								</Button>
@@ -47,7 +47,13 @@
 			
 			<StackPanel Classes="ControlGroup">
 				<TextBlock Text="Locations" Classes="Label" />
-				<ListBox x:Name="LocationSelect" SelectionMode="Multiple,Toggle" Items="{Binding Locations}" Selection="{Binding SelectedLocations}" Height="150" />
+				<ListBox x:Name="LocationSelect" SelectionMode="Multiple,Toggle" Items="{Binding Locations}" Selection="{Binding SelectedLocations}" Height="150">
+					<ListBox.ItemTemplate>
+						<DataTemplate>
+							<TextBlock Text="{Binding Value}" ToolTip.Tip="{Binding Value}" />
+						</DataTemplate>
+					</ListBox.ItemTemplate>
+				</ListBox>
 			</StackPanel>
 		</StackPanel>
 
@@ -58,8 +64,10 @@ By choosing a location, this will set the default folder to place the new user i
 			</TextBlock>
 
 			<StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Spacing="10">
-				<Button HorizontalAlignment="Right" Command="{Binding SaveADFolderLocations}" IsEnabled="{Binding Saveable}" Classes="ThemePrimary" Content="Save Changes" />
+				<Button HorizontalAlignment="Right" Command="{Binding SaveADFolderLocations}" IsEnabled="{Binding Saveable}" Classes="ThemePrimary" Content="Save Changes" Margin="0 0 10 0" />
 				<Button HorizontalAlignment="Right" IsDefault="True" Command="{Binding AddFolderLocation}" IsEnabled="{Binding AddNewPrimary, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" Classes="AccentGreen" Content="Add" />
+				<Button HorizontalAlignment="Stretch" Command="{Binding EditFolder}" IsVisible="{Binding EditID, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" Classes="AccentLightGreen TextCenterButton" Content="Edit" />
+				<Button HorizontalAlignment="Stretch" Command="{Binding CancelEditFolder}" IsVisible="{Binding EditID, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" Classes="AccentRed TextCenterButton" Content="Cancel Edit" />
 			</StackPanel>
 		</Panel>
 

@@ -142,7 +142,7 @@ namespace UserCreationUI
             });
 
             // AD Folders test data
-            GlobalConfig.ADFolders.Add(new ADFolderDefaultModel
+            GlobalConfig.ADFolders.Add(new ADFolderDefaultModelExtended
             {
                 Id = "1",
                 Priority = 1,
@@ -150,7 +150,7 @@ namespace UserCreationUI
                 FolderLocation = "pacificblasting.local/Divisions/CanMine/Users/Office 365",
                 Locations = new List<int> { 1 }
             });
-            GlobalConfig.ADFolders.Add(new ADFolderDefaultModel
+            GlobalConfig.ADFolders.Add(new ADFolderDefaultModelExtended
             {
                 Id = "2",
                 Priority = 1,
@@ -158,7 +158,7 @@ namespace UserCreationUI
                 FolderLocation = "pacificblasting.local/Divisions/High Standard Scaffolding/Users",
                 Locations = new List<int> { 2 }
             });
-            GlobalConfig.ADFolders.Add(new ADFolderDefaultModel
+            GlobalConfig.ADFolders.Add(new ADFolderDefaultModelExtended
             {
                 Id = "3",
                 Priority = 1,
@@ -166,7 +166,7 @@ namespace UserCreationUI
                 FolderLocation = "pacificblasting.local/Divisions/Pinnacle Drilling/Users/Burnaby",
                 Locations = new List<int> { 3 }
             });
-            GlobalConfig.ADFolders.Add(new ADFolderDefaultModel
+            GlobalConfig.ADFolders.Add(new ADFolderDefaultModelExtended
             {
                 Id = "4",
                 Priority = 1,
