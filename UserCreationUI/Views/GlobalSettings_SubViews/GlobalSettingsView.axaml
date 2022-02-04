@@ -91,13 +91,13 @@ Example: "[First].[Last]"  (will make "John.Smith")
 					</StackPanel>
 
 					<StackPanel Spacing="10" Grid.Row="1" Grid.Column="1">
-						<TextBlock x:Name="EmailFormatsCount" Text="0" />
-						<TextBlock x:Name="EmailDomainsCount" Text="0" />
-						<TextBlock x:Name="CompaniesCount" Text="0" />
-						<TextBlock x:Name="DeparmentsCount" Text="0" />
-						<TextBlock x:Name="ADFoldersCount" Text="0" />
-						<TextBlock x:Name="SoftwareCount" Text="0" />
-						<TextBlock x:Name="CustomFieldsCount" Text="0" />
+						<TextBlock x:Name="EmailFormatsCount" Text="{Binding EmailFormatsCount}" />
+						<TextBlock x:Name="EmailDomainsCount" Text="{Binding EmailDomainsCount}" />
+						<TextBlock x:Name="CompaniesCount" Text="{Binding CompaniesCount}" />
+						<TextBlock x:Name="DeparmentsCount" Text="{Binding DeparmentsCount}" />
+						<TextBlock x:Name="ADFoldersCount" Text="{Binding ADFoldersCount}" />
+						<TextBlock x:Name="SoftwareCount" Text="{Binding SoftwareCount}" />
+						<TextBlock x:Name="CustomFieldsCount" Text="{Binding CustomFieldsCount}" />
 					</StackPanel>
 
 					<StackPanel Spacing="5" Grid.Row="1" Grid.Column="2" Margin="0,-2,0,0">

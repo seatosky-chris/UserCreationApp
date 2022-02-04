@@ -75,6 +75,47 @@ namespace UserCreationUI.GlobalSettings.ViewModels
             set => this.RaiseAndSetIfChanged(ref _ADO365Sync, value);
         }
 
+
+        // The counts of each setting type for the UI
+        public int EmailFormatsCount
+        {
+            get => Program.GlobalConfig.EmailFormats.Count;
+        }
+        public int EmailDomainsCount
+        {
+            get => Program.GlobalConfig.EmailDomains.Count;
+        }
+        public int CompaniesCount
+        {
+            get => Program.GlobalConfig.Companies.Count;
+        }
+        public int DeparmentsCount
+        {
+            get => Program.GlobalConfig.Departments.Count;
+        }
+        public int ADFoldersCount
+        {
+            get => Program.GlobalConfig.ADFolders.Count;
+        }
+        public int SoftwareCount
+        {
+            get => Program.GlobalConfig.Software.Count;
+        }
+        public int CustomFieldsCount
+        {
+            get
+            {
+                int count = 0;
+                if (!String.IsNullOrWhiteSpace(Program.GlobalConfig.CustomFieldName1)) { count++; }
+                if (!String.IsNullOrWhiteSpace(Program.GlobalConfig.CustomFieldName2)) { count++; }
+                if (!String.IsNullOrWhiteSpace(Program.GlobalConfig.CustomFieldName3)) { count++; }
+                if (!String.IsNullOrWhiteSpace(Program.GlobalConfig.CustomFieldName4)) { count++; }
+                if (!String.IsNullOrWhiteSpace(Program.GlobalConfig.CustomFieldName5)) { count++; }
+                return count;
+            }
+        }
+
+
         public void SaveGlobalSettings()
         {
             // Update loaded global config
