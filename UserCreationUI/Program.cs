@@ -81,7 +81,7 @@ namespace UserCreationUI
                 Id = "4",
                 Priority = 1,
                 EmailFormat = "[First].[Last]",
-                Domain = "traxxon.ca",
+                Domain = "traxxon.com",
                 Locations = new List<int> { 4 }
             });
 
