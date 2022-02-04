@@ -38,7 +38,14 @@ namespace UserCreationUI.GlobalSettings.ViewModels
         public int CurrentSelectionType
         {
             get => _currentSelectionType;
-            set => this.RaiseAndSetIfChanged(ref _currentSelectionType, value);
+            set
+            {
+                if (_currentSelectionType != value)
+                {
+                    DataGridSelection = -1;
+                }
+                this.RaiseAndSetIfChanged(ref _currentSelectionType, value);
+            }
         }
 
         public string EditID
@@ -87,6 +94,7 @@ namespace UserCreationUI.GlobalSettings.ViewModels
         private void ClearForm()
         {
             AddNewPrimary = "";
+            DataGridSelection = -1;
             O365Groups_Selected.Clear();
             ADPermissions_Selected.Clear();
             O365Licenses_Selected.Clear();

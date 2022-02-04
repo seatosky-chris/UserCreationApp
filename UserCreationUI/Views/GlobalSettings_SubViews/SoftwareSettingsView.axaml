@@ -124,7 +124,7 @@
 							<TextBlock Text="(double-click to add)" Margin="10,10,0,5" Classes="Label Caption" />
 						</StackPanel>
 						<Panel>
-							<DataGrid Name="ADGroupsDataGrid" Items="{Binding ADPermissions_All}" IsVisible="{Binding #SelectionType.SelectedIndex, Converter={StaticResource IfValueEqualsConverter}, ConverterParameter=0}" Height="{Binding $parent[StackPanel].Bounds.Height, Converter={StaticResource MathConverter}, ConverterParameter=@VALUE-32}" BorderBrush="#ffb3b0ad" BorderThickness="2" AutoGenerateColumns="False" CanUserReorderColumns="True" CanUserResizeColumns="True" CanUserSortColumns="True" IsReadOnly="True">
+							<DataGrid Name="ADGroupsDataGrid" Items="{Binding ADPermissions_All}" SelectedIndex="{Binding DataGridSelection}" IsVisible="{Binding #SelectionType.SelectedIndex, Converter={StaticResource IfValueEqualsConverter}, ConverterParameter=0}" Height="{Binding $parent[StackPanel].Bounds.Height, Converter={StaticResource MathConverter}, ConverterParameter=@VALUE-32}" BorderBrush="#ffb3b0ad" BorderThickness="2" AutoGenerateColumns="False" CanUserReorderColumns="True" CanUserResizeColumns="True" CanUserSortColumns="True" IsReadOnly="True">
 								<DataGrid.Columns>
 									<DataGridTextColumn Header="Group Name" Binding="{Binding Name}" />
 									<DataGridTextColumn Header="Type" Binding="{Binding ITGType}" />
@@ -142,7 +142,7 @@
 								</DataGrid.Columns>
 							</DataGrid>
 
-							<DataGrid Name="O365GroupsDataGrid" Items="{Binding O365Groups_All}" IsVisible="{Binding #SelectionType.SelectedIndex, Converter={StaticResource IfValueEqualsConverter}, ConverterParameter=1}" Height="{Binding $parent[StackPanel].Bounds.Height, Converter={StaticResource MathConverter}, ConverterParameter=@VALUE-32}" BorderBrush="#ffb3b0ad" BorderThickness="2" AutoGenerateColumns="False" CanUserReorderColumns="True" CanUserResizeColumns="True" CanUserSortColumns="True" IsReadOnly="True">
+							<DataGrid Name="O365GroupsDataGrid" Items="{Binding O365Groups_All}" SelectedIndex="{Binding DataGridSelection}" IsVisible="{Binding #SelectionType.SelectedIndex, Converter={StaticResource IfValueEqualsConverter}, ConverterParameter=1}" Height="{Binding $parent[StackPanel].Bounds.Height, Converter={StaticResource MathConverter}, ConverterParameter=@VALUE-32}" BorderBrush="#ffb3b0ad" BorderThickness="2" AutoGenerateColumns="False" CanUserReorderColumns="True" CanUserResizeColumns="True" CanUserSortColumns="True" IsReadOnly="True">
 								<DataGrid.Columns>
 									<DataGridTextColumn Header="Group Name" Binding="{Binding Name}" />
 									<DataGridTextColumn Header="Type" Binding="{Binding GroupType, Converter={StaticResource EnumToDescriptionConverter}}" />
@@ -161,7 +161,7 @@
 								</DataGrid.Columns>
 							</DataGrid>
 
-							<DataGrid Name="O365LicensesDataGrid" Items="{Binding O365Licenses_All}" IsVisible="{Binding #SelectionType.SelectedIndex, Converter={StaticResource IfValueEqualsConverter}, ConverterParameter=2}" Height="{Binding $parent[StackPanel].Bounds.Height, Converter={StaticResource MathConverter}, ConverterParameter=@VALUE-32}" BorderBrush="#ffb3b0ad" BorderThickness="2" AutoGenerateColumns="False" CanUserReorderColumns="True" CanUserResizeColumns="True" CanUserSortColumns="True" IsReadOnly="True">
+							<DataGrid Name="O365LicensesDataGrid" Items="{Binding O365Licenses_All}" SelectedIndex="{Binding DataGridSelection}" IsVisible="{Binding #SelectionType.SelectedIndex, Converter={StaticResource IfValueEqualsConverter}, ConverterParameter=2}" Height="{Binding $parent[StackPanel].Bounds.Height, Converter={StaticResource MathConverter}, ConverterParameter=@VALUE-32}" BorderBrush="#ffb3b0ad" BorderThickness="2" AutoGenerateColumns="False" CanUserReorderColumns="True" CanUserResizeColumns="True" CanUserSortColumns="True" IsReadOnly="True">
 								<DataGrid.Columns>
 									<DataGridTextColumn Header="License Name" Binding="{Binding Name}" />
 								</DataGrid.Columns>

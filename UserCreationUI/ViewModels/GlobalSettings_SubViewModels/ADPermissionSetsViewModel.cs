@@ -86,7 +86,7 @@ namespace UserCreationUI.GlobalSettings.ViewModels
         {
             AddNewPrimary = "";
             CurrentPrimarySelected = "";
-            DataGridSelection = "";
+            DataGridSelection = -1;
             ADPermissions_Selected.Clear();
             SelectedLocations.Clear();
             SelectedEmployeeTypes.Clear();

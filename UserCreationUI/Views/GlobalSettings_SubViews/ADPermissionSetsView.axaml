@@ -99,7 +99,7 @@
 						</StackPanel>
 						
 						<Panel>
-							<DataGrid Name="ADGroupsDataGrid" Items="{Binding ADPermissions_All}" SelectedItem="{Binding DataGridSelection}" Height="{Binding $parent[StackPanel].Bounds.Height, Converter={StaticResource MathConverter}, ConverterParameter=@VALUE-32}" BorderBrush="#ffb3b0ad" BorderThickness="2" AutoGenerateColumns="False" CanUserReorderColumns="True" CanUserResizeColumns="True" CanUserSortColumns="True" IsReadOnly="True">
+							<DataGrid Name="ADGroupsDataGrid" Items="{Binding ADPermissions_All}" SelectedIndex="{Binding DataGridSelection}" Height="{Binding $parent[StackPanel].Bounds.Height, Converter={StaticResource MathConverter}, ConverterParameter=@VALUE-32}" BorderBrush="#ffb3b0ad" BorderThickness="2" AutoGenerateColumns="False" CanUserReorderColumns="True" CanUserResizeColumns="True" CanUserSortColumns="True" IsReadOnly="True">
 								<DataGrid.Columns>
 									<DataGridTextColumn Header="Group Name" Binding="{Binding Name}" />
 									<DataGridTextColumn Header="Type" Binding="{Binding ITGType}" />

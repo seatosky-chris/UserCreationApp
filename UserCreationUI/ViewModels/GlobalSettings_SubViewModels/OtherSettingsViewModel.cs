@@ -16,7 +16,7 @@ namespace UserCreationUI.GlobalSettings.ViewModels
     public class OtherSettingsViewModel: ReactiveObject, IRoutableViewModel
     {
         private string? _currentPrimarySelected;
-        private string? _dataGridSelection;
+        private int? _dataGridSelection = -1;
         private string? _addNewPrimary;
         private string? _addNewSecondary;
         private bool _saveable;
@@ -54,7 +54,7 @@ namespace UserCreationUI.GlobalSettings.ViewModels
             set => this.RaiseAndSetIfChanged(ref _currentPrimarySelected, value);
         }
         
-        public string? DataGridSelection
+        public int? DataGridSelection
         {
             get => _dataGridSelection;
             set => this.RaiseAndSetIfChanged(ref _dataGridSelection, value);
