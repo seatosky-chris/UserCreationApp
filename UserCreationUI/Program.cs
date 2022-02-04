@@ -481,6 +481,38 @@ namespace UserCreationUI
             });
 
             // AD permission sets test data
+            GlobalConfig.ADPermissionSets.Add(new ADPermissionSetModel
+            {
+                Id = "1",
+                Name = "Pinnacle Drilling",
+                EmployeeTypes = new List<int> { },
+                Locations = new List<int> { 3, 4 },
+                Permissions = GlobalConfig.ADPermissions.FindAll(permission => permission.Name == "PGC-TS-Users" || permission.Name == "Pinnacle Drilling" || permission.Name == "Printer-PDP-CGY2-PRN01" || permission.Name == "Share-Media-Pinnacle")
+            });
+            GlobalConfig.ADPermissionSets.Add(new ADPermissionSetModel
+            {
+                Id = "2",
+                Name = "All Employees",
+                EmployeeTypes = new List<int> { 0, 1 },
+                Locations = new List<int> { },
+                Permissions = GlobalConfig.ADPermissions.FindAll(permission => permission.Name == "PGC-RDPUsers")
+            });
+            GlobalConfig.ADPermissionSets.Add(new ADPermissionSetModel
+            {
+                Id = "3",
+                Name = "Bel Contracting",
+                EmployeeTypes = new List<int> { },
+                Locations = new List<int> { 7 },
+                Permissions = GlobalConfig.ADPermissions.FindAll(permission => permission.Name == "Bel Contracting2")
+            });
+            GlobalConfig.ADPermissionSets.Add(new ADPermissionSetModel
+            {
+                Id = "4",
+                Name = "Foundation Users",
+                EmployeeTypes = new List<int> { },
+                Locations = new List<int> { },
+                Permissions = GlobalConfig.ADPermissions.FindAll(permission => permission.Name == "Foundation_Users" || permission.Name == "PGC-TS-Users")
+            });
 
             // O365 group sets test data
 

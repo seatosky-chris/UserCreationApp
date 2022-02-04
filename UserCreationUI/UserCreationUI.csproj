@@ -24,6 +24,9 @@
     <ProjectReference Include="..\UserCreationLibrary\UserCreationLibrary.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="Views\GlobalSettings_SubViews\ADPermissionSetsView.axaml.cs">
+      <DependentUpon>ADPermissionSetsView.axaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\GlobalSettings_SubViews\APICredentialsView.axaml.cs">
       <DependentUpon>APICredentialsView.axaml</DependentUpon>
     </Compile>

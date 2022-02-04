@@ -88,6 +88,9 @@ namespace UserCreationUI.ViewModels
                 case "CustomFields":
                     Router.Navigate.Execute(new CustomFieldsViewModel(this));
                     break;
+                case "ADPermissionSets":
+                    Router.Navigate.Execute(new ADPermissionSetsViewModel(this));
+                    break;
                 default:
                     break;
             }

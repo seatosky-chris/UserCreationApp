@@ -114,6 +114,10 @@ namespace UserCreationUI.GlobalSettings.ViewModels
                 return count;
             }
         }
+        public int ADPermissionSetsCount
+        {
+            get => Program.GlobalConfig.ADPermissionSets.Count;
+        }
 
 
         public void SaveGlobalSettings()
