@@ -89,21 +89,21 @@ namespace UserCreationUI
             GlobalConfig.EmailDomains = new List<string> { "canmine.ca", "highstandard.ca", "pinnacledrilling.ca", "traxxon.com" };
 
             // Department defaults test data
-            GlobalConfig.Departments.Add(new DepartmentDefaultModel
+            GlobalConfig.Departments.Add(new DepartmentDefaultModelExtended
             {
                 Id = "1",
                 Priority = 1,
                 Department = "Business Development",
                 Locations = new List<int> { 0 }
             });
-            GlobalConfig.Departments.Add(new DepartmentDefaultModel
+            GlobalConfig.Departments.Add(new DepartmentDefaultModelExtended
             {
                 Id = "2",
                 Priority = 1,
                 Department = "High Standard Scaffolding",
                 Locations = new List<int> { 2 }
             });
-            GlobalConfig.Departments.Add(new DepartmentDefaultModel
+            GlobalConfig.Departments.Add(new DepartmentDefaultModelExtended
             {
                 Id = "3",
                 Priority = 1,
@@ -112,28 +112,28 @@ namespace UserCreationUI
             });
 
             // Company defaults test data
-            GlobalConfig.Companies.Add(new CompanyDefaultModel
+            GlobalConfig.Companies.Add(new CompanyDefaultModelExtended
             {
                 Id = "1",
                 Priority = 1,
                 Company = "Canmine",
                 Locations = new List<int> { 1 }
             });
-            GlobalConfig.Companies.Add(new CompanyDefaultModel
+            GlobalConfig.Companies.Add(new CompanyDefaultModelExtended
             {
                 Id = "2",
                 Priority = 1,
                 Company = "High Standard",
                 Locations = new List<int> { 2 }
             });
-            GlobalConfig.Companies.Add(new CompanyDefaultModel
+            GlobalConfig.Companies.Add(new CompanyDefaultModelExtended
             {
                 Id = "3",
                 Priority = 1,
                 Company = "Pinnacle Drilling",
                 Locations = new List<int> { 3, 4 }
             });
-            GlobalConfig.Companies.Add(new CompanyDefaultModel
+            GlobalConfig.Companies.Add(new CompanyDefaultModelExtended
             {
                 Id = "4",
                 Priority = 1,

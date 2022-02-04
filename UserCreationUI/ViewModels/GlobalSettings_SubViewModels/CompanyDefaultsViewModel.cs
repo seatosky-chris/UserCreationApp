@@ -1,6 +1,10 @@
-﻿using ReactiveUI;
+﻿using Avalonia.Controls;
+using ReactiveUI;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Reactive;
+using UserCreationLibrary;
+using UserCreationUI.Models.ExtendedModels;
 
 namespace UserCreationUI.GlobalSettings.ViewModels
 {
@@ -9,36 +13,62 @@ namespace UserCreationUI.GlobalSettings.ViewModels
         // Unique identifier for the routable view model.
         public string UrlPathSegment { get; } = "CompanyDefaultsEdit";
 
+        private string _editID = "";
+
         public CompanyDefaultsViewModel(IScreen screen) : base(screen)
         {
-            // TEST data
-            CurrentCompanies.Add("Canmine (Location: Canmine Contracting)");
-            CurrentCompanies.Add("High Standard (Location: High Standard Scaffolding)");
-            CurrentCompanies.Add("Pinnacle Drilling (Location: Pinnacle Drilling Products - Calgary, Pinnacle Drilling Products - Burnaby)");
-            CurrentCompanies.Add("Traxxon (Location: Traxxon Rock Drills, Traxxon Foundation Equipment)");
+
         }
 
-        public ObservableCollection<string> CurrentCompanies { get; } = new();
+        public ObservableCollection<CompanyDefaultModelExtended> CurrentCompanies { get; } = new ObservableCollection<CompanyDefaultModelExtended>(Program.GlobalConfig.Companies);
+
+        public string EditID
+        {
+            get => _editID;
+            set => this.RaiseAndSetIfChanged(ref _editID, value);
+        }
 
         public void AddCompany()
         {
+            AddEditCompany(null);
+        }
+
+        public void EditCompany()
+        {
+            CompanyDefaultModelExtended CurrentCompanyItem = CurrentCompanies.Where(x => x.Id == EditID).FirstOrDefault();
+
+            AddEditCompany(CurrentCompanyItem.Id);
+
+            CurrentCompanies.Remove(CurrentCompanies.Where(x => x.Id == EditID).FirstOrDefault());
+            EditID = "";
+        }
+
+        public void CancelEditCompany()
+        {
+            ClearForm();
+            EditID = "";
+        }
+
+        private void AddEditCompany(string? Id)
+        {
             // TODO: Add in validation
-            var LocationIndexes = SelectedLocations.SelectedIndexes;
-            string NewFormatString = AddNewPrimary;
 
-            if (LocationIndexes.Count > 0)
+            CurrentCompanies.Add(new CompanyDefaultModelExtended
             {
-                NewFormatString += " (Locations:";
-                foreach (var i in LocationIndexes)
-                {
-                    NewFormatString += $" {Locations[i]}";
-                }
-                NewFormatString += ")";
-            }
+                Id = Id ?? System.Guid.NewGuid().ToString(),
+                Priority = 1,
+                Company = AddNewPrimary,
+                Locations = (from location in SelectedLocations.SelectedItems select location.Key).Distinct().ToList()
+            });
 
-            CurrentCompanies.Add(NewFormatString);
-            AddNewPrimary = "";
+            ClearForm();
             Saveable = true;
+        }
+
+        private void ClearForm()
+        {
+            AddNewPrimary = "";
+            SelectedLocations.Clear();
         }
 
         public void DeleteCompany(int index)
@@ -47,10 +77,28 @@ namespace UserCreationUI.GlobalSettings.ViewModels
             Saveable = true;
         }
 
+        public void CurrentCompany_DoubleClick(ListBoxItem row)
+        {
+            // Load format details
+            CompanyDefaultModelExtended CurrentCompany = (CompanyDefaultModelExtended)row.DataContext;
+            EditID = CurrentCompany.Id;
+
+            ClearForm();
+
+            AddNewPrimary = CurrentCompany.Company;
+
+            foreach (var LocIndex in CurrentCompany.Locations)
+            {
+                SelectedLocations.Select(LocIndex);
+            }
+        }
+
         public void SaveCompanies()
         {
             if (Saveable)
             {
+                Program.GlobalConfig.Companies = CurrentCompanies.ToList();
+
                 // Code to save to DB here
                 System.Diagnostics.Debug.WriteLine("Saving Company Default Settings");
                 HostScreen.Router.NavigateBack.Execute(Unit.Default);
