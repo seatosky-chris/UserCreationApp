@@ -1,0 +1,67 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="760" d:DesignHeight="400"
+             x:Class="UserCreationUI.GlobalSettings.Views.CustomFieldsView">
+
+	<Grid x:Name="PrimaryGrid" ColumnDefinitions="*, *" RowDefinitions="Auto, *, Auto" Margin="15 15 15 10" Width="{Binding $parent.Bounds.Width, Converter={StaticResource MathConverter}, ConverterParameter=@VALUE-30}">
+
+		<Panel x:Name="TopPanel" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="0 0 0 15">
+			<TextBlock Classes="Title" Text="Custom Fields" Margin="0 0 0 5" />
+			<Button Command="{Binding BackButton}" Classes="ThemeSecondary" ToolTip.Tip="Back to Global Settings" HorizontalAlignment="Right">
+				<PathIcon Data="{StaticResource arrow_left_regular}" Foreground="{DynamicResource AccentButtonForeground}" />
+			</Button>
+		</Panel>
+
+		<Panel x:Name="MainPanelLeftCol" Grid.Row="1" Grid.Column="0" Margin="0 0 5 0">
+			<StackPanel Spacing="15">
+
+				<StackPanel Classes="ControlGroup">
+					<TextBlock Text="Custom Field 1" Classes="Label" />
+					<TextBox x:Name="Custom1" Text="{Binding CustomField1}" Watermark="Custom Field Name" />
+				</StackPanel>
+
+				<StackPanel Classes="ControlGroup">
+					<TextBlock Text="Custom Field 2" Classes="Label" />
+					<TextBox x:Name="Custom2" Text="{Binding CustomField2}" Watermark="Custom Field Name" />
+				</StackPanel>
+
+				<StackPanel Classes="ControlGroup">
+					<TextBlock Text="Custom Field 3" Classes="Label" />
+					<TextBox x:Name="Custom3" Text="{Binding CustomField3}" Watermark="Custom Field Name" />
+				</StackPanel>
+
+			</StackPanel>
+		</Panel>
+
+		<Panel x:Name="MainPanelRightCol" Grid.Row="1" Grid.Column="1" Margin="5 0 0 0">
+			<StackPanel Spacing="15">
+
+				<StackPanel Classes="ControlGroup">
+					<TextBlock Text="Custom Field 4" Classes="Label" />
+					<TextBox x:Name="Custom4" Text="{Binding CustomField4}" Watermark="Custom Field Name" />
+				</StackPanel>
+
+				<StackPanel Classes="ControlGroup">
+					<TextBlock Text="Custom Field 5" Classes="Label" />
+					<TextBox x:Name="Custom5" Text="{Binding CustomField5}" Watermark="Custom Field Name" />
+				</StackPanel>
+
+			</StackPanel>
+		</Panel>
+
+		<Panel x:Name="BottomPanel" Height="40" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Width="{Binding #PrimaryGrid.Bounds.Width}">
+			<TextBlock TextWrapping="Wrap" HorizontalAlignment="Left" Margin="0,-15,0,0" MaxWidth="{Binding #BottomPanel.Bounds.Width, Converter={StaticResource MathConverter}, ConverterParameter=@VALUE-178}">
+Any enabled custom fields will add data into the ITG Notes when filled.
+Leave the field name empty to disable the custom field.
+			</TextBlock>
+
+			<StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Spacing="10">
+				<Button HorizontalAlignment="Right" Command="{Binding SaveCustomFields}" IsEnabled="{Binding Saveable}" Classes="ThemePrimary" Content="Save Changes" />
+			</StackPanel>
+		</Panel>
+		
+	</Grid>
+	
+</UserControl>

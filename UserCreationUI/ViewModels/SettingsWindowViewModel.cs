@@ -85,6 +85,9 @@ namespace UserCreationUI.ViewModels
                 case "SoftwareSettings":
                     Router.Navigate.Execute(new SoftwareSettingsViewModel(this));
                     break;
+                case "CustomFields":
+                    Router.Navigate.Execute(new CustomFieldsViewModel(this));
+                    break;
                 default:
                     break;
             }

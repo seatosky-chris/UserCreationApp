@@ -107,7 +107,7 @@ Example: "[First].[Last]"  (will make "John.Smith")
 						<Button Content="Edit" x:Name="DepartmentDefaultsBtn" Classes="SmallTextBtn" Command="{Binding $parent[Window].DataContext.GoEditView}" CommandParameter="DepartmentDefaults" />
 						<Button Content="Edit" x:Name="ADFolderLocationsBtn" Classes="SmallTextBtn" Command="{Binding $parent[Window].DataContext.GoEditView}" CommandParameter="ADFolderLocations" />
 						<Button Content="Edit" x:Name="SoftwareSettingsBtn" Classes="SmallTextBtn" Command="{Binding $parent[Window].DataContext.GoEditView}" CommandParameter="SoftwareSettings" />
-						<Button Content="Edit" Classes="SmallTextBtn" />
+						<Button Content="Edit" x:Name="CustomFieldsBtn" Classes="SmallTextBtn" Command="{Binding $parent[Window].DataContext.GoEditView}" CommandParameter="CustomFields" />
 					</StackPanel>
 				</Grid>
 
