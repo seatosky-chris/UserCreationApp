@@ -8,12 +8,13 @@ using System.Collections.Generic;
 using System.Reflection;
 using UserAppSharedLibrary;
 using UserCreationLibrary;
+using UserCreationUI.Models.ExtendedModels;
 
 namespace UserCreationUI
 {
     class Program
     {
-        public static CompanyConfigurationModel GlobalConfig;
+        public static CompanyConfigurationModelExtended GlobalConfig;
 
         // Initialization code. Don't use any Avalonia, third-party APIs or any
         // SynchronizationContext-reliant code before AppMain is called: things aren't initialized
@@ -39,7 +40,7 @@ namespace UserCreationUI
         private static void LoadGlobalConfig()
         {
             // TODO: Load from DB, currently all static test data
-            GlobalConfig = new CompanyConfigurationModel
+            GlobalConfig = new CompanyConfigurationModelExtended
             {
                 UsernameFormat = "[First].[Last]",
                 ExchangeServerFQDN = "",
@@ -51,7 +52,7 @@ namespace UserCreationUI
             };
 
             // Email formats test data
-            GlobalConfig.EmailFormats.Add(new EmailDefaultModel
+            GlobalConfig.EmailFormats.Add(new EmailDefaultModelExtended
             {
                 Id = "1",
                 Priority = 1,
@@ -59,7 +60,7 @@ namespace UserCreationUI
                 Domain = "canmine.ca",
                 Locations = new List<int> { 0 }
             });
-            GlobalConfig.EmailFormats.Add(new EmailDefaultModel
+            GlobalConfig.EmailFormats.Add(new EmailDefaultModelExtended
             {
                 Id = "2",
                 Priority = 1,
@@ -67,7 +68,7 @@ namespace UserCreationUI
                 Domain = "highstandard.ca",
                 Locations = new List<int> { 1 }
             });
-            GlobalConfig.EmailFormats.Add(new EmailDefaultModel
+            GlobalConfig.EmailFormats.Add(new EmailDefaultModelExtended
             {
                 Id = "3",
                 Priority = 1,
@@ -75,7 +76,7 @@ namespace UserCreationUI
                 Domain = "pinnacledrilling.ca",
                 Locations = new List<int> { 3 }
             });
-            GlobalConfig.EmailFormats.Add(new EmailDefaultModel
+            GlobalConfig.EmailFormats.Add(new EmailDefaultModelExtended
             {
                 Id = "4",
                 Priority = 1,
