@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 
-namespace UserCreationUI.Utilities
+namespace UserCreationUI.Converters.Utilities
 {
     public class RadioButtonCheckedConverter : IValueConverter
     {

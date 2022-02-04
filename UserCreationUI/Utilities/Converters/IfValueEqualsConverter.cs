@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UserCreationUI.Utilities
+namespace UserCreationUI.Converters.Utilities
 {
     public class IfValueEqualsConverter : IValueConverter
     {

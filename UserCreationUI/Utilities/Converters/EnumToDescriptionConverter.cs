@@ -3,7 +3,7 @@ using System;
 using System.Linq;
 using System.Runtime.Serialization;
 
-namespace UserCreationUI.Utilities
+namespace UserCreationUI.Converters.Utilities
 {
     public class EnumToDescriptionConverter : IValueConverter
     {

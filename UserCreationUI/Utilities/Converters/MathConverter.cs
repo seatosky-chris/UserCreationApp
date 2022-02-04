@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 
-namespace UserCreationUI.Utilities
+namespace UserCreationUI.Converters.Utilities
 {
     /// <summary>
     /// A value converter which can perform basic math operations />

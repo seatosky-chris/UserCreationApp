@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UserCreationUI.Utilities
+namespace UserCreationUI.Converters.Utilities
 {
     /// <summary>
     /// A value converter which can convert multiple radio buttons into relative int values />
