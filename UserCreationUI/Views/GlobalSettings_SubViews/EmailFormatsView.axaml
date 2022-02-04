@@ -21,7 +21,7 @@
 					<ListBox.ItemTemplate>
 						<DataTemplate>
 							<DockPanel>
-								<TextBlock Text="{Binding}" ToolTip.Tip="{Binding}" DockPanel.Dock="Left" />
+								<TextBlock Text="{Binding FriendlyName}" ToolTip.Tip="{Binding FriendlyName}" DockPanel.Dock="Left" />
 								<Button Click="DeleteListItem" DockPanel.Dock="Right">
 									<PathIcon Data="{StaticResource delete_regular}" />
 								</Button>
@@ -58,18 +58,32 @@ Then choose the Locations and/or Employee Types to apply this format to. If Loca
 
 			<StackPanel Classes="ControlGroup">
 				<TextBlock Text="Locations" Classes="Label" />
-				<ListBox x:Name="LocationSelect" SelectionMode="Multiple,Toggle" Items="{Binding Locations}" Selection="{Binding SelectedLocations}" Height="140" />
+				<ListBox x:Name="LocationSelect" SelectionMode="Multiple,Toggle" Items="{Binding Locations}" Selection="{Binding SelectedLocations}" Height="140">
+					<ListBox.ItemTemplate>
+						<DataTemplate>
+							<TextBlock Text="{Binding Value}" ToolTip.Tip="{Binding Value}" />
+						</DataTemplate>
+					</ListBox.ItemTemplate>
+				</ListBox>
 			</StackPanel>
 			<StackPanel Classes="ControlGroup">
 				<TextBlock Text="Employee Type" Classes="Label" />
-				<ListBox x:Name="EmployeeTypeSelect" SelectionMode="Multiple,Toggle" Items="{Binding EmployeeTypes}" Selection="{Binding SelectedEmployeeTypes}" Height="140" />
+				<ListBox x:Name="EmployeeTypeSelect" SelectionMode="Multiple,Toggle" Items="{Binding EmployeeTypes}" Selection="{Binding SelectedEmployeeTypes}" Height="140">
+					<ListBox.ItemTemplate>
+						<DataTemplate>
+							<TextBlock Text="{Binding Value}" ToolTip.Tip="{Binding Value}" />
+						</DataTemplate>
+					</ListBox.ItemTemplate>
+				</ListBox>
 			</StackPanel>
 		</StackPanel>
 
 		<Panel x:Name="BottomPanel" Height="40" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Width="{Binding #PrimaryGrid.Bounds.Width}">
 			<StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Spacing="10">
-				<Button HorizontalAlignment="Right" Command="{Binding SaveFormats}" IsEnabled="{Binding Saveable}" Classes="ThemePrimary" Content="Save Changes" />
+				<Button HorizontalAlignment="Right" Command="{Binding SaveFormats}" IsEnabled="{Binding Saveable}" Classes="ThemePrimary" Content="Save Changes" Margin="0 0 10 0" />
 				<Button HorizontalAlignment="Right" IsDefault="True" Command="{Binding AddFormat}" IsEnabled="{Binding AddNewPrimary, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" Classes="AccentGreen" Content="Add" />
+				<Button HorizontalAlignment="Stretch" Command="{Binding EditFormat}" IsVisible="{Binding EditID, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" Classes="AccentLightGreen TextCenterButton" Content="Edit" />
+				<Button HorizontalAlignment="Stretch" Command="{Binding CancelEditFormat}" IsVisible="{Binding EditID, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" Classes="AccentRed TextCenterButton" Content="Cancel Edit" />
 			</StackPanel>
 		</Panel>
 
