@@ -68,6 +68,7 @@ namespace UserCreationUI.GlobalSettings.ViewModels
         private void ClearForm()
         {
             AddNewPrimary = "";
+            DataGridSelection = -1;
             SelectedLocations.Clear();
         }
 
@@ -82,9 +83,11 @@ namespace UserCreationUI.GlobalSettings.ViewModels
             // Load format details
             CompanyDefaultModelExtended SelectedCompany = (CompanyDefaultModelExtended)row.DataContext;
             EditID = SelectedCompany.Id;
+            int? SelectedIndex = CurrentPrimarySelected;
 
             ClearForm();
 
+            CurrentPrimarySelected = SelectedIndex;
             AddNewPrimary = SelectedCompany.Company;
 
             foreach (var LocIndex in SelectedCompany.Locations)

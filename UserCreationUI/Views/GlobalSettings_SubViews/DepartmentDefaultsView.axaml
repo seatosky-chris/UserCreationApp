@@ -17,7 +17,7 @@
 		<Panel x:Name="MainPanelLeftCol" Grid.Row="1" Grid.Column="0">
 			<StackPanel Spacing="15" Margin="5,0,20,0">
 				<TextBlock Text="Current Formats" Classes="Label BodyStrong" />
-				<ListBox x:Name="CurrentDepartmentsListBox" Items="{Binding CurrentDepartments}" SelectedItem="{Binding CurrentPrimarySelected}" Classes="ListWithDelete" MinHeight="152" MaxHeight="266">
+				<ListBox x:Name="CurrentDepartmentsListBox" Items="{Binding CurrentDepartments}" SelectedIndex="{Binding CurrentPrimarySelected}" Classes="ListWithDelete" MinHeight="152" MaxHeight="266">
 					<ListBox.ItemTemplate>
 						<DataTemplate>
 							<DockPanel>

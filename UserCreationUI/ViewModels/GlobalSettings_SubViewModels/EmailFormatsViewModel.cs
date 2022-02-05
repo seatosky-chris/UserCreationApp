@@ -75,6 +75,7 @@ namespace UserCreationUI.GlobalSettings.ViewModels
         private void ClearForm()
         {
             AddNewPrimary = "";
+            CurrentPrimarySelected = -1;
             SelectedDomain = 0;
             SelectedLocations.Clear();
             SelectedEmployeeTypes.Clear();
@@ -103,9 +104,11 @@ namespace UserCreationUI.GlobalSettings.ViewModels
             // Load format details
             EmailDefaultModelExtended SelectedFormat = (EmailDefaultModelExtended)row.DataContext;
             EditID = SelectedFormat.Id;
+            int? SelectedIndex = CurrentPrimarySelected;
 
             ClearForm();
 
+            CurrentPrimarySelected = SelectedIndex;
             AddNewPrimary = SelectedFormat.EmailFormat;
             SelectedDomain = Domains.IndexOf(SelectedFormat.Domain);
 

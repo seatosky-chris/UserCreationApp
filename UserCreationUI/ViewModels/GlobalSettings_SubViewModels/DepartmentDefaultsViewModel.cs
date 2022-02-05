@@ -68,6 +68,7 @@ namespace UserCreationUI.GlobalSettings.ViewModels
         private void ClearForm()
         {
             AddNewPrimary = "";
+            CurrentPrimarySelected = -1;
             SelectedLocations.Clear();
         }
 
@@ -82,9 +83,11 @@ namespace UserCreationUI.GlobalSettings.ViewModels
             // Load format details
             DepartmentDefaultModelExtended SelectedDepartment = (DepartmentDefaultModelExtended)row.DataContext;
             EditID = SelectedDepartment.Id;
+            int? SelectedIndex = CurrentPrimarySelected;
 
             ClearForm();
 
+            CurrentPrimarySelected = SelectedIndex;
             AddNewPrimary = SelectedDepartment.Department;
 
             foreach (var LocIndex in SelectedDepartment.Locations)

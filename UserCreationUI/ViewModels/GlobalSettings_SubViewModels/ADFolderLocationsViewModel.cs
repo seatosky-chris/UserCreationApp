@@ -77,6 +77,7 @@ namespace UserCreationUI.GlobalSettings.ViewModels
         {
             AddNewPrimary = "";
             AddNewSecondary = "";
+            CurrentPrimarySelected = -1;
             IncludeSubfolders = false;
             SelectedLocations.Clear();
         }
@@ -92,9 +93,11 @@ namespace UserCreationUI.GlobalSettings.ViewModels
             // Load format details
             ADFolderDefaultModelExtended SelectedFolder = (ADFolderDefaultModelExtended)row.DataContext;
             EditID = SelectedFolder.Id;
+            int? SelectedIndex = CurrentPrimarySelected;
 
             ClearForm();
 
+            CurrentPrimarySelected = SelectedIndex;
             AddNewPrimary = SelectedFolder.FolderName;
             AddNewSecondary = SelectedFolder.FolderLocation;
             IncludeSubfolders = SelectedFolder.IncludeSubfolders;

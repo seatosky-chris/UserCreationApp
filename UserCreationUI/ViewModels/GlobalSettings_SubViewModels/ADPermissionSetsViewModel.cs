@@ -85,7 +85,7 @@ namespace UserCreationUI.GlobalSettings.ViewModels
         private void ClearForm()
         {
             AddNewPrimary = "";
-            CurrentPrimarySelected = "";
+            CurrentPrimarySelected = -1;
             DataGridSelection = -1;
             ADPermissions_Selected.Clear();
             SelectedLocations.Clear();
@@ -120,9 +120,11 @@ namespace UserCreationUI.GlobalSettings.ViewModels
             // Load software details
             ADPermissionSetModel SelectedADPermissionSet = (ADPermissionSetModel)row.DataContext;
             EditID = SelectedADPermissionSet.Id;
+            int? SelectedIndex = CurrentPrimarySelected;
 
             ClearForm();
 
+            CurrentPrimarySelected = SelectedIndex;
             AddNewPrimary = SelectedADPermissionSet.Name;
 
             foreach (var TypeIndex in SelectedADPermissionSet.EmployeeTypes)

@@ -94,6 +94,7 @@ namespace UserCreationUI.GlobalSettings.ViewModels
         private void ClearForm()
         {
             AddNewPrimary = "";
+            CurrentPrimarySelected = -1;
             DataGridSelection = -1;
             O365Groups_Selected.Clear();
             ADPermissions_Selected.Clear();
@@ -136,11 +137,12 @@ namespace UserCreationUI.GlobalSettings.ViewModels
             // Load software details
             SoftwareModel SelectedSoftware = (SoftwareModel)row.DataContext;
             EditID = SelectedSoftware.Id;
-            AddNewPrimary = SelectedSoftware.Name;
+            int? SelectedIndex = CurrentPrimarySelected;
 
-            O365Groups_Selected.Clear();
-            ADPermissions_Selected.Clear();
-            O365Licenses_Selected.Clear();
+            ClearForm();
+
+            CurrentPrimarySelected = SelectedIndex;
+            AddNewPrimary = SelectedSoftware.Name;
 
             foreach (ADPermissionModel Permission in SelectedSoftware.Permissions)
             {

@@ -18,7 +18,7 @@
 			<StackPanel Spacing="15" Margin="5,0,20,0">
 				<StackPanel Classes="ControlGroup">
 					<TextBlock Text="Current Software" Classes="Label BodyStrong" />
-					<ListBox x:Name="CurrentSoftwareListBox" Items="{Binding CurrentSoftware}" SelectedItem="{Binding CurrentPrimarySelected}" Classes="ListWithDelete" Height="210" MaxHeight="{Binding #MainPanelLeftCol.Bounds.Height, Converter={StaticResource MathConverter}, ConverterParameter=(@VALUE-64)*0.6}">
+					<ListBox x:Name="CurrentSoftwareListBox" Items="{Binding CurrentSoftware}" SelectedIndex="{Binding CurrentPrimarySelected}" Classes="ListWithDelete" Height="210" MaxHeight="{Binding #MainPanelLeftCol.Bounds.Height, Converter={StaticResource MathConverter}, ConverterParameter=(@VALUE-64)*0.6}">
 						<ListBox.ItemTemplate>
 							<DataTemplate>
 								<DockPanel>
