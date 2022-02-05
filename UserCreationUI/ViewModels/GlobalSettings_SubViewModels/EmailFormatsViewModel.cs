@@ -101,20 +101,20 @@ namespace UserCreationUI.GlobalSettings.ViewModels
         public void CurrentFormat_DoubleClick(ListBoxItem row)
         {
             // Load format details
-            EmailDefaultModelExtended CurrentFormat = (EmailDefaultModelExtended)row.DataContext;
-            EditID = CurrentFormat.Id;
+            EmailDefaultModelExtended SelectedFormat = (EmailDefaultModelExtended)row.DataContext;
+            EditID = SelectedFormat.Id;
 
             ClearForm();
 
-            AddNewPrimary = CurrentFormat.EmailFormat;
-            SelectedDomain = Domains.IndexOf(CurrentFormat.Domain);
+            AddNewPrimary = SelectedFormat.EmailFormat;
+            SelectedDomain = Domains.IndexOf(SelectedFormat.Domain);
 
-            foreach (var TypeIndex in CurrentFormat.EmployeeTypes)
+            foreach (var TypeIndex in SelectedFormat.EmployeeTypes)
             {
                 SelectedEmployeeTypes.Select(TypeIndex);
             }
 
-            foreach (var LocIndex in CurrentFormat.Locations)
+            foreach (var LocIndex in SelectedFormat.Locations)
             {
                 SelectedLocations.Select(LocIndex);
             }

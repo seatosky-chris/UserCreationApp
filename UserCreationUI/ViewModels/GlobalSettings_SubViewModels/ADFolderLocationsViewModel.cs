@@ -90,16 +90,16 @@ namespace UserCreationUI.GlobalSettings.ViewModels
         public void CurrentFolder_DoubleClick(ListBoxItem row)
         {
             // Load format details
-            ADFolderDefaultModelExtended CurrentFolder = (ADFolderDefaultModelExtended)row.DataContext;
-            EditID = CurrentFolder.Id;
+            ADFolderDefaultModelExtended SelectedFolder = (ADFolderDefaultModelExtended)row.DataContext;
+            EditID = SelectedFolder.Id;
 
             ClearForm();
 
-            AddNewPrimary = CurrentFolder.FolderName;
-            AddNewSecondary = CurrentFolder.FolderLocation;
-            IncludeSubfolders = CurrentFolder.IncludeSubfolders;
+            AddNewPrimary = SelectedFolder.FolderName;
+            AddNewSecondary = SelectedFolder.FolderLocation;
+            IncludeSubfolders = SelectedFolder.IncludeSubfolders;
 
-            foreach (var LocIndex in CurrentFolder.Locations)
+            foreach (var LocIndex in SelectedFolder.Locations)
             {
                 SelectedLocations.Select(LocIndex);
             }

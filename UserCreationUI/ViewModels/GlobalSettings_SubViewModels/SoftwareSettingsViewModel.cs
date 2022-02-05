@@ -134,25 +134,25 @@ namespace UserCreationUI.GlobalSettings.ViewModels
         public void CurrentSoftware_DoubleClick(ListBoxItem row)
         {
             // Load software details
-            SoftwareModel CurrentSoftware = (SoftwareModel)row.DataContext;
-            EditID = CurrentSoftware.Id;
-            AddNewPrimary = CurrentSoftware.Name;
+            SoftwareModel SelectedSoftware = (SoftwareModel)row.DataContext;
+            EditID = SelectedSoftware.Id;
+            AddNewPrimary = SelectedSoftware.Name;
 
             O365Groups_Selected.Clear();
             ADPermissions_Selected.Clear();
             O365Licenses_Selected.Clear();
 
-            foreach (ADPermissionModel Permission in CurrentSoftware.Permissions)
+            foreach (ADPermissionModel Permission in SelectedSoftware.Permissions)
             {
                 ADPermissions_Selected.Add(Permission);
             }
 
-            foreach (O365GroupModel Group in CurrentSoftware.O365Groups)
+            foreach (O365GroupModel Group in SelectedSoftware.O365Groups)
             {
                 O365Groups_Selected.Add(Group);
             }
 
-            foreach (O365LicenseModel License in CurrentSoftware.O365Licenses)
+            foreach (O365LicenseModel License in SelectedSoftware.O365Licenses)
             {
                 O365Licenses_Selected.Add(License);
             }

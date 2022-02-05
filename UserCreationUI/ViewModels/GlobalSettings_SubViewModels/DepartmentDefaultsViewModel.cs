@@ -80,14 +80,14 @@ namespace UserCreationUI.GlobalSettings.ViewModels
         public void CurrentDepartment_DoubleClick(ListBoxItem row)
         {
             // Load format details
-            DepartmentDefaultModelExtended CurrentDepartment = (DepartmentDefaultModelExtended)row.DataContext;
-            EditID = CurrentDepartment.Id;
+            DepartmentDefaultModelExtended SelectedDepartment = (DepartmentDefaultModelExtended)row.DataContext;
+            EditID = SelectedDepartment.Id;
 
             ClearForm();
 
-            AddNewPrimary = CurrentDepartment.Department;
+            AddNewPrimary = SelectedDepartment.Department;
 
-            foreach (var LocIndex in CurrentDepartment.Locations)
+            foreach (var LocIndex in SelectedDepartment.Locations)
             {
                 SelectedLocations.Select(LocIndex);
             }

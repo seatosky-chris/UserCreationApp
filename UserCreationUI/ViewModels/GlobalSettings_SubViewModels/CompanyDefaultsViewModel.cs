@@ -80,14 +80,14 @@ namespace UserCreationUI.GlobalSettings.ViewModels
         public void CurrentCompany_DoubleClick(ListBoxItem row)
         {
             // Load format details
-            CompanyDefaultModelExtended CurrentCompany = (CompanyDefaultModelExtended)row.DataContext;
-            EditID = CurrentCompany.Id;
+            CompanyDefaultModelExtended SelectedCompany = (CompanyDefaultModelExtended)row.DataContext;
+            EditID = SelectedCompany.Id;
 
             ClearForm();
 
-            AddNewPrimary = CurrentCompany.Company;
+            AddNewPrimary = SelectedCompany.Company;
 
-            foreach (var LocIndex in CurrentCompany.Locations)
+            foreach (var LocIndex in SelectedCompany.Locations)
             {
                 SelectedLocations.Select(LocIndex);
             }
