@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reactive;
 using System.Runtime.InteropServices;
 using UserAppSharedLibrary;
+using static UserCreationUI.Utilities.UIFunctions;
 
 namespace UserCreationUI.GlobalSettings.ViewModels
 {
@@ -114,38 +115,14 @@ namespace UserCreationUI.GlobalSettings.ViewModels
             HostScreen.Router.NavigateBack.Execute(Unit.Default);
         }
 
-        public void OpenUrl(string url)
-        {
-            try
-            {
-                Process.Start(url);
-            }
-            catch
-            {
-                // hack because of this: https://github.com/dotnet/corefx/issues/10361
-                if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-                {
-                    url = url.Replace("&", "^&");
-                    Process.Start(new ProcessStartInfo("cmd", $"/c start {url}") { CreateNoWindow = true });
-                }
-                else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-                {
-                    Process.Start("xdg-open", url);
-                }
-                else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
-                {
-                    Process.Start("open", url);
-                }
-                else
-                {
-                    throw;
-                }
-            }
-        }
-
         public void BackButton()
         {
             HostScreen.Router.NavigateBack.Execute(Unit.Default);
+        }
+
+        public void OpenUrl(string url)
+        {
+            _openUrl(url);
         }
     }
 }

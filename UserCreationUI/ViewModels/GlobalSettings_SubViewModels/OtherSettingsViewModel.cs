@@ -10,6 +10,7 @@ using System.Reactive;
 using System.Text;
 using System.Threading.Tasks;
 using UserCreationUI.GlobalSettings.Views;
+using static UserCreationUI.Utilities.UIFunctions;
 
 namespace UserCreationUI.GlobalSettings.ViewModels
 {
@@ -92,5 +93,9 @@ namespace UserCreationUI.GlobalSettings.ViewModels
             HostScreen.Router.NavigateBack.Execute(Unit.Default);
         }
 
+        public void OpenUrl(string url)
+        {
+            _openUrl(url);
+        }
     }
 }

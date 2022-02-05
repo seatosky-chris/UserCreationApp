@@ -1,4 +1,5 @@
 using Avalonia;
+using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using Avalonia.ReactiveUI;
 using ReactiveUI;
@@ -16,15 +17,15 @@ namespace UserCreationUI.GlobalSettings.Views
         public APICredentialsView()
         {
             InitializeComponent();
-
-            // On load, resize window
-            this.AttachedToVisualTree += new System.EventHandler<VisualTreeAttachmentEventArgs>(ResizeWindow);
         }
 
         private void InitializeComponent()
         {
             this.WhenActivated(disposables => { });
             AvaloniaXamlLoader.Load(this);
+
+            // On load, resize window
+            this.AttachedToVisualTree += new System.EventHandler<VisualTreeAttachmentEventArgs>(ResizeWindow);
         }
 
         public void ResizeWindow(object sender, System.EventArgs e)
