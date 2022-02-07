@@ -60,15 +60,15 @@ Example: "[First].[Last]"  (will make "John.Smith")
 					</WrapPanel>
 					<WrapPanel Orientation="Horizontal" x:Name="AzureO365APIIndicatorBlock" Margin="0,0,0,8">
 						<TextBlock Margin="0,0,10,0" Text="Azure / O365 API:" />
-						<TextBlock x:Name="AzureO365APIIndicator" Text="Not Set" Classes="BodyStrong AccentRedForeground" />
+						<TextBlock x:Name="AzureO365APIIndicator" Text="{Binding AzureO365APIIndicator}" Classes="BodyStrong" Classes.AccentLightGreenForeground="{Binding AzureO365APIIndicatorClass}" Classes.AccentRedForeground="{Binding !AzureO365APIIndicatorClass}" />
 					</WrapPanel>
 					<WrapPanel Orientation="Horizontal" x:Name="ITGAPIIndicatorBlock" Margin="0,0,0,8">
 						<TextBlock Margin="0,0,10,0">ITG API:</TextBlock>
-						<TextBlock x:Name="ITGAPIIndicator" Text="Set" Classes="BodyStrong AccentLightGreenForeground" />
+						<TextBlock x:Name="ITGAPIIndicator" Text="{Binding ITGAPIIndicator}" Classes="BodyStrong" Classes.AccentLightGreenForeground="{Binding ITGAPIIndicatorClass}" Classes.AccentRedForeground="{Binding !ITGAPIIndicatorClass}" />
 					</WrapPanel>
 					<WrapPanel Orientation="Horizontal" x:Name="EmailForwarderAPIIIndicatorBlock" Margin="0,0,0,8">
 						<TextBlock Margin="0,0,10,0">Email Forwarder:</TextBlock>
-						<TextBlock x:Name="EmailForwarderAPIIIndicator" Text="Not Set" Classes="BodyStrong AccentRedForeground" />
+						<TextBlock x:Name="EmailForwarderAPIIIndicator" Text="{Binding EmailForwarderAPIIIndicator}" Classes="BodyStrong" Classes.AccentLightGreenForeground="{Binding EmailForwarderAPIIIndicatorClass}" Classes.AccentRedForeground="{Binding !EmailForwarderAPIIIndicatorClass}" />
 					</WrapPanel>
 				</StackPanel>
 			</StackPanel>

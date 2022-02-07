@@ -119,6 +119,73 @@ namespace UserCreationUI.GlobalSettings.ViewModels
             get => Program.GlobalConfig.ADPermissionSets.Count;
         }
 
+        public string AzureO365APIIndicator
+        {
+            get => IsAzureO365APISet() ? "Set" : "Not Set";
+        }
+        public string ITGAPIIndicator
+        {
+            get => IsITGAPISet() ? "Set" : "Not Set";
+        }
+        public string EmailForwarderAPIIIndicator
+        {
+            get => IsEmailForwarderAPISet() ? "Set" : "Not Set";
+        }
+
+        public bool AzureO365APIIndicatorClass
+        {
+            get => IsAzureO365APISet() ? true : false;
+        }
+        public bool ITGAPIIndicatorClass
+        {
+            get => IsITGAPISet() ? true : false;
+        }
+        public bool EmailForwarderAPIIIndicatorClass
+        {
+            get => IsEmailForwarderAPISet() ? true : false;
+        }
+
+        public bool IsAzureO365APISet()
+        {
+            if (String.IsNullOrWhiteSpace(Program.GlobalConfig.APICredentials.EmailUsername) ||
+                String.IsNullOrWhiteSpace(Program.GlobalConfig.APICredentials.AppID) ||
+                String.IsNullOrWhiteSpace(Program.GlobalConfig.APICredentials.TenantID) ||
+                String.IsNullOrWhiteSpace(Program.GlobalConfig.APICredentials.Organization) ||
+                String.IsNullOrWhiteSpace(Program.GlobalConfig.APICredentials.CertificateThumbprint))
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+        public bool IsITGAPISet()
+        {
+            if (Program.GlobalConfig.APICredentials.ITGCompanyID < 1 ||
+                String.IsNullOrWhiteSpace(Program.GlobalConfig.APICredentials.ITGURL) ||
+                String.IsNullOrWhiteSpace(Program.GlobalConfig.APICredentials.ITGKey))
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+        public bool IsEmailForwarderAPISet()
+        {
+            if (String.IsNullOrWhiteSpace(Program.GlobalConfig.APICredentials.EmailForwarderURL) ||
+                String.IsNullOrWhiteSpace(Program.GlobalConfig.APICredentials.EmailForwarderKey))
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
 
         public void SaveGlobalSettings()
         {
