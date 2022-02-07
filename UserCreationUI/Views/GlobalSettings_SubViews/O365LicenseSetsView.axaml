@@ -1,0 +1,125 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="850" d:DesignHeight="940"
+             x:Class="UserCreationUI.GlobalSettings.Views.O365LicenseSetsView">
+
+	<Grid x:Name="PrimaryGrid" ColumnDefinitions="*, *, Auto" RowDefinitions="Auto, *, *" Margin="15 15 15 10" Width="{Binding $parent.Bounds.Width, Converter={StaticResource MathConverter}, ConverterParameter=@VALUE-30}">
+
+		<Panel x:Name="TopPanel" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Margin="0 0 0 15">
+			<TextBlock Classes="Title" Text="O365 License Sets" Margin="0 0 0 5" />
+			<Button Command="{Binding BackButton}" Classes="ThemeSecondary" ToolTip.Tip="Back to Global Settings" HorizontalAlignment="Right">
+				<PathIcon Data="{StaticResource arrow_left_regular}" Foreground="{DynamicResource AccentButtonForeground}" />
+			</Button>
+		</Panel>
+
+		<Panel x:Name="MainPanelLeftCol" Grid.Row="1" Grid.Column="0">
+			<StackPanel Spacing="15" Margin="5,0,20,0">
+				<StackPanel Classes="ControlGroup">
+					<TextBlock Text="Current License Sets" Classes="Label BodyStrong" />
+					<ListBox x:Name="CurrentLicenseSetsListBox" Items="{Binding CurrentLicenseSets}" SelectedIndex="{Binding CurrentPrimarySelected}" Classes="ListWithDelete" Height="210" MaxHeight="{Binding #MainPanelLeftCol.Bounds.Height, Converter={StaticResource MathConverter}, ConverterParameter=(@VALUE-64)*0.6}">
+						<ListBox.ItemTemplate>
+							<DataTemplate>
+								<DockPanel>
+									<TextBlock Text="{Binding Name}" ToolTip.Tip="{Binding Name}" DockPanel.Dock="Left" />
+									<Button Click="DeleteListItem" DockPanel.Dock="Right">
+										<PathIcon Data="{StaticResource delete_regular}" />
+									</Button>
+								</DockPanel>
+							</DataTemplate>
+						</ListBox.ItemTemplate>
+					</ListBox>
+				</StackPanel>
+
+				<StackPanel Classes="ControlGroup">
+					<TextBlock Text="Selected Licenses" Classes="Label" />
+					<ListBox x:Name="O365LicensesListBox" Items="{Binding O365Licenses_Selected}" Classes="ListWithDelete" Height="140" MaxHeight="{Binding #MainPanelLeftCol.Bounds.Height, Converter={StaticResource MathConverter}, ConverterParameter=(@VALUE-64)*0.4}">
+						<ListBox.ItemTemplate>
+							<DataTemplate>
+								<DockPanel>
+									<TextBlock Text="{Binding Name}" ToolTip.Tip="{Binding Name}" DockPanel.Dock="Left" />
+									<Button Click="DeleteListItem" DockPanel.Dock="Right">
+										<PathIcon Data="{StaticResource delete_regular}" />
+									</Button>
+								</DockPanel>
+							</DataTemplate>
+						</ListBox.ItemTemplate>
+					</ListBox>
+				</StackPanel>
+			</StackPanel>
+		</Panel>
+
+		<Panel x:Name="MainPanelMiddleCol" Grid.Row="1" Grid.Column="1">
+			<StackPanel  Spacing="10" Margin="0,0,20,0">
+				<StackPanel Classes="ControlGroup">
+					<TextBlock Text="License Set Name" Classes="Label" />
+					<TextBox x:Name="NewLicenseSetName" Text="{Binding AddNewPrimary}" Watermark="Set Name" />
+				</StackPanel>
+
+				<StackPanel Classes="ControlGroup">
+					<TextBlock Text="Locations" Classes="Label" />
+					<ListBox x:Name="LocationSelect" SelectionMode="Multiple,Toggle" Items="{Binding Locations}" Selection="{Binding SelectedLocations}" Height="140" MaxHeight="{Binding #MainPanelLeftCol.Bounds.Height, Converter={StaticResource MathConverter}, ConverterParameter=(@VALUE-128)/2}">
+						<ListBox.ItemTemplate>
+							<DataTemplate>
+								<TextBlock Text="{Binding Value}" ToolTip.Tip="{Binding Value}" />
+							</DataTemplate>
+						</ListBox.ItemTemplate>
+					</ListBox>
+				</StackPanel>
+
+				<StackPanel Classes="ControlGroup">
+					<TextBlock Text="Employee Type" Classes="Label" />
+					<ListBox x:Name="EmployeeTypeSelect" SelectionMode="Multiple,Toggle" Items="{Binding EmployeeTypes}" Selection="{Binding SelectedEmployeeTypes}" Height="140" MaxHeight="{Binding #MainPanelLeftCol.Bounds.Height, Converter={StaticResource MathConverter}, ConverterParameter=(@VALUE-128)/2}">
+						<ListBox.ItemTemplate>
+							<DataTemplate>
+								<TextBlock Text="{Binding Value}" ToolTip.Tip="{Binding Value}" />
+							</DataTemplate>
+						</ListBox.ItemTemplate>
+					</ListBox>
+				</StackPanel>
+
+			</StackPanel>
+		</Panel>
+
+		<StackPanel x:Name="MainPanelRightCol" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Right" Orientation="Vertical" Spacing="10" Margin="0 30 0 0">
+			<Button HorizontalAlignment="Stretch" IsDefault="True" Command="{Binding AddLicenseSet}" IsEnabled="{Binding AddNewPrimary, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" Classes="AccentGreen TextCenterButton" Content="Add" />
+			<Button HorizontalAlignment="Stretch" Command="{Binding EditLicenseSet}" IsVisible="{Binding EditID, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" Classes="AccentLightGreen TextCenterButton" Content="Edit" />
+			<Button HorizontalAlignment="Stretch" Command="{Binding CancelEditLicenseSet}" IsVisible="{Binding EditID, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" Classes="AccentRed TextCenterButton" Content="Cancel Edit" />
+			<Button HorizontalAlignment="Right" Command="{Binding SaveLicenseSets}" IsEnabled="{Binding Saveable}" Classes="ThemePrimary TextCenterButton" Content="Save Changes" Margin="0, 10, 0, 0" />
+		</StackPanel>
+
+		<Panel x:Name="BottomPanel" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Width="{Binding #PrimaryGrid.Bounds.Width}">
+			<Border Classes="ThemeLightBorder" BorderDashArray="3,3" BorderThickness="2" Padding="4" Margin="5,10,5,5">
+
+				<Grid ColumnDefinitions="*, Auto" RowDefinitions="*">
+					<StackPanel Classes="ControlGroup" Grid.Column="0" Grid.Row="0">
+						<StackPanel Orientation="Horizontal">
+							<TextBlock Text="Select O365 Licenses to Add" Classes="Label BodyStrong" />
+							<TextBlock Text="(double-click to add)" Margin="10,10,0,5" Classes="Label Caption" />
+						</StackPanel>
+
+						<Panel>
+							<DataGrid Name="O365LicensesDataGrid" Items="{Binding O365Licenses_All}" SelectedIndex="{Binding DataGridSelection}" Height="{Binding $parent[StackPanel].Bounds.Height, Converter={StaticResource MathConverter}, ConverterParameter=@VALUE-32}" BorderBrush="#ffb3b0ad" BorderThickness="2" AutoGenerateColumns="False" CanUserReorderColumns="True" CanUserResizeColumns="True" CanUserSortColumns="True" IsReadOnly="True">
+								<DataGrid.Columns>
+									<DataGridTextColumn Header="License Name" Binding="{Binding Name}" />
+								</DataGrid.Columns>
+							</DataGrid>
+						</Panel>
+					</StackPanel>
+
+					<Panel Width="{Binding $parent[Grid].Bounds.Width, Converter={StaticResource MathConverter}, ConverterParameter=@VALUE*0.3}" Grid.Column="1" Grid.Row="0">
+						<TextBlock TextWrapping="Wrap" Margin="10,32,5,0">
+Choose the Locations and/or Employee Types to apply these licenses to by default.
+
+If both Locations and Employee Types are set, it will filter by both, applying the licenses to Employee Types within the selected Locations.
+						</TextBlock>
+					</Panel>
+				</Grid>
+
+			</Border>
+		</Panel>
+
+	</Grid>
+
+</UserControl>

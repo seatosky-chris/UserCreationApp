@@ -123,14 +123,14 @@ Example: "[First].[Last]"  (will make "John.Smith")
 
 					<StackPanel Spacing="10" Grid.Row="1" Grid.Column="1">
 						<TextBlock x:Name="ADPermissionSetsCount" Text="{Binding ADPermissionSetsCount}" />
-						<TextBlock x:Name="O365GroupSetsCount" Text="0" />
-						<TextBlock x:Name="O365LicenseSetsCount" Text="0" />
+						<TextBlock x:Name="O365GroupSetsCount" Text="{Binding O365GroupSetsCount}" />
+						<TextBlock x:Name="O365LicenseSetsCount" Text="{Binding O365LicenseSetsCount}" />
 					</StackPanel>
 
 					<StackPanel Spacing="5" Grid.Row="1" Grid.Column="2" Margin="0,-2,0,0">
 						<Button Content="Edit" x:Name="ADPermissionSetsBtn" Classes="SmallTextBtn" Command="{Binding $parent[Window].DataContext.GoEditView}" CommandParameter="ADPermissionSets" />
-						<Button Content="Edit" Classes="SmallTextBtn" />
-						<Button Content="Edit" Classes="SmallTextBtn" />
+						<Button Content="Edit" x:Name="O365GroupSetsBtn" Classes="SmallTextBtn" Command="{Binding $parent[Window].DataContext.GoEditView}" CommandParameter="O365GroupSets" />
+						<Button Content="Edit" x:Name="O365LicenseSetsBtn" Classes="SmallTextBtn" Command="{Binding $parent[Window].DataContext.GoEditView}" CommandParameter="O365LicenseSets" />
 					</StackPanel>
 				</Grid>
 			</StackPanel>

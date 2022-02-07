@@ -118,6 +118,14 @@ namespace UserCreationUI.GlobalSettings.ViewModels
         {
             get => Program.GlobalConfig.ADPermissionSets.Count;
         }
+        public int O365GroupSetsCount
+        {
+            get => Program.GlobalConfig.O365GroupSets.Count;
+        }
+        public int O365LicenseSetsCount
+        {
+            get => Program.GlobalConfig.O365LicenseSets.Count;
+        }
 
         public string AzureO365APIIndicator
         {

@@ -1,14 +1,9 @@
 ﻿using Avalonia.Controls;
 using ReactiveUI;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Diagnostics;
 using System.Linq;
 using System.Reactive;
-using System.Reflection;
-using System.Runtime.InteropServices;
 using UserCreationLibrary;
 
 namespace UserCreationUI.GlobalSettings.ViewModels
@@ -18,7 +13,6 @@ namespace UserCreationUI.GlobalSettings.ViewModels
         // Unique identifier for the routable view model.
         public new string UrlPathSegment { get; } = "ADPermissionSetsEdit";
 
-        private int _currentSelectionType = 0;
         private string _editID = "";
 
         public ADPermissionSetsViewModel(IScreen screen) : base(screen)
@@ -31,12 +25,6 @@ namespace UserCreationUI.GlobalSettings.ViewModels
         public ObservableCollection<ADPermissionModel> ADPermissions_All { get; } = new ObservableCollection<ADPermissionModel>(Program.GlobalConfig.ADPermissions);
         public ObservableCollection<ADPermissionModel> ADPermissions_Selected { get; } = new();
 
-
-        public int CurrentSelectionType
-        {
-            get => _currentSelectionType;
-            set => this.RaiseAndSetIfChanged(ref _currentSelectionType, value);
-        }
 
         public string EditID
         {

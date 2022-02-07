@@ -91,6 +91,12 @@ namespace UserCreationUI.ViewModels
                 case "ADPermissionSets":
                     Router.Navigate.Execute(new ADPermissionSetsViewModel(this));
                     break;
+                case "O365GroupSets":
+                    Router.Navigate.Execute(new O365GroupSetsViewModel(this));
+                    break;
+                case "O365LicenseSets":
+                    Router.Navigate.Execute(new O365LicenseSetsViewModel(this));
+                    break;
                 default:
                     break;
             }

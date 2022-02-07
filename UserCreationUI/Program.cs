@@ -515,9 +515,57 @@ namespace UserCreationUI
             });
 
             // O365 group sets test data
+            GlobalConfig.O365GroupSets.Add(new O365GroupSetModel
+            {
+                Id = "1",
+                Name = "Pinnacle Drilling",
+                EmployeeTypes = new List<int> { },
+                Locations = new List<int> { 3, 4 },
+                O365Groups = GlobalConfig.O365Groups.FindAll(group => group.Name == "Pinnacle Accounting & Finance" || group.Name == "Pinnacle Drilling Burnaby")
+            });
+            GlobalConfig.O365GroupSets.Add(new O365GroupSetModel
+            {
+                Id = "2",
+                Name = "All Employees",
+                EmployeeTypes = new List<int> { 0, 1 },
+                Locations = new List<int> { },
+                O365Groups = new List<O365GroupModel> { }
+            });
+            GlobalConfig.O365GroupSets.Add(new O365GroupSetModel
+            {
+                Id = "3",
+                Name = "B2W",
+                EmployeeTypes = new List<int> { },
+                Locations = new List<int> { },
+                O365Groups = GlobalConfig.O365Groups.FindAll(group => group.Name == "B2W Support And Operations")
+            });
+            GlobalConfig.O365GroupSets.Add(new O365GroupSetModel
+            {
+                Id = "4",
+                Name = "Hourly Employees",
+                EmployeeTypes = new List<int> { },
+                Locations = new List<int> { },
+                O365Groups = GlobalConfig.O365Groups.FindAll(group => group.Name == "NLL Employees Hourly")
+            });
 
             // O365 license sets test data
-
+            GlobalConfig.O365LicenseSets.Add(new O365LicenseSetModel
+            {
+                Id = "1",
+                Name = "Full Employees",
+                EmployeeTypes = new List<int> { 0, 1 },
+                Locations = new List<int> { },
+                O365Licenses = GlobalConfig.O365Licenses.FindAll(license => license.Name == "MICROSOFT 365 BUSINESS STANDARD" || license.Name == "Project Plan 3")
+            });
+            GlobalConfig.O365LicenseSets.Add(new O365LicenseSetModel
+            {
+                Id = "2",
+                Name = "Email Only",
+                EmployeeTypes = new List<int> { 2 },
+                Locations = new List<int> { },
+                O365Licenses = GlobalConfig.O365Licenses.FindAll(license => license.IDName == "EXCHANGESTANDARD")
+            });
+            
             // Software test data
             GlobalConfig.Software.Add(new SoftwareModel
             {
