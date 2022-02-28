@@ -1,6 +1,8 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.ReactiveUI;
+using Projektanker.Icons.Avalonia;
+using Projektanker.Icons.Avalonia.FontAwesome;
 using ReactiveUI;
 using Splat;
 using System;
@@ -28,11 +30,14 @@ namespace UserCreationUI
         {
             Locator.CurrentMutable.RegisterViewsForViewModels(Assembly.GetExecutingAssembly());
 
+            // Register icon provider(s)
+            IconProvider.Register<FontAwesomeIconProvider>();
+
             // Load config
             LoadGlobalConfig();
 
             return AppBuilder.Configure<App>()
-                  .UsePlatformDetect()
+                  .UsePlatformDetect() 
                   .LogToTrace()
                   .UseReactiveUI();
         }
