@@ -7,6 +7,7 @@ using Avalonia.ReactiveUI;
 using Avalonia.VisualTree;
 using ReactiveUI;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using UserCreationUI.GlobalSettings.ViewModels;
 
@@ -31,6 +32,11 @@ namespace UserCreationUI.GlobalSettings.Views
 
             // On load, resize window
             this.AttachedToVisualTree += new System.EventHandler<VisualTreeAttachmentEventArgs>(ResizeWindow);
+
+            // Setup filter combo box
+            ComboBox TypeFilterComboBox = this.FindControl<ComboBox>("TypeFilterComboBox");
+            TypeFilterComboBox.Items = Program.GlobalConfig.ADPermissions.Select(perm => perm.ITGType).ToList().Distinct();
+            TypeFilterComboBox.PointerPressed += new System.EventHandler<PointerPressedEventArgs>(EventHandled);
 
             // Handle double click on group/license data grid selectors & current software
             ListBox CurrentPermissionSetsListBox = this.FindControl<ListBox>("CurrentPermissionSetsListBox");
@@ -91,5 +97,12 @@ namespace UserCreationUI.GlobalSettings.Views
         {
             SettingsWindowResize.ResizeWindow(this, SWidth, SHeight, SMinWidth, SMinHeight);
         }
+
+        // This functions can be used to stop the event from bubbling upwards
+        private void EventHandled(object? sender, RoutedEventArgs e)
+        {
+            e.Handled = true;
+        }
+
     }
 }

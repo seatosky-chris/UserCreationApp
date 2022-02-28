@@ -1,10 +1,17 @@
-﻿using Avalonia.Controls;
+﻿using Avalonia.Collections;
+using Avalonia.Controls;
+using Avalonia.Interactivity;
+using DynamicData;
 using ReactiveUI;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive;
+using System.Reactive.Linq;
+using System.Reflection;
 using UserCreationLibrary;
+using UserCreationUI.Models.DataGridFilterModels;
 
 namespace UserCreationUI.GlobalSettings.ViewModels
 {
@@ -17,14 +24,18 @@ namespace UserCreationUI.GlobalSettings.ViewModels
 
         public ADPermissionSetsViewModel(IScreen screen) : base(screen)
         {
-
+            this.WhenAnyValue(x => x.ADPermissionsGridFilters.Name, x => x.ADPermissionsGridFilters.ITGType, x => x.ADPermissionsGridFilters.ITGDescription, x => x.ADPermissionsGridFilters.ITGWhoToAddAndApprover)
+                .Throttle(TimeSpan.FromMilliseconds(200))
+                .ObserveOn(RxApp.MainThreadScheduler)
+                .Subscribe(x => DoFilter());
         }
 
         public ObservableCollection<ADPermissionSetModel> CurrentPermissionSets { get; } = new ObservableCollection<ADPermissionSetModel>(Program.GlobalConfig.ADPermissionSets);
 
-        public ObservableCollection<ADPermissionModel> ADPermissions_All { get; } = new ObservableCollection<ADPermissionModel>(Program.GlobalConfig.ADPermissions);
+        //public ObservableCollection<ADPermissionModel> ADPermissions_All { get; } = new ObservableCollection<ADPermissionModel>(Program.GlobalConfig.ADPermissions);
+        public DataGridCollectionView ADPermissions_All { get; } = new DataGridCollectionView(Program.GlobalConfig.ADPermissions);
         public ObservableCollection<ADPermissionModel> ADPermissions_Selected { get; } = new();
-
+        public ADPermissionFiltersModel ADPermissionsGridFilters { get; set; } = new ADPermissionFiltersModel();
 
         public string EditID
         {
@@ -136,6 +147,39 @@ namespace UserCreationUI.GlobalSettings.ViewModels
         {
             ADPermissionModel ADGroup = (ADPermissionModel)row.DataContext;
             ADPermissions_Selected.Add(ADGroup);
+        }
+
+        public bool FilterPermissions(object permission) 
+        {
+            foreach (var filterProp in ADPermissionsGridFilters.GetType().GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.DeclaredOnly)) {
+                var filterVal = filterProp.GetValue(ADPermissionsGridFilters, null);
+                if (filterVal == null || string.IsNullOrWhiteSpace(filterVal.ToString()))
+                {
+                    continue;
+                }
+
+                var curValue = permission.GetType().GetProperty(filterProp.Name);
+                if (curValue == null)
+                {
+                    return false;
+                }
+                var curValString = curValue.GetValue(permission, null);
+                if (curValString == null || curValString.ToString() == null || string.IsNullOrWhiteSpace(curValString.ToString()) || !curValString.ToString().Contains(filterVal.ToString()))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        private async void DoFilter()
+        {
+            if (ADPermissions_All.CanFilter)
+            {
+                ADPermissions_All.Filter = FilterPermissions;
+                ADPermissions_All.Refresh();
+            }
         }
     }
 }

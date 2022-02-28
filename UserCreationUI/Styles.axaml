@@ -1,5 +1,6 @@
 ﻿<Styles xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:i="clr-namespace:Projektanker.Icons.Avalonia;assembly=Projektanker.Icons.Avalonia">
     <Design.PreviewWith>
         <Border Padding="20">
             <!-- Add Controls for Previewer Here -->
@@ -64,5 +65,73 @@
 		<Setter Property="TextBlock.Foreground" Value="{DynamicResource HyperlinkColorPressed}" />
 		<Setter Property="Background" Value="Transparent" />
 	</Style>
+
+	<!-- Filterable DataGrid-->
+	<Style Selector="DataGrid.Filterable Grid.FilteredHeader">
+		<Setter Property="Height" Value="32" />
+	</Style>
+	<Style Selector="DataGrid.Filterable Grid.FilteredHeader > TextBlock">
+		<Setter Property="VerticalAlignment" Value="Center" />
+	</Style>
+
+	<Style Selector="DataGrid.Filterable Grid.FilteredHeader.FilterActive > TextBlock">
+		<Setter Property="VerticalAlignment" Value="Top" />
+	</Style>
+	<Style Selector="DataGrid.Filterable Grid.FilteredHeader > TextBox">
+		<Setter Property="IsVisible" Value="False" />	
+	</Style>
+	<Style Selector="DataGrid.Filterable Grid.FilteredHeader.FilterActive > TextBox">
+		<Setter Property="IsVisible" Value="True" />
+		<Setter Property="VerticalAlignment" Value="Bottom" />
+		<Setter Property="FontSize" Value="12" />
+		<Setter Property="Padding" Value="5,0,5,0" />
+		<Setter Property="Margin" Value="0,15,0,0" />
+		<Setter Property="VerticalContentAlignment" Value="Center" />
+		<Setter Property="MinHeight" Value="16" />
+	</Style>
+	<Style Selector="DataGrid.Filterable Grid.FilteredHeader > ComboBox">
+		<Setter Property="IsVisible" Value="False" />
+	</Style>
+	<Style Selector="DataGrid.Filterable Grid.FilteredHeader.FilterActive > ComboBox">
+		<Setter Property="IsVisible" Value="True" />
+		<Setter Property="VerticalAlignment" Value="Bottom" />
+		<Setter Property="FontSize" Value="12" />
+		<Setter Property="Padding" Value="5,0,5,0" />
+		<Setter Property="Margin" Value="0,15,0,0" />
+		<Setter Property="VerticalContentAlignment" Value="Center" />
+		<Setter Property="MinHeight" Value="16" />
+	</Style>
 	
+	<Style Selector="DataGrid ToggleButton.Filter">
+		<Setter Property="Background" Value="Transparent" />
+		<Setter Property="BorderThickness" Value="0"/>
+		<Setter Property="Padding" Value="4"/>
+		<Setter Property="Height" Value="24" />
+		<Setter Property="HorizontalAlignment" Value="Right" />
+		<Setter Property="TextBlock.Foreground" Value="#99000000" />
+		<Setter Property="PathIcon.Foreground" Value="#99000000" />
+	</Style>
+	<Style Selector="DataGrid ToggleButton.Filter > PathIcon, DataGrid ToggleButton.Filter > i|Icon">
+		<Setter Property="Foreground" Value="#99000000" />
+		<Setter Property="Height" Value="14" />
+	</Style>
+	<Style Selector="DataGrid ToggleButton.Filter:pointerover > PathIcon, DataGrid ToggleButton.Filter:pointerover > i|Icon">
+		<Setter Property="Foreground" Value="Black" />
+	</Style>
+	<Style Selector="DataGrid Grid.FilteredHeader.FilterActive > ToggleButton.Filter > PathIcon, DataGrid Grid.FilteredHeader.FilterActive > ToggleButton.Filter > i|Icon">
+		<Setter Property="Foreground" Value="{DynamicResource ThemePrimary}" />
+	</Style>
+	<Style Selector="DataGrid Grid.FilteredHeader.FilterActive:pointerover > ToggleButton.Filter > PathIcon, DataGrid Grid.FilteredHeader.FilterActive:pointerover > ToggleButton.Filter > i|Icon">
+		<Setter Property="Foreground" Value="{DynamicResource ThemeDark}" />
+	</Style>
+	
+	<Style Selector="DataGrid ToggleButton.Filter:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="Background" Value="Transparent" />
+	</Style>
+	<Style Selector="DataGrid ToggleButton.Filter:pressed /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="Background" Value="Transparent" />
+	</Style>
+	<Style Selector="DataGrid ToggleButton.Filter:checked /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="Background" Value="Transparent" />
+	</Style>
 </Styles>
