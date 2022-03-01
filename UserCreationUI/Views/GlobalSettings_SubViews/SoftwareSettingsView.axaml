@@ -2,6 +2,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:i="clr-namespace:Projektanker.Icons.Avalonia;assembly=Projektanker.Icons.Avalonia"
              mc:Ignorable="d" d:DesignWidth="850" d:DesignHeight="940"
              x:Class="UserCreationUI.GlobalSettings.Views.SoftwareSettingsView">
 
@@ -124,12 +125,158 @@
 							<TextBlock Text="(double-click to add)" Margin="10,10,0,5" Classes="Label Caption" />
 						</StackPanel>
 						<Panel>
-							<DataGrid Name="ADGroupsDataGrid" Items="{Binding ADPermissions_All}" SelectedIndex="{Binding DataGridSelection}" IsVisible="{Binding #SelectionType.SelectedIndex, Converter={StaticResource IfValueEqualsConverter}, ConverterParameter=0}" Height="{Binding $parent[StackPanel].Bounds.Height, Converter={StaticResource MathConverter}, ConverterParameter=@VALUE-32}" BorderBrush="#ffb3b0ad" BorderThickness="2" AutoGenerateColumns="False" CanUserReorderColumns="True" CanUserResizeColumns="True" CanUserSortColumns="True" IsReadOnly="True">
+
+							<DataGrid Name="ADGroupsDataGrid" Items="{Binding ADPermissions_All}" SelectedIndex="{Binding DataGridSelection}" Classes="Filterable" IsVisible="{Binding #SelectionType.SelectedIndex, Converter={StaticResource IfValueEqualsConverter}, ConverterParameter=0}" Height="{Binding $parent[StackPanel].Bounds.Height, Converter={StaticResource MathConverter}, ConverterParameter=@VALUE-32}" BorderBrush="#ffb3b0ad" BorderThickness="2" AutoGenerateColumns="False" CanUserReorderColumns="True" CanUserResizeColumns="True" CanUserSortColumns="True" IsReadOnly="True">
 								<DataGrid.Columns>
-									<DataGridTextColumn Header="Group Name" Binding="{Binding Name}" />
-									<DataGridTextColumn Header="Type" Binding="{Binding ITGType}" />
-									<DataGridTextColumn Header="Description" Binding="{Binding ITGDescription}" />
-									<DataGridTextColumn Header="Approver / Who to Add" Binding="{Binding ITGWhoToAddAndApprover}" />
+
+									<DataGridTextColumn Binding="{Binding Name}">
+										<DataGridTextColumn.Header>
+											<Grid ColumnDefinitions="Auto, *" RowDefinitions="*" Classes="FilteredHeader" Classes.FilterActive="{Binding #ADGroupNameFilterToggle.IsChecked}">
+												<TextBlock Text="Group Name" Grid.Row="0" Grid.Column="0" />
+												<TextBox Text="{Binding ADPermissionsGridFilters.Name}" Classes="FilterTextBox" Watermark="Filter by Name" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" MaxWidth="{Binding $parent[Grid].Bounds.Width, Converter={StaticResource MathConverter}, ConverterParameter=@VALUE-20}" />
+												<ToggleButton x:Name="ADGroupNameFilterToggle" Classes="FilterTButton Filter" ToolTip.Tip="Filter by Name" Grid.Row="0" Grid.Column="1">
+													<PathIcon Data="{StaticResource search_regular}"  />
+												</ToggleButton>
+											</Grid>
+										</DataGridTextColumn.Header>
+									</DataGridTextColumn>
+
+									<DataGridTextColumn Binding="{Binding ITGType}">
+										<DataGridTextColumn.Header>
+											<Grid ColumnDefinitions="Auto, *" RowDefinitions="*" Classes="FilteredHeader" Classes.FilterActive="{Binding #ADTypeFilterToggle.IsChecked}">
+												<TextBlock Text="Type" Grid.Row="0" Grid.Column="0" />
+												<StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left">
+													<ComboBox x:Name="ADTypeFilterComboBox" SelectedItem="{Binding ADPermissionsGridFilters.ITGType}"  MaxWidth="{Binding $parent[Grid].Bounds.Width, Converter={StaticResource MathConverter}, ConverterParameter=@VALUE-20}">
+														<ComboBox.ItemTemplate>
+															<DataTemplate>
+																<TextBlock Text="{Binding}" />
+															</DataTemplate>
+														</ComboBox.ItemTemplate>
+													</ComboBox>
+													<Button x:Name="ADClearTypeFilter" Command="{Binding ClearADTypeFilter}" Classes="FilterClearButton" ToolTip.Tip="Clear Filter">
+														<PathIcon Data="{StaticResource dismiss_circle_regular}" />
+													</Button>
+												</StackPanel>
+
+												<ToggleButton x:Name="ADTypeFilterToggle" Classes="FilterTButton Filter" ToolTip.Tip="Filter by Type" Grid.Row="0" Grid.Column="1">
+													<i:Icon Value="fa-regular fa-filter" />
+												</ToggleButton>
+											</Grid>
+										</DataGridTextColumn.Header>
+									</DataGridTextColumn>
+
+									<DataGridTextColumn Binding="{Binding ITGDescription}">
+										<DataGridTextColumn.Header>
+											<Grid ColumnDefinitions="Auto, *" RowDefinitions="*" Classes="FilteredHeader" Classes.FilterActive="{Binding #ADDescriptionFilterToggle.IsChecked}">
+												<TextBlock Text="Description" Grid.Row="0" Grid.Column="0" />
+												<TextBox Text="{Binding ADPermissionsGridFilters.ITGDescription}" Classes="FilterTextBox" Watermark="Filter by Description" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" MaxWidth="{Binding $parent[Grid].Bounds.Width, Converter={StaticResource MathConverter}, ConverterParameter=@VALUE-20}" />
+												<ToggleButton x:Name="ADDescriptionFilterToggle" Classes="FilterTButton Filter" ToolTip.Tip="Filter by Description" Grid.Row="0" Grid.Column="1">
+													<PathIcon Data="{StaticResource search_regular}"  />
+												</ToggleButton>
+											</Grid>
+										</DataGridTextColumn.Header>
+									</DataGridTextColumn>
+
+									<DataGridTextColumn Binding="{Binding ITGWhoToAddAndApprover}">
+										<DataGridTextColumn.Header>
+											<Grid ColumnDefinitions="Auto, *" RowDefinitions="*" Classes="FilteredHeader" Classes.FilterActive="{Binding #ADWhoToAddAndApproverFilterToggle.IsChecked}">
+												<TextBlock Text="Approver / Who to Add" Grid.Row="0" Grid.Column="0" />
+												<TextBox Text="{Binding ADPermissionsGridFilters.ITGWhoToAddAndApprover}" Classes="FilterTextBox" Watermark="Filter by Who to Add/Approver" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" MaxWidth="{Binding $parent[Grid].Bounds.Width, Converter={StaticResource MathConverter}, ConverterParameter=@VALUE-20}" />
+												<ToggleButton x:Name="ADWhoToAddAndApproverFilterToggle" Classes="FilterTButton Filter" ToolTip.Tip="Filter by Who to Add / Approver" Grid.Row="0" Grid.Column="1">
+													<PathIcon Data="{StaticResource search_regular}"  />
+												</ToggleButton>
+											</Grid>
+										</DataGridTextColumn.Header>
+									</DataGridTextColumn>
+
+									<DataGridTemplateColumn Header="ITG Link">
+										<DataGridTemplateColumn.CellTemplate>
+											<DataTemplate>
+												<Button Classes="LinkButton" Command="{Binding $parent[UserControl].DataContext.OpenUrl}" CommandParameter="{Binding ITGLink}">
+													<TextBlock TextDecorations="Underline" Text="[Link]" />
+												</Button>
+											</DataTemplate>
+										</DataGridTemplateColumn.CellTemplate>
+									</DataGridTemplateColumn>
+
+								</DataGrid.Columns>
+							</DataGrid>
+
+							<DataGrid Name="O365GroupsDataGrid" Items="{Binding O365Groups_All}" SelectedIndex="{Binding DataGridSelection}" Classes="Filterable" IsVisible="{Binding #SelectionType.SelectedIndex, Converter={StaticResource IfValueEqualsConverter}, ConverterParameter=1}" Height="{Binding $parent[StackPanel].Bounds.Height, Converter={StaticResource MathConverter}, ConverterParameter=@VALUE-32}" BorderBrush="#ffb3b0ad" BorderThickness="2" AutoGenerateColumns="False" CanUserReorderColumns="True" CanUserResizeColumns="True" CanUserSortColumns="True" IsReadOnly="True">
+								<DataGrid.Columns>
+
+									<DataGridTextColumn Binding="{Binding Name}">
+										<DataGridTextColumn.Header>
+											<Grid ColumnDefinitions="Auto, *" RowDefinitions="*" Classes="FilteredHeader" Classes.FilterActive="{Binding #O365GroupNameFilterToggle.IsChecked}">
+												<TextBlock Text="Group Name" Grid.Row="0" Grid.Column="0" />
+												<TextBox Text="{Binding O365GroupGridFilters.Name}" Classes="FilterTextBox" Watermark="Filter by Name" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" MaxWidth="{Binding $parent[Grid].Bounds.Width, Converter={StaticResource MathConverter}, ConverterParameter=@VALUE-20}" />
+												<ToggleButton x:Name="O365GroupNameFilterToggle" Classes="FilterTButton Filter" ToolTip.Tip="Filter by Name" Grid.Row="0" Grid.Column="1">
+													<PathIcon Data="{StaticResource search_regular}"  />
+												</ToggleButton>
+											</Grid>
+										</DataGridTextColumn.Header>
+									</DataGridTextColumn>
+
+									<DataGridTextColumn Binding="{Binding GroupType, Converter={StaticResource EnumToDescriptionConverter}}">
+										<DataGridTextColumn.Header>
+											<Grid ColumnDefinitions="Auto, *" RowDefinitions="*" Classes="FilteredHeader" Classes.FilterActive="{Binding #O365TypeFilterToggle.IsChecked}">
+												<TextBlock Text="Type" Grid.Row="0" Grid.Column="0" />
+												<StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left">
+													<ComboBox x:Name="O365TypeFilterComboBox" SelectedItem="{Binding O365GroupGridFilters.GroupType}"  MaxWidth="{Binding $parent[Grid].Bounds.Width, Converter={StaticResource MathConverter}, ConverterParameter=@VALUE-20}">
+														<ComboBox.ItemTemplate>
+															<DataTemplate>
+																<TextBlock Text="{Binding, Converter={StaticResource EnumToDescriptionConverter}}" />
+															</DataTemplate>
+														</ComboBox.ItemTemplate>
+													</ComboBox>
+													<Button x:Name="O365ClearTypeFilter" Command="{Binding ClearO365TypeFilter}" Classes="FilterClearButton" ToolTip.Tip="Clear Filter">
+														<PathIcon Data="{StaticResource dismiss_circle_regular}" />
+													</Button>
+												</StackPanel>
+
+												<ToggleButton x:Name="O365TypeFilterToggle" Classes="FilterTButton Filter" ToolTip.Tip="Filter by Type" Grid.Row="0" Grid.Column="1">
+													<i:Icon Value="fa-regular fa-filter" />
+												</ToggleButton>
+											</Grid>
+										</DataGridTextColumn.Header>
+									</DataGridTextColumn>
+
+									<DataGridTextColumn Binding="{Binding Email}">
+										<DataGridTextColumn.Header>
+											<Grid ColumnDefinitions="Auto, *" RowDefinitions="*" Classes="FilteredHeader" Classes.FilterActive="{Binding #O365EmailFilterToggle.IsChecked}">
+												<TextBlock Text="Email" Grid.Row="0" Grid.Column="0" />
+												<TextBox Text="{Binding O365GroupGridFilters.Email}" Classes="FilterTextBox" Watermark="Filter by Email" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" MaxWidth="{Binding $parent[Grid].Bounds.Width, Converter={StaticResource MathConverter}, ConverterParameter=@VALUE-20}" />
+												<ToggleButton x:Name="O365EmailFilterToggle" Classes="FilterTButton Filter" ToolTip.Tip="Filter by Email" Grid.Row="0" Grid.Column="1">
+													<PathIcon Data="{StaticResource search_regular}"  />
+												</ToggleButton>
+											</Grid>
+										</DataGridTextColumn.Header>
+									</DataGridTextColumn>
+
+									<DataGridTextColumn Binding="{Binding ITGDescription}">
+										<DataGridTextColumn.Header>
+											<Grid ColumnDefinitions="Auto, *" RowDefinitions="*" Classes="FilteredHeader" Classes.FilterActive="{Binding #O365DescriptionFilterToggle.IsChecked}">
+												<TextBlock Text="Description" Grid.Row="0" Grid.Column="0" />
+												<TextBox Text="{Binding O365GroupGridFilters.ITGDescription}" Classes="FilterTextBox" Watermark="Filter by Description" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" MaxWidth="{Binding $parent[Grid].Bounds.Width, Converter={StaticResource MathConverter}, ConverterParameter=@VALUE-20}" />
+												<ToggleButton x:Name="O365DescriptionFilterToggle" Classes="FilterTButton Filter" ToolTip.Tip="Filter by Description" Grid.Row="0" Grid.Column="1">
+													<PathIcon Data="{StaticResource search_regular}"  />
+												</ToggleButton>
+											</Grid>
+										</DataGridTextColumn.Header>
+									</DataGridTextColumn>
+
+									<DataGridTextColumn Binding="{Binding ITGWhoToAddAndApprover}">
+										<DataGridTextColumn.Header>
+											<Grid ColumnDefinitions="Auto, *" RowDefinitions="*" Classes="FilteredHeader" Classes.FilterActive="{Binding #O365WhoToAddAndApproverFilterToggle.IsChecked}">
+												<TextBlock Text="Approver / Who to Add" Grid.Row="0" Grid.Column="0" />
+												<TextBox Text="{Binding O365GroupGridFilters.ITGWhoToAddAndApprover}" Classes="FilterTextBox" Watermark="Filter by Who to Add/Approver" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" MaxWidth="{Binding $parent[Grid].Bounds.Width, Converter={StaticResource MathConverter}, ConverterParameter=@VALUE-20}" />
+												<ToggleButton x:Name="O365WhoToAddAndApproverFilterToggle" Classes="FilterTButton Filter" ToolTip.Tip="Filter by Who to Add / Approver" Grid.Row="0" Grid.Column="1">
+													<PathIcon Data="{StaticResource search_regular}"  />
+												</ToggleButton>
+											</Grid>
+										</DataGridTextColumn.Header>
+									</DataGridTextColumn>
+
 									<DataGridTemplateColumn Header="ITG Link">
 										<DataGridTemplateColumn.CellTemplate>
 											<DataTemplate>
@@ -142,28 +289,19 @@
 								</DataGrid.Columns>
 							</DataGrid>
 
-							<DataGrid Name="O365GroupsDataGrid" Items="{Binding O365Groups_All}" SelectedIndex="{Binding DataGridSelection}" IsVisible="{Binding #SelectionType.SelectedIndex, Converter={StaticResource IfValueEqualsConverter}, ConverterParameter=1}" Height="{Binding $parent[StackPanel].Bounds.Height, Converter={StaticResource MathConverter}, ConverterParameter=@VALUE-32}" BorderBrush="#ffb3b0ad" BorderThickness="2" AutoGenerateColumns="False" CanUserReorderColumns="True" CanUserResizeColumns="True" CanUserSortColumns="True" IsReadOnly="True">
+							<DataGrid Name="O365LicensesDataGrid" Items="{Binding O365Licenses_All}" SelectedIndex="{Binding DataGridSelection}" Classes="Filterable" IsVisible="{Binding #SelectionType.SelectedIndex, Converter={StaticResource IfValueEqualsConverter}, ConverterParameter=2}" Height="{Binding $parent[StackPanel].Bounds.Height, Converter={StaticResource MathConverter}, ConverterParameter=@VALUE-32}" BorderBrush="#ffb3b0ad" BorderThickness="2" AutoGenerateColumns="False" CanUserReorderColumns="True" CanUserResizeColumns="True" CanUserSortColumns="True" IsReadOnly="True">
 								<DataGrid.Columns>
-									<DataGridTextColumn Header="Group Name" Binding="{Binding Name}" />
-									<DataGridTextColumn Header="Type" Binding="{Binding GroupType, Converter={StaticResource EnumToDescriptionConverter}}" />
-									<DataGridTextColumn Header="Email" Binding="{Binding Email}" />
-									<DataGridTextColumn Header="Description" Binding="{Binding ITGDescription}" />
-									<DataGridTextColumn Header="Approver / Who to Add" Binding="{Binding ITGWhoToAddAndApprover}" />
-									<DataGridTemplateColumn Header="ITG Link">
-										<DataGridTemplateColumn.CellTemplate>
-											<DataTemplate>
-												<Button Classes="LinkButton" Command="{Binding $parent[UserControl].DataContext.OpenUrl}" CommandParameter="{Binding ITGLink}">
-													<TextBlock TextDecorations="Underline" Text="[Link]" />
-												</Button>
-											</DataTemplate>
-										</DataGridTemplateColumn.CellTemplate>
-									</DataGridTemplateColumn>
-								</DataGrid.Columns>
-							</DataGrid>
-
-							<DataGrid Name="O365LicensesDataGrid" Items="{Binding O365Licenses_All}" SelectedIndex="{Binding DataGridSelection}" IsVisible="{Binding #SelectionType.SelectedIndex, Converter={StaticResource IfValueEqualsConverter}, ConverterParameter=2}" Height="{Binding $parent[StackPanel].Bounds.Height, Converter={StaticResource MathConverter}, ConverterParameter=@VALUE-32}" BorderBrush="#ffb3b0ad" BorderThickness="2" AutoGenerateColumns="False" CanUserReorderColumns="True" CanUserResizeColumns="True" CanUserSortColumns="True" IsReadOnly="True">
-								<DataGrid.Columns>
-									<DataGridTextColumn Header="License Name" Binding="{Binding Name}" />
+									<DataGridTextColumn Binding="{Binding Name}">
+										<DataGridTextColumn.Header>
+											<Grid ColumnDefinitions="Auto, *" RowDefinitions="*" Classes="FilteredHeader" Classes.FilterActive="{Binding #LicenseNameFilterToggle.IsChecked}">
+												<TextBlock Text="License Name" Grid.Row="0" Grid.Column="0" />
+												<TextBox Text="{Binding O365LicenseGridFilters.Name}" Classes="FilterTextBox" Watermark="Filter by Name" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" MaxWidth="{Binding $parent[Grid].Bounds.Width, Converter={StaticResource MathConverter}, ConverterParameter=@VALUE-20}" />
+												<ToggleButton x:Name="LicenseNameFilterToggle" Classes="FilterTButton Filter" ToolTip.Tip="Filter by Name" Grid.Row="0" Grid.Column="1">
+													<PathIcon Data="{StaticResource search_regular}"  />
+												</ToggleButton>
+											</Grid>
+										</DataGridTextColumn.Header>
+									</DataGridTextColumn>
 								</DataGrid.Columns>
 							</DataGrid>
 						</Panel>

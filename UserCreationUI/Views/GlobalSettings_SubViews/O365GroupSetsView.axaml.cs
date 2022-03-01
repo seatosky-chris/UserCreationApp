@@ -8,6 +8,7 @@ using Avalonia.VisualTree;
 using ReactiveUI;
 using System;
 using System.Linq;
+using UserCreationUI.Utilities;
 using UserCreationUI.GlobalSettings.ViewModels;
 
 namespace UserCreationUI.GlobalSettings.Views
@@ -31,6 +32,11 @@ namespace UserCreationUI.GlobalSettings.Views
 
             // On load, resize window
             this.AttachedToVisualTree += new System.EventHandler<VisualTreeAttachmentEventArgs>(ResizeWindow);
+
+            // Setup filter combo box
+            ComboBox TypeFilterComboBox = this.FindControl<ComboBox>("TypeFilterComboBox");
+            TypeFilterComboBox.Items = Program.GlobalConfig.O365Groups.Select(group => group.GroupType).ToList().Distinct();
+            TypeFilterComboBox.PointerPressed += new System.EventHandler<PointerPressedEventArgs>(UIFunctions.EventHandled);
 
             // Handle double click on group/license data grid selectors & current software
             ListBox CurrentGroupSetsListBox = this.FindControl<ListBox>("CurrentGroupSetsListBox");

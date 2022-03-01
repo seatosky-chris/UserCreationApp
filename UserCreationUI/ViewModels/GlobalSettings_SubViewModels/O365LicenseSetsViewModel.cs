@@ -1,10 +1,13 @@
-﻿using Avalonia.Controls;
+﻿using Avalonia.Collections;
+using Avalonia.Controls;
 using ReactiveUI;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive;
+using System.Reactive.Linq;
 using UserCreationLibrary;
+using UserCreationUI.Models.DataGridFilterModels;
 
 namespace UserCreationUI.GlobalSettings.ViewModels
 {
@@ -17,13 +20,17 @@ namespace UserCreationUI.GlobalSettings.ViewModels
 
         public O365LicenseSetsViewModel(IScreen screen) : base(screen)
         {
-
+            this.WhenAnyValue(x => x.O365LicenseGridFilters.Name)
+                .Throttle(TimeSpan.FromMilliseconds(200))
+                .ObserveOn(RxApp.MainThreadScheduler)
+                .Subscribe(x => DoFilter());
         }
 
         public ObservableCollection<O365LicenseSetModel> CurrentLicenseSets { get; } = new ObservableCollection<O365LicenseSetModel>(Program.GlobalConfig.O365LicenseSets);
 
-        public ObservableCollection<O365LicenseModel> O365Licenses_All { get; } = new ObservableCollection<O365LicenseModel>(Program.GlobalConfig.O365Licenses);
+        public DataGridCollectionView O365Licenses_All { get; } = new DataGridCollectionView(Program.GlobalConfig.O365Licenses);
         public ObservableCollection<O365LicenseModel> O365Licenses_Selected { get; } = new();
+        public O365LicenseFiltersModel O365LicenseGridFilters { get; set; } = new O365LicenseFiltersModel();
 
 
         public string EditID
@@ -136,6 +143,40 @@ namespace UserCreationUI.GlobalSettings.ViewModels
         {
             O365LicenseModel O365License = (O365LicenseModel)row.DataContext;
             O365Licenses_Selected.Add(O365License);
+        }
+
+        public bool FilterLicenses(object license)
+        {
+            foreach (var filterProp in O365LicenseGridFilters.GetType().GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.DeclaredOnly))
+            {
+                var filterVal = filterProp.GetValue(O365LicenseGridFilters, null);
+                if (filterVal == null || string.IsNullOrWhiteSpace(filterVal.ToString()))
+                {
+                    continue;
+                }
+
+                var curValue = license.GetType().GetProperty(filterProp.Name);
+                if (curValue == null)
+                {
+                    return false;
+                }
+                var curValString = curValue.GetValue(license, null);
+                if (curValString == null || curValString.ToString() == null || string.IsNullOrWhiteSpace(curValString.ToString()) || !curValString.ToString().ToLower().Contains(filterVal.ToString().ToLower()))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        private async void DoFilter()
+        {
+            if (O365Licenses_All.CanFilter)
+            {
+                O365Licenses_All.Filter = FilterLicenses;
+                O365Licenses_All.Refresh();
+            }
         }
     }
 }

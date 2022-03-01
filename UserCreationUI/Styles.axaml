@@ -89,17 +89,47 @@
 		<Setter Property="VerticalContentAlignment" Value="Center" />
 		<Setter Property="MinHeight" Value="16" />
 	</Style>
-	<Style Selector="DataGrid.Filterable Grid.FilteredHeader > ComboBox">
+	<Style Selector="DataGrid.Filterable Grid.FilteredHeader > StackPanel">
 		<Setter Property="IsVisible" Value="False" />
 	</Style>
-	<Style Selector="DataGrid.Filterable Grid.FilteredHeader.FilterActive > ComboBox">
+	<Style Selector="DataGrid.Filterable Grid.FilteredHeader.FilterActive > StackPanel">
+		<Setter Property="IsVisible" Value="True" />
+		<Setter Property="VerticalAlignment" Value="Bottom" />
+		<Setter Property="Margin" Value="0,15,0,0" />
+		<Setter Property="MinHeight" Value="16" />
+	</Style>
+	<Style Selector="DataGrid.Filterable Grid.FilteredHeader.FilterActive > StackPanel > ComboBox">
 		<Setter Property="IsVisible" Value="True" />
 		<Setter Property="VerticalAlignment" Value="Bottom" />
 		<Setter Property="FontSize" Value="12" />
 		<Setter Property="Padding" Value="5,0,5,0" />
-		<Setter Property="Margin" Value="0,15,0,0" />
 		<Setter Property="VerticalContentAlignment" Value="Center" />
 		<Setter Property="MinHeight" Value="16" />
+	</Style>
+	<Style Selector="DataGrid.Filterable Grid.FilteredHeader.FilterActive > StackPanel > Button.FilterClearButton">
+		<Setter Property="Background" Value="Transparent" />
+		<Setter Property="BorderThickness" Value="0"/>
+		<Setter Property="Height" Value="16" />
+		<Setter Property="Width" Value="26" />
+		<Setter Property="HorizontalAlignment" Value="Left" />
+		<Setter Property="PathIcon.Foreground" Value="#99000000" />
+	</Style>
+	<Style Selector="DataGrid.Filterable Grid.FilteredHeader.FilterActive > StackPanel > Button.FilterClearButton > PathIcon">
+		<Setter Property="Foreground" Value="#99000000" />
+		<Setter Property="Height" Value="16" />
+	</Style>
+	<Style Selector="DataGrid.Filterable Grid.FilteredHeader.FilterActive > StackPanel > Button.FilterClearButton:pointerover > PathIcon">
+		<Setter Property="Foreground" Value="Black" />
+	</Style>
+
+	<Style Selector="DataGrid.Filterable Button.FilterClearButton:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="Background" Value="Transparent" />
+	</Style>
+	<Style Selector="DataGrid.Filterable Button.FilterClearButton:pressed /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="Background" Value="Transparent" />
+	</Style>
+	<Style Selector="DataGrid.Filterable Button.FilterClearButton:checked /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="Background" Value="Transparent" />
 	</Style>
 	
 	<Style Selector="DataGrid ToggleButton.Filter">

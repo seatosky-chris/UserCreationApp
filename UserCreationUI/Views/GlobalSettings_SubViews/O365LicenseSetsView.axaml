@@ -100,9 +100,19 @@
 						</StackPanel>
 
 						<Panel>
-							<DataGrid Name="O365LicensesDataGrid" Items="{Binding O365Licenses_All}" SelectedIndex="{Binding DataGridSelection}" Height="{Binding $parent[StackPanel].Bounds.Height, Converter={StaticResource MathConverter}, ConverterParameter=@VALUE-32}" BorderBrush="#ffb3b0ad" BorderThickness="2" AutoGenerateColumns="False" CanUserReorderColumns="True" CanUserResizeColumns="True" CanUserSortColumns="True" IsReadOnly="True">
+							<DataGrid Name="O365LicensesDataGrid" Items="{Binding O365Licenses_All}" SelectedIndex="{Binding DataGridSelection}" Classes="Filterable" Height="{Binding $parent[StackPanel].Bounds.Height, Converter={StaticResource MathConverter}, ConverterParameter=@VALUE-32}" BorderBrush="#ffb3b0ad" BorderThickness="2" AutoGenerateColumns="False" CanUserReorderColumns="True" CanUserResizeColumns="True" CanUserSortColumns="True" IsReadOnly="True">
 								<DataGrid.Columns>
-									<DataGridTextColumn Header="License Name" Binding="{Binding Name}" />
+									<DataGridTextColumn Binding="{Binding Name}">
+										<DataGridTextColumn.Header>
+											<Grid ColumnDefinitions="Auto, *" RowDefinitions="*" Classes="FilteredHeader" Classes.FilterActive="{Binding #LicenseNameFilterToggle.IsChecked}">
+												<TextBlock Text="License Name" Grid.Row="0" Grid.Column="0" />
+												<TextBox Text="{Binding O365LicenseGridFilters.Name}" Classes="FilterTextBox" Watermark="Filter by Name" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" MaxWidth="{Binding $parent[Grid].Bounds.Width, Converter={StaticResource MathConverter}, ConverterParameter=@VALUE-20}" />
+												<ToggleButton x:Name="LicenseNameFilterToggle" Classes="FilterTButton Filter" ToolTip.Tip="Filter by Name" Grid.Row="0" Grid.Column="1">
+													<PathIcon Data="{StaticResource search_regular}"  />
+												</ToggleButton>
+											</Grid>
+										</DataGridTextColumn.Header>
+									</DataGridTextColumn>
 								</DataGrid.Columns>
 							</DataGrid>
 						</Panel>

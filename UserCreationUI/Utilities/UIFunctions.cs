@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Avalonia.Interactivity;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -37,6 +38,12 @@ namespace UserCreationUI.Utilities
                     throw;
                 }
             }
+        }
+
+        // This functions can be used to stop an event from bubbling upwards
+        public static void EventHandled(object? sender, RoutedEventArgs e)
+        {
+            e.Handled = true;
         }
     }
 }

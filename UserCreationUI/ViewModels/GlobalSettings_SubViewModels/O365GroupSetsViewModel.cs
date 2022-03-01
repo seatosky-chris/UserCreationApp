@@ -1,10 +1,13 @@
-﻿using Avalonia.Controls;
+﻿using Avalonia.Collections;
+using Avalonia.Controls;
 using ReactiveUI;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive;
+using System.Reactive.Linq;
 using UserCreationLibrary;
+using UserCreationUI.Models.DataGridFilterModels;
 
 namespace UserCreationUI.GlobalSettings.ViewModels
 {
@@ -17,13 +20,17 @@ namespace UserCreationUI.GlobalSettings.ViewModels
 
         public O365GroupSetsViewModel(IScreen screen) : base(screen)
         {
-
+            this.WhenAnyValue(x => x.O365GroupGridFilters.Name, x => x.O365GroupGridFilters.Email, x => x.O365GroupGridFilters.GroupType, x => x.O365GroupGridFilters.ITGDescription, x => x.O365GroupGridFilters.ITGWhoToAddAndApprover)
+                .Throttle(TimeSpan.FromMilliseconds(200))
+                .ObserveOn(RxApp.MainThreadScheduler)
+                .Subscribe(x => DoFilter());
         }
 
         public ObservableCollection<O365GroupSetModel> CurrentGroupSets { get; } = new ObservableCollection<O365GroupSetModel>(Program.GlobalConfig.O365GroupSets);
 
-        public ObservableCollection<O365GroupModel> O365Groups_All { get; } = new ObservableCollection<O365GroupModel>(Program.GlobalConfig.O365Groups);
+        public DataGridCollectionView O365Groups_All { get; } = new DataGridCollectionView(Program.GlobalConfig.O365Groups);
         public ObservableCollection<O365GroupModel> O365Groups_Selected { get; } = new();
+        public O365GroupFiltersModel O365GroupGridFilters { get; set; } = new O365GroupFiltersModel();
 
 
         public string EditID
@@ -136,6 +143,45 @@ namespace UserCreationUI.GlobalSettings.ViewModels
         {
             O365GroupModel O365Group = (O365GroupModel)row.DataContext;
             O365Groups_Selected.Add(O365Group);
+        }
+
+        public bool FilterGroups(object group)
+        {
+            foreach (var filterProp in O365GroupGridFilters.GetType().GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.DeclaredOnly))
+            {
+                var filterVal = filterProp.GetValue(O365GroupGridFilters, null);
+                if (filterVal == null || string.IsNullOrWhiteSpace(filterVal.ToString()))
+                {
+                    continue;
+                }
+
+                var curValue = group.GetType().GetProperty(filterProp.Name);
+                if (curValue == null)
+                {
+                    return false;
+                }
+                var curValString = curValue.GetValue(group, null);
+                if (curValString == null || curValString.ToString() == null || string.IsNullOrWhiteSpace(curValString.ToString()) || !curValString.ToString().ToLower().Contains(filterVal.ToString().ToLower()))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        private async void DoFilter()
+        {
+            if (O365Groups_All.CanFilter)
+            {
+                O365Groups_All.Filter = FilterGroups;
+                O365Groups_All.Refresh();
+            }
+        }
+
+        public void ClearTypeFilter()
+        {
+            O365GroupGridFilters.GroupType = null;
         }
     }
 }

@@ -32,7 +32,6 @@ namespace UserCreationUI.GlobalSettings.ViewModels
 
         public ObservableCollection<ADPermissionSetModel> CurrentPermissionSets { get; } = new ObservableCollection<ADPermissionSetModel>(Program.GlobalConfig.ADPermissionSets);
 
-        //public ObservableCollection<ADPermissionModel> ADPermissions_All { get; } = new ObservableCollection<ADPermissionModel>(Program.GlobalConfig.ADPermissions);
         public DataGridCollectionView ADPermissions_All { get; } = new DataGridCollectionView(Program.GlobalConfig.ADPermissions);
         public ObservableCollection<ADPermissionModel> ADPermissions_Selected { get; } = new();
         public ADPermissionFiltersModel ADPermissionsGridFilters { get; set; } = new ADPermissionFiltersModel();
@@ -164,7 +163,7 @@ namespace UserCreationUI.GlobalSettings.ViewModels
                     return false;
                 }
                 var curValString = curValue.GetValue(permission, null);
-                if (curValString == null || curValString.ToString() == null || string.IsNullOrWhiteSpace(curValString.ToString()) || !curValString.ToString().Contains(filterVal.ToString()))
+                if (curValString == null || curValString.ToString() == null || string.IsNullOrWhiteSpace(curValString.ToString()) || !curValString.ToString().ToLower().Contains(filterVal.ToString().ToLower()))
                 {
                     return false;
                 }
@@ -180,6 +179,11 @@ namespace UserCreationUI.GlobalSettings.ViewModels
                 ADPermissions_All.Filter = FilterPermissions;
                 ADPermissions_All.Refresh();
             }
+        }
+
+        public void ClearTypeFilter()
+        {
+            ADPermissionsGridFilters.ITGType = null;
         }
     }
 }

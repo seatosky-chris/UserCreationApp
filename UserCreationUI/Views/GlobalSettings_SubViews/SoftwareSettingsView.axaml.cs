@@ -9,6 +9,7 @@ using ReactiveUI;
 using System;
 using System.Linq;
 using UserCreationUI.GlobalSettings.ViewModels;
+using UserCreationUI.Utilities;
 
 namespace UserCreationUI.GlobalSettings.Views
 {
@@ -31,6 +32,15 @@ namespace UserCreationUI.GlobalSettings.Views
 
             // On load, resize window
             this.AttachedToVisualTree += new System.EventHandler<VisualTreeAttachmentEventArgs>(ResizeWindow);
+
+            // Setup filter combo boxes
+            ComboBox ADTypeFilterComboBox = this.FindControl<ComboBox>("ADTypeFilterComboBox");
+            ADTypeFilterComboBox.Items = Program.GlobalConfig.ADPermissions.Select(perm => perm.ITGType).ToList().Distinct();
+            ADTypeFilterComboBox.PointerPressed += new System.EventHandler<PointerPressedEventArgs>(UIFunctions.EventHandled);
+
+            ComboBox O365TypeFilterComboBox = this.FindControl<ComboBox>("O365TypeFilterComboBox");
+            O365TypeFilterComboBox.Items = Program.GlobalConfig.O365Groups.Select(group => group.GroupType).ToList().Distinct();
+            O365TypeFilterComboBox.PointerPressed += new System.EventHandler<PointerPressedEventArgs>(UIFunctions.EventHandled);
 
             // Handle double click on group/license data grid selectors & current software
             ListBox CurrentSoftwareListBox = this.FindControl<ListBox>("CurrentSoftwareListBox");

@@ -4,7 +4,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			 xmlns:i="clr-namespace:Projektanker.Icons.Avalonia;assembly=Projektanker.Icons.Avalonia"
              mc:Ignorable="d" d:DesignWidth="850" d:DesignHeight="940"
-			 xmlns:ctrl="using:UserCreationUI.Controls"
              x:Class="UserCreationUI.GlobalSettings.Views.ADPermissionSetsView">
 
 	<Grid x:Name="PrimaryGrid" ColumnDefinitions="*, *, Auto" RowDefinitions="Auto, *, *" Margin="15 15 15 10" Width="{Binding $parent.Bounds.Width, Converter={StaticResource MathConverter}, ConverterParameter=@VALUE-30}">
@@ -109,7 +108,7 @@
 											<Grid ColumnDefinitions="Auto, *" RowDefinitions="*" Classes="FilteredHeader" Classes.FilterActive="{Binding #GroupNameFilterToggle.IsChecked}">
 												<TextBlock Text="Group Name" Grid.Row="0" Grid.Column="0" />
 												<TextBox Text="{Binding ADPermissionsGridFilters.Name}" Classes="FilterTextBox" Watermark="Filter by Name" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" MaxWidth="{Binding $parent[Grid].Bounds.Width, Converter={StaticResource MathConverter}, ConverterParameter=@VALUE-20}" />
-												<ToggleButton x:Name="GroupNameFilterToggle" Classes="FilterTButton Filter" ToolTip.Tip="Filter" Grid.Row="0" Grid.Column="1">
+												<ToggleButton x:Name="GroupNameFilterToggle" Classes="FilterTButton Filter" ToolTip.Tip="Filter by Name" Grid.Row="0" Grid.Column="1">
 													<PathIcon Data="{StaticResource search_regular}"  />
 												</ToggleButton>
 											</Grid>
@@ -120,14 +119,20 @@
 										<DataGridTextColumn.Header>
 											<Grid ColumnDefinitions="Auto, *" RowDefinitions="*" Classes="FilteredHeader" Classes.FilterActive="{Binding #TypeFilterToggle.IsChecked}">
 												<TextBlock Text="Type" Grid.Row="0" Grid.Column="0" />
-												<ComboBox x:Name="TypeFilterComboBox" SelectedItem="{Binding ADPermissionsGridFilters.ITGType}" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" MaxWidth="{Binding $parent[Grid].Bounds.Width, Converter={StaticResource MathConverter}, ConverterParameter=@VALUE-20}">
-													<ComboBox.ItemTemplate>
-														<DataTemplate>
-															<TextBlock Text="{Binding}" />
-														</DataTemplate>
-													</ComboBox.ItemTemplate>
-												</ComboBox>
-												<ToggleButton x:Name="TypeFilterToggle" Classes="FilterTButton Filter" ToolTip.Tip="Filter" Grid.Row="0" Grid.Column="1">
+												<StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left">
+													<ComboBox x:Name="TypeFilterComboBox" SelectedItem="{Binding ADPermissionsGridFilters.ITGType}"  MaxWidth="{Binding $parent[Grid].Bounds.Width, Converter={StaticResource MathConverter}, ConverterParameter=@VALUE-20}">
+														<ComboBox.ItemTemplate>
+															<DataTemplate>
+																<TextBlock Text="{Binding}" />
+															</DataTemplate>
+														</ComboBox.ItemTemplate>
+													</ComboBox>
+													<Button x:Name="ClearTypeFilter" Command="{Binding ClearTypeFilter}" Classes="FilterClearButton" ToolTip.Tip="Clear Filter">
+														<PathIcon Data="{StaticResource dismiss_circle_regular}" />
+													</Button>
+												</StackPanel>
+												
+												<ToggleButton x:Name="TypeFilterToggle" Classes="FilterTButton Filter" ToolTip.Tip="Filter by Type" Grid.Row="0" Grid.Column="1">
 													<i:Icon Value="fa-regular fa-filter" />
 												</ToggleButton>
 											</Grid>
@@ -139,7 +144,7 @@
 											<Grid ColumnDefinitions="Auto, *" RowDefinitions="*" Classes="FilteredHeader" Classes.FilterActive="{Binding #DescriptionFilterToggle.IsChecked}">
 												<TextBlock Text="Description" Grid.Row="0" Grid.Column="0" />
 												<TextBox Text="{Binding ADPermissionsGridFilters.ITGDescription}" Classes="FilterTextBox" Watermark="Filter by Description" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" MaxWidth="{Binding $parent[Grid].Bounds.Width, Converter={StaticResource MathConverter}, ConverterParameter=@VALUE-20}" />
-												<ToggleButton x:Name="DescriptionFilterToggle" Classes="FilterTButton Filter" ToolTip.Tip="Filter" Grid.Row="0" Grid.Column="1">
+												<ToggleButton x:Name="DescriptionFilterToggle" Classes="FilterTButton Filter" ToolTip.Tip="Filter by Description" Grid.Row="0" Grid.Column="1">
 													<PathIcon Data="{StaticResource search_regular}"  />
 												</ToggleButton>
 											</Grid>
@@ -150,8 +155,8 @@
 										<DataGridTextColumn.Header>
 											<Grid ColumnDefinitions="Auto, *" RowDefinitions="*" Classes="FilteredHeader" Classes.FilterActive="{Binding #WhoToAddAndApproverFilterToggle.IsChecked}">
 												<TextBlock Text="Approver / Who to Add" Grid.Row="0" Grid.Column="0" />
-												<TextBox Text="{Binding ADPermissionsGridFilters.ITGWhoToAddAndApprover}" x:Name="FilterTxt" Classes="FilterTextBox" Watermark="Filter by Who to Add/Approver" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" MaxWidth="{Binding $parent[Grid].Bounds.Width, Converter={StaticResource MathConverter}, ConverterParameter=@VALUE-20}" />
-												<ToggleButton x:Name="WhoToAddAndApproverFilterToggle" Classes="FilterTButton Filter" ToolTip.Tip="Filter" Grid.Row="0" Grid.Column="1">
+												<TextBox Text="{Binding ADPermissionsGridFilters.ITGWhoToAddAndApprover}" Classes="FilterTextBox" Watermark="Filter by Who to Add/Approver" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" MaxWidth="{Binding $parent[Grid].Bounds.Width, Converter={StaticResource MathConverter}, ConverterParameter=@VALUE-20}" />
+												<ToggleButton x:Name="WhoToAddAndApproverFilterToggle" Classes="FilterTButton Filter" ToolTip.Tip="Filter by Who to Add / Approver" Grid.Row="0" Grid.Column="1">
 													<PathIcon Data="{StaticResource search_regular}"  />
 												</ToggleButton>
 											</Grid>

@@ -1,4 +1,5 @@
-﻿using Avalonia.Controls;
+﻿using Avalonia.Collections;
+using Avalonia.Controls;
 using ReactiveUI;
 using System;
 using System.Collections.Generic;
@@ -7,9 +8,11 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Reactive;
+using System.Reactive.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using UserCreationLibrary;
+using UserCreationUI.Models.DataGridFilterModels;
 
 namespace UserCreationUI.GlobalSettings.ViewModels
 {
@@ -23,17 +26,34 @@ namespace UserCreationUI.GlobalSettings.ViewModels
 
         public SoftwareSettingsViewModel(IScreen screen) : base(screen)
         {
+            this.WhenAnyValue(x => x.ADPermissionsGridFilters.Name, x => x.ADPermissionsGridFilters.ITGType, x => x.ADPermissionsGridFilters.ITGDescription, x => x.ADPermissionsGridFilters.ITGWhoToAddAndApprover)
+                .Throttle(TimeSpan.FromMilliseconds(200))
+                .ObserveOn(RxApp.MainThreadScheduler)
+                .Subscribe(x => DoADPermsFilter());
 
+            this.WhenAnyValue(x => x.O365GroupGridFilters.Name, x => x.O365GroupGridFilters.Email, x => x.O365GroupGridFilters.GroupType, x => x.O365GroupGridFilters.ITGDescription, x => x.O365GroupGridFilters.ITGWhoToAddAndApprover)
+                .Throttle(TimeSpan.FromMilliseconds(200))
+                .ObserveOn(RxApp.MainThreadScheduler)
+                .Subscribe(x => DoO365GroupFilter());
+
+            this.WhenAnyValue(x => x.O365LicenseGridFilters.Name)
+                .Throttle(TimeSpan.FromMilliseconds(200))
+                .ObserveOn(RxApp.MainThreadScheduler)
+                .Subscribe(x => DoLicenseFilter());
         }
 
         public ObservableCollection<SoftwareModel> CurrentSoftware { get; } = new ObservableCollection<SoftwareModel>(Program.GlobalConfig.Software);
 
-        public ObservableCollection<O365GroupModel> O365Groups_All { get; } = new ObservableCollection<O365GroupModel>(Program.GlobalConfig.O365Groups);
-        public ObservableCollection<ADPermissionModel> ADPermissions_All { get; } = new ObservableCollection<ADPermissionModel>(Program.GlobalConfig.ADPermissions);
-        public ObservableCollection<O365LicenseModel> O365Licenses_All { get; } = new ObservableCollection<O365LicenseModel>(Program.GlobalConfig.O365Licenses);
+        public DataGridCollectionView O365Groups_All { get; } = new DataGridCollectionView(Program.GlobalConfig.O365Groups);
+        public DataGridCollectionView ADPermissions_All { get; } = new DataGridCollectionView(Program.GlobalConfig.ADPermissions);
+        public DataGridCollectionView O365Licenses_All { get; } = new DataGridCollectionView(Program.GlobalConfig.O365Licenses);
         public ObservableCollection<O365GroupModel> O365Groups_Selected { get; } = new();
         public ObservableCollection<ADPermissionModel> ADPermissions_Selected { get; } = new();
         public ObservableCollection<O365LicenseModel> O365Licenses_Selected { get; } = new();
+
+        public ADPermissionFiltersModel ADPermissionsGridFilters { get; set; } = new ADPermissionFiltersModel();
+        public O365GroupFiltersModel O365GroupGridFilters { get; set; } = new O365GroupFiltersModel();
+        public O365LicenseFiltersModel O365LicenseGridFilters { get; set; } = new O365LicenseFiltersModel();
 
         public int CurrentSelectionType
         {
@@ -176,6 +196,113 @@ namespace UserCreationUI.GlobalSettings.ViewModels
         {
             O365LicenseModel O365License = (O365LicenseModel)row.DataContext;
             O365Licenses_Selected.Add(O365License);
+        }
+
+        public bool FilterADPermissions(object permission)
+        {
+            foreach (var filterProp in ADPermissionsGridFilters.GetType().GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.DeclaredOnly))
+            {
+                var filterVal = filterProp.GetValue(ADPermissionsGridFilters, null);
+                if (filterVal == null || string.IsNullOrWhiteSpace(filterVal.ToString()))
+                {
+                    continue;
+                }
+
+                var curValue = permission.GetType().GetProperty(filterProp.Name);
+                if (curValue == null)
+                {
+                    return false;
+                }
+                var curValString = curValue.GetValue(permission, null);
+                if (curValString == null || curValString.ToString() == null || string.IsNullOrWhiteSpace(curValString.ToString()) || !curValString.ToString().ToLower().Contains(filterVal.ToString().ToLower()))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+        public bool FilterO365Groups(object group)
+        {
+            foreach (var filterProp in O365GroupGridFilters.GetType().GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.DeclaredOnly))
+            {
+                var filterVal = filterProp.GetValue(O365GroupGridFilters, null);
+                if (filterVal == null || string.IsNullOrWhiteSpace(filterVal.ToString()))
+                {
+                    continue;
+                }
+
+                var curValue = group.GetType().GetProperty(filterProp.Name);
+                if (curValue == null)
+                {
+                    return false;
+                }
+                var curValString = curValue.GetValue(group, null);
+                if (curValString == null || curValString.ToString() == null || string.IsNullOrWhiteSpace(curValString.ToString()) || !curValString.ToString().ToLower().Contains(filterVal.ToString().ToLower()))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+        public bool FilterLicenses(object license)
+        {
+            foreach (var filterProp in O365LicenseGridFilters.GetType().GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.DeclaredOnly))
+            {
+                var filterVal = filterProp.GetValue(O365LicenseGridFilters, null);
+                if (filterVal == null || string.IsNullOrWhiteSpace(filterVal.ToString()))
+                {
+                    continue;
+                }
+
+                var curValue = license.GetType().GetProperty(filterProp.Name);
+                if (curValue == null)
+                {
+                    return false;
+                }
+                var curValString = curValue.GetValue(license, null);
+                if (curValString == null || curValString.ToString() == null || string.IsNullOrWhiteSpace(curValString.ToString()) || !curValString.ToString().ToLower().Contains(filterVal.ToString().ToLower()))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        private async void DoADPermsFilter()
+        {
+            if (ADPermissions_All.CanFilter)
+            {
+                ADPermissions_All.Filter = FilterADPermissions;
+                ADPermissions_All.Refresh();
+            }
+        }
+        private async void DoO365GroupFilter()
+        {
+            if (O365Groups_All.CanFilter)
+            {
+                O365Groups_All.Filter = FilterO365Groups;
+                O365Groups_All.Refresh();
+            }
+        }
+        private async void DoLicenseFilter()
+        {
+            if (O365Licenses_All.CanFilter)
+            {
+                O365Licenses_All.Filter = FilterLicenses;
+                O365Licenses_All.Refresh();
+            }
+        }
+
+        public void ClearADTypeFilter()
+        {
+            ADPermissionsGridFilters.ITGType = null;
+        }
+        public void ClearO365TypeFilter()
+        {
+            O365GroupGridFilters.GroupType = null;
         }
     }
 }
