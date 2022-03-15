@@ -1,4 +1,6 @@
-﻿using Avalonia.Interactivity;
+﻿using Avalonia;
+using Avalonia.Controls.ApplicationLifetimes;
+using Avalonia.Interactivity;
 using ReactiveUI;
 using System;
 using System.Collections.Generic;
@@ -7,6 +9,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using UserCreationUI.ViewModels;
 
 namespace UserCreationUI.Utilities
 {
@@ -74,6 +77,33 @@ namespace UserCreationUI.Utilities
             }
 
             return true;
+        }
+
+
+        /// <summary>
+        /// This function will close all of the open windows
+        /// It will close windows that aren't the main window first, and then it will close the main window
+        /// This is done because the main window will launch a confirmation dialog if other windows are still open
+        /// </summary>
+        public static void CloseAllWindows()
+        {
+            if (Application.Current is null || Application.Current.ApplicationLifetime is null)
+                return;
+            var appLifetime = (IClassicDesktopStyleApplicationLifetime)Application.Current.ApplicationLifetime;
+            var openWindows = appLifetime.Windows.ToList();
+
+            foreach (var window in openWindows)
+            {
+                if (window.DataContext is not MainWindowViewModel)
+                    window.Close();
+            }
+
+            openWindows = appLifetime.Windows.ToList();
+            foreach (var window in openWindows)
+            {
+                if (window.DataContext is MainWindowViewModel)
+                    window.Close();
+            }
         }
     }
 }
