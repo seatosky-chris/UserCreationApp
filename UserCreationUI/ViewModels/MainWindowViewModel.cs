@@ -1,3 +1,5 @@
+using Avalonia;
+using Avalonia.Controls.ApplicationLifetimes;
 using ReactiveUI;
 using System;
 using System.Collections.Generic;
@@ -5,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Reactive;
 using System.Text;
 using System.Windows.Input;
+using System.Linq;
 using UserCreationUI.Views;
 
 namespace UserCreationUI.ViewModels
@@ -25,9 +28,19 @@ namespace UserCreationUI.ViewModels
 
             OpenSettingsWindow = ReactiveCommand.Create(() =>
             {
-                var settingsWindow = new SettingsWindowViewModel();
-                OpenWindow.Handle(settingsWindow).Subscribe();
-                System.Diagnostics.Debug.WriteLine("Open Window Handle");
+                if (Application.Current is null || Application.Current.ApplicationLifetime is null)
+                    return;
+                var appLifetime = (IClassicDesktopStyleApplicationLifetime)Application.Current.ApplicationLifetime;
+                var openWindows = appLifetime.Windows.ToList();
+                var openSettingsWindows = openWindows.Select(w => w.DataContext).OfType<SettingsWindowViewModel>();
+
+                if (!openSettingsWindows.Any()) // only open if no settings window is already open
+                {
+                    var settingsWindow = new SettingsWindowViewModel();
+                    OpenWindow.Handle(settingsWindow).Subscribe();
+                    System.Diagnostics.Debug.WriteLine("Open Window Handle");
+                } 
+                else { System.Diagnostics.Debug.WriteLine("Settings Window already open"); }
             });
         }
 
