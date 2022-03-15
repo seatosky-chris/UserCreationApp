@@ -41,11 +41,17 @@ namespace UserCreationUI.GlobalSettings.ViewModels
 
         public void EditFolder()
         {
-            ADFolderDefaultModelExtended CurrentFolderItem = CurrentFolderLocations.Where(x => x.Id == EditID).FirstOrDefault();
+            if (CurrentFolderLocations is null)
+                return;
+
+            ADFolderDefaultModelExtended? CurrentFolderItem = CurrentFolderLocations.Where(x => x.Id == EditID).FirstOrDefault();
+
+            if (CurrentFolderItem is null)
+                return;
 
             AddEditFolderLocation(CurrentFolderItem.Id);
 
-            CurrentFolderLocations.Remove(CurrentFolderLocations.Where(x => x.Id == EditID).FirstOrDefault());
+            CurrentFolderLocations.Remove(CurrentFolderItem);
             EditID = "";
         }
 
@@ -90,6 +96,9 @@ namespace UserCreationUI.GlobalSettings.ViewModels
 
         public void CurrentFolder_DoubleClick(ListBoxItem row)
         {
+            if (row.DataContext is null)
+                return; 
+
             // Load format details
             ADFolderDefaultModelExtended SelectedFolder = (ADFolderDefaultModelExtended)row.DataContext;
             EditID = SelectedFolder.Id;

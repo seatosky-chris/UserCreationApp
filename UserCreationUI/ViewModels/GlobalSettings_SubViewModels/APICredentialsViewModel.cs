@@ -120,9 +120,9 @@ namespace UserCreationUI.GlobalSettings.ViewModels
             HostScreen.Router.NavigateBack.Execute(Unit.Default);
         }
 
-        public void OpenUrl(string url)
+        public static void OpenUrl(string url)
         {
-            _openUrl(url);
+            UI_OpenUrl(url);
         }
     }
 }

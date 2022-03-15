@@ -65,15 +65,6 @@ namespace UserCreationUI.GlobalSettings.ViewModels
             return;
         }
 
-        private void ClearForm()
-        {
-            CustomField1 = "";
-            CustomField2 = "";
-            CustomField3 = "";
-            CustomField4 = "";
-            CustomField5 = "";
-        }
-
         public void SaveCustomFields()
         {
             if (Saveable)

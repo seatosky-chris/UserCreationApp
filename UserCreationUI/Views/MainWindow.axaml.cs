@@ -19,18 +19,23 @@ namespace UserCreationUI.Views
             this.AttachDevTools();
 #endif
 
-            this.WhenActivated(d =>
+            this.WhenActivated(disposables =>
             {
-                d(this
-                    .ViewModel
-                    .OpenWindow
-                    .RegisterHandler(interaction =>
-                    {
-                        var window = new SettingsWindow();
-                        window.DataContext = interaction.Input;
-                        window.Show();
-                        interaction.SetOutput(Unit.Default);
-                    }));
+                if (ViewModel is not null)
+                {
+                    disposables(
+                        ViewModel
+                        .OpenWindow
+                        .RegisterHandler(interaction =>
+                        {
+                            var window = new SettingsWindow
+                            {
+                                DataContext = interaction.Input
+                            };
+                            window.Show();
+                            interaction.SetOutput(Unit.Default);
+                        }));
+                }
             });
         }
 

@@ -16,7 +16,7 @@ namespace UserCreationUI
 {
     class Program
     {
-        public static CompanyConfigurationModelExtended GlobalConfig;
+        public static CompanyConfigurationModelExtended GlobalConfig = new();
 
         // Initialization code. Don't use any Avalonia, third-party APIs or any
         // SynchronizationContext-reliant code before AppMain is called: things aren't initialized
@@ -576,25 +576,33 @@ namespace UserCreationUI
             {
                 Id = "1",
                 Name = "Microsoft Project",
+#pragma warning disable CS8604 // Possible null reference argument.
                 O365Licenses = new List<O365LicenseModel> { GlobalConfig.O365Licenses.Find(license => license.IDName == "PROJECTESSENTIALS") }
+#pragma warning restore CS8604 // Possible null reference argument.
             });
             GlobalConfig.Software.Add(new SoftwareModel
             {
                 Id = "2",
                 Name = "Microsoft Project Pro",
+#pragma warning disable CS8604 // Possible null reference argument.
                 O365Licenses = new List<O365LicenseModel> { GlobalConfig.O365Licenses.Find(license => license.IDName == "PROJECTPROFESSIONAL") }
+#pragma warning restore CS8604 // Possible null reference argument.
             });
             GlobalConfig.Software.Add(new SoftwareModel
             {
                 Id = "3",
                 Name = "Spectrum",
+#pragma warning disable CS8604 // Possible null reference argument.
                 O365Groups = new List<O365GroupModel> { GlobalConfig.O365Groups.Find(group => group.Name == "Spectrum Users") }
+#pragma warning restore CS8604 // Possible null reference argument.
             });
             GlobalConfig.Software.Add(new SoftwareModel
             {
                 Id = "4",
                 Name = "Foundation 3000",
+#pragma warning disable CS8604 // Possible null reference argument.
                 Permissions = new List<ADPermissionModel> { GlobalConfig.ADPermissions.Find(permission => permission.Name == "Foundation_Users" || permission.Name == "PGC-RDPUsers") }
+#pragma warning restore CS8604 // Possible null reference argument.
             });
         }
     }

@@ -8,6 +8,7 @@ using System.Reactive;
 using System.Reactive.Linq;
 using UserCreationLibrary;
 using UserCreationUI.Models.DataGridFilterModels;
+using UserCreationUI.Utilities;
 
 namespace UserCreationUI.GlobalSettings.ViewModels
 {
@@ -47,11 +48,17 @@ namespace UserCreationUI.GlobalSettings.ViewModels
 
         public void EditGroupSet()
         {
-            O365GroupSetModel CurrentGroupSetItem = CurrentGroupSets.Where(x => x.Id == EditID).FirstOrDefault();
+            if (CurrentGroupSets is null)
+                return;
+
+            O365GroupSetModel? CurrentGroupSetItem = CurrentGroupSets.Where(x => x.Id == EditID).FirstOrDefault();
+
+            if (CurrentGroupSetItem is null)
+                return;
 
             AddEditGroupSet(CurrentGroupSetItem.Id);
 
-            CurrentGroupSets.Remove(CurrentGroupSets.Where(x => x.Id == EditID).FirstOrDefault());
+            CurrentGroupSets.Remove(CurrentGroupSetItem);
             EditID = "";
         }
 
@@ -112,6 +119,9 @@ namespace UserCreationUI.GlobalSettings.ViewModels
 
         public void CurrentGroupSet_DoubleClick(ListBoxItem row)
         {
+            if (row.DataContext is null)
+                return;
+
             // Load software details
             O365GroupSetModel SelectedO365GroupSet = (O365GroupSetModel)row.DataContext;
             EditID = SelectedO365GroupSet.Id;
@@ -141,36 +151,19 @@ namespace UserCreationUI.GlobalSettings.ViewModels
 
         public void O365GroupRow_DoubleClick(DataGridRow row)
         {
+            if (row.DataContext is null)
+                return;
+
             O365GroupModel O365Group = (O365GroupModel)row.DataContext;
             O365Groups_Selected.Add(O365Group);
         }
 
         public bool FilterGroups(object group)
         {
-            foreach (var filterProp in O365GroupGridFilters.GetType().GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.DeclaredOnly))
-            {
-                var filterVal = filterProp.GetValue(O365GroupGridFilters, null);
-                if (filterVal == null || string.IsNullOrWhiteSpace(filterVal.ToString()))
-                {
-                    continue;
-                }
-
-                var curValue = group.GetType().GetProperty(filterProp.Name);
-                if (curValue == null)
-                {
-                    return false;
-                }
-                var curValString = curValue.GetValue(group, null);
-                if (curValString == null || curValString.ToString() == null || string.IsNullOrWhiteSpace(curValString.ToString()) || !curValString.ToString().ToLower().Contains(filterVal.ToString().ToLower()))
-                {
-                    return false;
-                }
-            }
-
-            return true;
+            return UIFunctions.FilterDataGrid(group, O365GroupGridFilters);
         }
 
-        private async void DoFilter()
+        private void DoFilter()
         {
             if (O365Groups_All.CanFilter)
             {

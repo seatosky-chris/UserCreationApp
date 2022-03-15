@@ -11,7 +11,7 @@ namespace UserCreationUI.GlobalSettings.ViewModels
     public class CompanyDefaultsViewModel : OtherSettingsViewModel
     {
         // Unique identifier for the routable view model.
-        public string UrlPathSegment { get; } = "CompanyDefaultsEdit";
+        public new string UrlPathSegment { get; } = "CompanyDefaultsEdit";
 
         private string _editID = "";
 
@@ -35,11 +35,17 @@ namespace UserCreationUI.GlobalSettings.ViewModels
 
         public void EditCompany()
         {
-            CompanyDefaultModelExtended CurrentCompanyItem = CurrentCompanies.Where(x => x.Id == EditID).FirstOrDefault();
+            if (CurrentCompanies is null)
+                return;
+
+            CompanyDefaultModelExtended? CurrentCompanyItem = CurrentCompanies.Where(x => x.Id == EditID).FirstOrDefault();
+
+            if (CurrentCompanyItem is null)
+                return;
 
             AddEditCompany(CurrentCompanyItem.Id);
 
-            CurrentCompanies.Remove(CurrentCompanies.Where(x => x.Id == EditID).FirstOrDefault());
+            CurrentCompanies.Remove(CurrentCompanyItem);
             EditID = "";
         }
 
@@ -80,6 +86,9 @@ namespace UserCreationUI.GlobalSettings.ViewModels
 
         public void CurrentCompany_DoubleClick(ListBoxItem row)
         {
+            if (row.DataContext is null)
+                return;
+
             // Load format details
             CompanyDefaultModelExtended SelectedCompany = (CompanyDefaultModelExtended)row.DataContext;
             EditID = SelectedCompany.Id;

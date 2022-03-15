@@ -15,10 +15,10 @@ namespace UserCreationUI.GlobalSettings.Views
 {
     public partial class GlobalSettingsView : ReactiveUserControl<GlobalSettingsViewModel>, IVisual
     {
-        private double SWidth = 800;
-        private double SHeight = 650;
-        private double SMinWidth = 440;
-        private double SMinHeight = 530;
+        private readonly double SWidth = 800;
+        private readonly double SHeight = 650;
+        private readonly double SMinWidth = 440;
+        private readonly double SMinHeight = 530;
 
         public enum ADTypes { OnPremise, Azure, None };
         public enum EmailTypes { O365, Exchange, None };
@@ -49,13 +49,16 @@ namespace UserCreationUI.GlobalSettings.Views
 
         public void SaveAndClose(object sender, RoutedEventArgs args)
         {
+            if (ViewModel is null)
+                return;
+
             ViewModel.SaveGlobalSettings();
             System.Diagnostics.Debug.WriteLine("Now closing");
             SettingsWindow settingsWindow = this.FindAncestorOfType<SettingsWindow>();
             settingsWindow.CloseWindow();
         }
 
-        public void ResizeWindow(object sender, System.EventArgs e)
+        public void ResizeWindow(object? sender, System.EventArgs e)
         {
             SettingsWindowResize.ResizeWindow(this, SWidth, SHeight, SMinWidth, SMinHeight);
         }

@@ -13,6 +13,7 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using UserCreationLibrary;
 using UserCreationUI.Models.DataGridFilterModels;
+using UserCreationUI.Utilities;
 
 namespace UserCreationUI.GlobalSettings.ViewModels
 {
@@ -81,11 +82,17 @@ namespace UserCreationUI.GlobalSettings.ViewModels
 
         public void EditSoftware()
         {
-            SoftwareModel CurrentSoftwareItem = CurrentSoftware.Where(x => x.Id == EditID).FirstOrDefault();
+            if (CurrentSoftware is null)
+                return;
+
+            SoftwareModel? CurrentSoftwareItem = CurrentSoftware.Where(x => x.Id == EditID).FirstOrDefault();
+
+            if (CurrentSoftwareItem is null)
+                return;
 
             AddEditSoftware(CurrentSoftwareItem.Id);
 
-            CurrentSoftware.Remove(CurrentSoftware.Where(x => x.Id == EditID).FirstOrDefault());
+            CurrentSoftware.Remove(CurrentSoftwareItem);
             EditID = "";
         }
 
@@ -154,6 +161,9 @@ namespace UserCreationUI.GlobalSettings.ViewModels
 
         public void CurrentSoftware_DoubleClick(ListBoxItem row)
         {
+            if (row.DataContext is null)
+                return;
+
             // Load software details
             SoftwareModel SelectedSoftware = (SoftwareModel)row.DataContext;
             EditID = SelectedSoftware.Id;
@@ -182,96 +192,45 @@ namespace UserCreationUI.GlobalSettings.ViewModels
 
         public void ADGroupRow_DoubleClick(DataGridRow row)
         {
+            if (row.DataContext is null)
+                return;
+
             ADPermissionModel ADGroup = (ADPermissionModel)row.DataContext;
             ADPermissions_Selected.Add(ADGroup);
         }
 
         public void O365GroupRow_DoubleClick(DataGridRow row)
         {
+            if (row.DataContext is null)
+                return;
+
             O365GroupModel O365Group = (O365GroupModel)row.DataContext;
             O365Groups_Selected.Add(O365Group);
         }
 
         public void O365LicenseRow_DoubleClick(DataGridRow row)
         {
+            if (row.DataContext is null)
+                return;
+
             O365LicenseModel O365License = (O365LicenseModel)row.DataContext;
             O365Licenses_Selected.Add(O365License);
         }
 
         public bool FilterADPermissions(object permission)
         {
-            foreach (var filterProp in ADPermissionsGridFilters.GetType().GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.DeclaredOnly))
-            {
-                var filterVal = filterProp.GetValue(ADPermissionsGridFilters, null);
-                if (filterVal == null || string.IsNullOrWhiteSpace(filterVal.ToString()))
-                {
-                    continue;
-                }
-
-                var curValue = permission.GetType().GetProperty(filterProp.Name);
-                if (curValue == null)
-                {
-                    return false;
-                }
-                var curValString = curValue.GetValue(permission, null);
-                if (curValString == null || curValString.ToString() == null || string.IsNullOrWhiteSpace(curValString.ToString()) || !curValString.ToString().ToLower().Contains(filterVal.ToString().ToLower()))
-                {
-                    return false;
-                }
-            }
-
-            return true;
+            return UIFunctions.FilterDataGrid(permission, ADPermissionsGridFilters);
         }
         public bool FilterO365Groups(object group)
         {
-            foreach (var filterProp in O365GroupGridFilters.GetType().GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.DeclaredOnly))
-            {
-                var filterVal = filterProp.GetValue(O365GroupGridFilters, null);
-                if (filterVal == null || string.IsNullOrWhiteSpace(filterVal.ToString()))
-                {
-                    continue;
-                }
-
-                var curValue = group.GetType().GetProperty(filterProp.Name);
-                if (curValue == null)
-                {
-                    return false;
-                }
-                var curValString = curValue.GetValue(group, null);
-                if (curValString == null || curValString.ToString() == null || string.IsNullOrWhiteSpace(curValString.ToString()) || !curValString.ToString().ToLower().Contains(filterVal.ToString().ToLower()))
-                {
-                    return false;
-                }
-            }
-
-            return true;
+            return UIFunctions.FilterDataGrid(group, O365GroupGridFilters);
         }
         public bool FilterLicenses(object license)
         {
-            foreach (var filterProp in O365LicenseGridFilters.GetType().GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.DeclaredOnly))
-            {
-                var filterVal = filterProp.GetValue(O365LicenseGridFilters, null);
-                if (filterVal == null || string.IsNullOrWhiteSpace(filterVal.ToString()))
-                {
-                    continue;
-                }
-
-                var curValue = license.GetType().GetProperty(filterProp.Name);
-                if (curValue == null)
-                {
-                    return false;
-                }
-                var curValString = curValue.GetValue(license, null);
-                if (curValString == null || curValString.ToString() == null || string.IsNullOrWhiteSpace(curValString.ToString()) || !curValString.ToString().ToLower().Contains(filterVal.ToString().ToLower()))
-                {
-                    return false;
-                }
-            }
-
-            return true;
+            return UIFunctions.FilterDataGrid(license, O365LicenseGridFilters);
         }
 
-        private async void DoADPermsFilter()
+        private void DoADPermsFilter()
         {
             if (ADPermissions_All.CanFilter)
             {
@@ -279,7 +238,7 @@ namespace UserCreationUI.GlobalSettings.ViewModels
                 ADPermissions_All.Refresh();
             }
         }
-        private async void DoO365GroupFilter()
+        private void DoO365GroupFilter()
         {
             if (O365Groups_All.CanFilter)
             {
@@ -287,7 +246,7 @@ namespace UserCreationUI.GlobalSettings.ViewModels
                 O365Groups_All.Refresh();
             }
         }
-        private async void DoLicenseFilter()
+        private void DoLicenseFilter()
         {
             if (O365Licenses_All.CanFilter)
             {

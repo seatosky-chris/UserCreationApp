@@ -16,11 +16,18 @@ namespace UserCreationUI.Converters.Utilities
         #region IValueConverter Members
         public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
+            if (value is null)
+                throw new ArgumentException("Value must be set", nameof(value));
+
             System.Diagnostics.Debug.WriteLine("Value: " + value);
             System.Diagnostics.Debug.WriteLine("TargetType: " + targetType);
             System.Diagnostics.Debug.WriteLine("Parameter: " + parameter);
             int integer = (int)value;
-            if (integer == int.Parse(parameter.ToString()))
+            if (parameter is null)
+                return false;
+            string? paramString = parameter.ToString();
+
+            if (paramString is not null && integer == int.Parse(paramString))
                 return true;
             else
                 return false;

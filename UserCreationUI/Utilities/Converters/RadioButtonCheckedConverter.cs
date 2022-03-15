@@ -9,16 +9,16 @@ namespace UserCreationUI.Converters.Utilities
 {
     public class RadioButtonCheckedConverter : IValueConverter
     {
-        public object Convert(object value, Type targetType, object parameter,
+        public object? Convert(object? value, Type targetType, object? parameter,
             System.Globalization.CultureInfo culture)
         {
-            return value.Equals(parameter);
+            return Object.Equals(value, parameter);
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter,
+        public object? ConvertBack(object? value, Type targetType, object? parameter,
             System.Globalization.CultureInfo culture)
         {
-            return value.Equals(true) ? parameter : false;
+            return Object.Equals(value, true) ? parameter : false;
         }
     }
 }

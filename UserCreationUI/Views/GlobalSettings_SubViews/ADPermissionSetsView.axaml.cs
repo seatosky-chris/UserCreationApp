@@ -16,10 +16,10 @@ namespace UserCreationUI.GlobalSettings.Views
 {
     public partial class ADPermissionSetsView : ReactiveUserControl<ADPermissionSetsViewModel>
     {
-        private double SWidth = 850;
-        private double SHeight = 940;
-        private double SMinWidth = 450;
-        private double SMinHeight = 580;
+        private readonly double SWidth = 850;
+        private readonly double SHeight = 940;
+        private readonly double SMinWidth = 450;
+        private readonly double SMinHeight = 580;
 
         public ADPermissionSetsView()
         {
@@ -45,6 +45,9 @@ namespace UserCreationUI.GlobalSettings.Views
                 InputElement.DoubleTappedEvent,
                 (sender, e) =>
                 {
+                    if (e.Source is null || ViewModel is null)
+                        return;
+
                     var row = ((IControl)e.Source).GetSelfAndVisualAncestors()
                         .OfType<ListBoxItem>()
                         .FirstOrDefault();
@@ -61,6 +64,9 @@ namespace UserCreationUI.GlobalSettings.Views
                 InputElement.DoubleTappedEvent,
                 (sender, e) =>
                 {
+                    if (e.Source is null || ViewModel is null)
+                        return;
+
                     var row = ((IControl)e.Source).GetSelfAndVisualAncestors()
                         .OfType<DataGridRow>()
                         .FirstOrDefault();
@@ -75,6 +81,9 @@ namespace UserCreationUI.GlobalSettings.Views
 
         public void DeleteListItem(object sender, RoutedEventArgs e)
         {
+            if (ViewModel is null)
+                return;
+
             Button DeleteBtn = (Button)sender;
             ListBox PrimaryListBox = DeleteBtn.FindAncestorOfType<ListBox>();
             ListBoxItem CurrentListItem = DeleteBtn.FindAncestorOfType<ListBoxItem>();
@@ -94,7 +103,7 @@ namespace UserCreationUI.GlobalSettings.Views
             }
         }
 
-        public void ResizeWindow(object sender, System.EventArgs e)
+        public void ResizeWindow(object? sender, System.EventArgs e)
         {
             SettingsWindowResize.ResizeWindow(this, SWidth, SHeight, SMinWidth, SMinHeight);
         }

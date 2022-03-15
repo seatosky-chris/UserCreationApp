@@ -10,8 +10,10 @@ using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 using UserCreationLibrary;
 using UserCreationUI.Models.DataGridFilterModels;
+using UserCreationUI.Utilities;
 
 namespace UserCreationUI.GlobalSettings.ViewModels
 {
@@ -50,11 +52,17 @@ namespace UserCreationUI.GlobalSettings.ViewModels
 
         public void EditPermissionSet()
         {
-            ADPermissionSetModel CurrentPermissionSetItem = CurrentPermissionSets.Where(x => x.Id == EditID).FirstOrDefault();
+            if (CurrentPermissionSets is null)
+                return;
+
+            ADPermissionSetModel? CurrentPermissionSetItem = CurrentPermissionSets.Where(x => x.Id == EditID).FirstOrDefault();
+
+            if (CurrentPermissionSetItem is null)
+                return;
 
             AddEditPermissionSet(CurrentPermissionSetItem.Id);
 
-            CurrentPermissionSets.Remove(CurrentPermissionSets.Where(x => x.Id == EditID).FirstOrDefault());
+            CurrentPermissionSets.Remove(CurrentPermissionSetItem);
             EditID = "";
         }
 
@@ -115,6 +123,9 @@ namespace UserCreationUI.GlobalSettings.ViewModels
 
         public void CurrentPermissionSet_DoubleClick(ListBoxItem row)
         {
+            if (row.DataContext is null)
+                return;
+
             // Load software details
             ADPermissionSetModel SelectedADPermissionSet = (ADPermissionSetModel)row.DataContext;
             EditID = SelectedADPermissionSet.Id;
@@ -144,35 +155,19 @@ namespace UserCreationUI.GlobalSettings.ViewModels
 
         public void ADGroupRow_DoubleClick(DataGridRow row)
         {
+            if (row.DataContext is null)
+                return;
+
             ADPermissionModel ADGroup = (ADPermissionModel)row.DataContext;
             ADPermissions_Selected.Add(ADGroup);
         }
 
         public bool FilterPermissions(object permission) 
         {
-            foreach (var filterProp in ADPermissionsGridFilters.GetType().GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.DeclaredOnly)) {
-                var filterVal = filterProp.GetValue(ADPermissionsGridFilters, null);
-                if (filterVal == null || string.IsNullOrWhiteSpace(filterVal.ToString()))
-                {
-                    continue;
-                }
-
-                var curValue = permission.GetType().GetProperty(filterProp.Name);
-                if (curValue == null)
-                {
-                    return false;
-                }
-                var curValString = curValue.GetValue(permission, null);
-                if (curValString == null || curValString.ToString() == null || string.IsNullOrWhiteSpace(curValString.ToString()) || !curValString.ToString().ToLower().Contains(filterVal.ToString().ToLower()))
-                {
-                    return false;
-                }
-            }
-
-            return true;
+            return UIFunctions.FilterDataGrid(permission, ADPermissionsGridFilters);
         }
 
-        private async void DoFilter()
+        private void DoFilter()
         {
             if (ADPermissions_All.CanFilter)
             {

@@ -14,10 +14,10 @@ namespace UserCreationUI.GlobalSettings.Views
 {
     public partial class ADFolderLocationsView : ReactiveUserControl<ADFolderLocationsViewModel>
     {
-        private double SWidth = 760;
-        private double SHeight = 570;
-        private double SMinWidth = 460;
-        private double SMinHeight = 500;
+        private readonly double SWidth = 760;
+        private readonly double SHeight = 570;
+        private readonly double SMinWidth = 460;
+        private readonly double SMinHeight = 500;
 
         public ADFolderLocationsView()
         {
@@ -38,6 +38,9 @@ namespace UserCreationUI.GlobalSettings.Views
                 InputElement.DoubleTappedEvent,
                 (sender, e) =>
                 {
+                    if (e.Source is null || ViewModel is null)
+                        return;
+
                     var row = ((IControl)e.Source).GetSelfAndVisualAncestors()
                         .OfType<ListBoxItem>()
                         .FirstOrDefault();
@@ -52,6 +55,9 @@ namespace UserCreationUI.GlobalSettings.Views
 
         public void DeleteListItem(object sender, RoutedEventArgs e)
         {
+            if (ViewModel is null)
+                return;
+
             Button DeleteBtn = (Button)sender;
             ListBox PrimaryListBox = DeleteBtn.FindAncestorOfType<ListBox>();
             ListBoxItem CurrentListItem = DeleteBtn.FindAncestorOfType<ListBoxItem>();
@@ -61,7 +67,7 @@ namespace UserCreationUI.GlobalSettings.Views
             ViewModel.DeleteFolderLocation(index);
         }
 
-        public void ResizeWindow(object sender, System.EventArgs e)
+        public void ResizeWindow(object? sender, System.EventArgs e)
         {
             SettingsWindowResize.ResizeWindow(this, SWidth, SHeight, SMinWidth, SMinHeight);
         }

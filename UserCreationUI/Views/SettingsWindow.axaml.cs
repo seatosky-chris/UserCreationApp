@@ -26,7 +26,8 @@ namespace UserCreationUI.Views
             this.WhenActivated(disposables =>
             {
                 // Open the Global Settings view by default when this window is opened
-                ViewModel.GoGlobalSettingsView.Execute();
+                if (ViewModel is not null)
+                    ViewModel.GoGlobalSettingsView.Execute();
             });
         }
 

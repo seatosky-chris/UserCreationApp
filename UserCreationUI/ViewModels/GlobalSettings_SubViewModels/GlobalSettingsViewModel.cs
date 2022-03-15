@@ -15,7 +15,7 @@ namespace UserCreationUI.GlobalSettings.ViewModels
         private int _ADTypeSelected = (int)Enum.Parse(typeof(CompanyConfigurationSharedModel.ADTypeConfiguration), Program.GlobalConfig.ADType.ToString());
         private int _emailTypeSelected = (int)Enum.Parse(typeof(CompanyConfigurationSharedModel.EmailTypeConfiguration), Program.GlobalConfig.EmailType.ToString());
         private string _exchangeServerFQDN = Program.GlobalConfig.ExchangeServerFQDN ?? "";
-        private bool _exchangeServerFQDNIsEnabled = Program.GlobalConfig.EmailType == CompanyConfigurationSharedModel.EmailTypeConfiguration.Exchange ? true : false;
+        private bool _exchangeServerFQDNIsEnabled = Program.GlobalConfig.EmailType == CompanyConfigurationSharedModel.EmailTypeConfiguration.Exchange;
         private bool _passwordExpiry = Program.GlobalConfig.PasswordExpiryOn;
         private bool _ADO365Sync = Program.GlobalConfig.ADO365SyncOn;
 
@@ -77,31 +77,31 @@ namespace UserCreationUI.GlobalSettings.ViewModels
 
 
         // The counts of each setting type for the UI
-        public int EmailFormatsCount
+        public static int EmailFormatsCount
         {
             get => Program.GlobalConfig.EmailFormats.Count;
         }
-        public int EmailDomainsCount
+        public static int EmailDomainsCount
         {
             get => Program.GlobalConfig.EmailDomains.Count;
         }
-        public int CompaniesCount
+        public static int CompaniesCount
         {
             get => Program.GlobalConfig.Companies.Count;
         }
-        public int DeparmentsCount
+        public static int DeparmentsCount
         {
             get => Program.GlobalConfig.Departments.Count;
         }
-        public int ADFoldersCount
+        public static int ADFoldersCount
         {
             get => Program.GlobalConfig.ADFolders.Count;
         }
-        public int SoftwareCount
+        public static int SoftwareCount
         {
             get => Program.GlobalConfig.Software.Count;
         }
-        public int CustomFieldsCount
+        public static int CustomFieldsCount
         {
             get
             {
@@ -114,46 +114,46 @@ namespace UserCreationUI.GlobalSettings.ViewModels
                 return count;
             }
         }
-        public int ADPermissionSetsCount
+        public static int ADPermissionSetsCount
         {
             get => Program.GlobalConfig.ADPermissionSets.Count;
         }
-        public int O365GroupSetsCount
+        public static int O365GroupSetsCount
         {
             get => Program.GlobalConfig.O365GroupSets.Count;
         }
-        public int O365LicenseSetsCount
+        public static int O365LicenseSetsCount
         {
             get => Program.GlobalConfig.O365LicenseSets.Count;
         }
 
-        public string AzureO365APIIndicator
+        public static string AzureO365APIIndicator
         {
             get => IsAzureO365APISet() ? "Set" : "Not Set";
         }
-        public string ITGAPIIndicator
+        public static string ITGAPIIndicator
         {
             get => IsITGAPISet() ? "Set" : "Not Set";
         }
-        public string EmailForwarderAPIIIndicator
+        public static string EmailForwarderAPIIIndicator
         {
             get => IsEmailForwarderAPISet() ? "Set" : "Not Set";
         }
 
-        public bool AzureO365APIIndicatorClass
+        public static bool AzureO365APIIndicatorClass
         {
-            get => IsAzureO365APISet() ? true : false;
+            get => IsAzureO365APISet();
         }
-        public bool ITGAPIIndicatorClass
+        public static bool ITGAPIIndicatorClass
         {
-            get => IsITGAPISet() ? true : false;
+            get => IsITGAPISet();
         }
-        public bool EmailForwarderAPIIIndicatorClass
+        public static bool EmailForwarderAPIIIndicatorClass
         {
-            get => IsEmailForwarderAPISet() ? true : false;
+            get => IsEmailForwarderAPISet();
         }
 
-        public bool IsAzureO365APISet()
+        public static bool IsAzureO365APISet()
         {
             if (String.IsNullOrWhiteSpace(Program.GlobalConfig.APICredentials.EmailUsername) ||
                 String.IsNullOrWhiteSpace(Program.GlobalConfig.APICredentials.AppID) ||
@@ -168,7 +168,7 @@ namespace UserCreationUI.GlobalSettings.ViewModels
                 return true;
             }
         }
-        public bool IsITGAPISet()
+        public static bool IsITGAPISet()
         {
             if (Program.GlobalConfig.APICredentials.ITGCompanyID < 1 ||
                 String.IsNullOrWhiteSpace(Program.GlobalConfig.APICredentials.ITGURL) ||
@@ -181,7 +181,7 @@ namespace UserCreationUI.GlobalSettings.ViewModels
                 return true;
             }
         }
-        public bool IsEmailForwarderAPISet()
+        public static bool IsEmailForwarderAPISet()
         {
             if (String.IsNullOrWhiteSpace(Program.GlobalConfig.APICredentials.EmailForwarderURL) ||
                 String.IsNullOrWhiteSpace(Program.GlobalConfig.APICredentials.EmailForwarderKey))

@@ -8,6 +8,7 @@ using System.Reactive;
 using System.Reactive.Linq;
 using UserCreationLibrary;
 using UserCreationUI.Models.DataGridFilterModels;
+using UserCreationUI.Utilities;
 
 namespace UserCreationUI.GlobalSettings.ViewModels
 {
@@ -47,11 +48,17 @@ namespace UserCreationUI.GlobalSettings.ViewModels
 
         public void EditLicenseSet()
         {
-            O365LicenseSetModel CurrentLicenseSetItem = CurrentLicenseSets.Where(x => x.Id == EditID).FirstOrDefault();
+            if (CurrentLicenseSets is null)
+                return;
+
+            O365LicenseSetModel? CurrentLicenseSetItem = CurrentLicenseSets.Where(x => x.Id == EditID).FirstOrDefault();
+
+            if (CurrentLicenseSetItem is null)
+                return;
 
             AddEditLicenseSet(CurrentLicenseSetItem.Id);
 
-            CurrentLicenseSets.Remove(CurrentLicenseSets.Where(x => x.Id == EditID).FirstOrDefault());
+            CurrentLicenseSets.Remove(CurrentLicenseSetItem);
             EditID = "";
         }
 
@@ -112,6 +119,9 @@ namespace UserCreationUI.GlobalSettings.ViewModels
 
         public void CurrentLicenseSet_DoubleClick(ListBoxItem row)
         {
+            if (row.DataContext is null)
+                return;
+
             // Load software details
             O365LicenseSetModel SelectedO365LicenseSet = (O365LicenseSetModel)row.DataContext;
             EditID = SelectedO365LicenseSet.Id;
@@ -141,36 +151,19 @@ namespace UserCreationUI.GlobalSettings.ViewModels
 
         public void O365LicenseRow_DoubleClick(DataGridRow row)
         {
+            if (row.DataContext is null)
+                return;
+
             O365LicenseModel O365License = (O365LicenseModel)row.DataContext;
             O365Licenses_Selected.Add(O365License);
         }
 
         public bool FilterLicenses(object license)
         {
-            foreach (var filterProp in O365LicenseGridFilters.GetType().GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.DeclaredOnly))
-            {
-                var filterVal = filterProp.GetValue(O365LicenseGridFilters, null);
-                if (filterVal == null || string.IsNullOrWhiteSpace(filterVal.ToString()))
-                {
-                    continue;
-                }
-
-                var curValue = license.GetType().GetProperty(filterProp.Name);
-                if (curValue == null)
-                {
-                    return false;
-                }
-                var curValString = curValue.GetValue(license, null);
-                if (curValString == null || curValString.ToString() == null || string.IsNullOrWhiteSpace(curValString.ToString()) || !curValString.ToString().ToLower().Contains(filterVal.ToString().ToLower()))
-                {
-                    return false;
-                }
-            }
-
-            return true;
+            return UIFunctions.FilterDataGrid(license, O365LicenseGridFilters);
         }
 
-        private async void DoFilter()
+        private void DoFilter()
         {
             if (O365Licenses_All.CanFilter)
             {

@@ -38,11 +38,17 @@ namespace UserCreationUI.GlobalSettings.ViewModels
 
         public void EditFormat()
         {
-            EmailDefaultModelExtended CurrentFormatItem = CurrentFormats.Where(x => x.Id == EditID).FirstOrDefault();
+            if (CurrentFormats is null)
+                return;
+
+            EmailDefaultModelExtended? CurrentFormatItem = CurrentFormats.Where(x => x.Id == EditID).FirstOrDefault();
+
+            if (CurrentFormatItem is null)
+                return;
 
             AddEditFormat(CurrentFormatItem.Id);
 
-            CurrentFormats.Remove(CurrentFormats.Where(x => x.Id == EditID).FirstOrDefault());
+            CurrentFormats.Remove(CurrentFormatItem);
             EditID = "";
         }
 
@@ -101,6 +107,9 @@ namespace UserCreationUI.GlobalSettings.ViewModels
 
         public void CurrentFormat_DoubleClick(ListBoxItem row)
         {
+            if (row.DataContext is null)
+                return;
+
             // Load format details
             EmailDefaultModelExtended SelectedFormat = (EmailDefaultModelExtended)row.DataContext;
             EditID = SelectedFormat.Id;

@@ -13,27 +13,29 @@ namespace UserCreationUI.Converters.Utilities
     {
         private static readonly char[] _allOperators = new[] { '+', '-', '*', '/', '%', '(', ')' };
 
-        private static readonly List<string> _grouping = new List<string> { "(", ")" };
-        private static readonly List<string> _operators = new List<string> { "+", "-", "*", "/", "%" };
+        private static readonly List<string> _grouping = new() { "(", ")" };
+        private static readonly List<string> _operators = new() { "+", "-", "*", "/", "%" };
 
         #region IValueConverter Members
         /// <inheritdoc/>
         public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
             // Parse value into equation and remove spaces
-            var mathEquation = parameter as string;
+            string? mathEquation = parameter as string;
+            if (mathEquation is not string)
+                mathEquation = "";
             mathEquation = mathEquation.Replace(" ", "");
-            mathEquation = mathEquation.Replace("@VALUE", value.ToString());
+            if (value is not null)
+                mathEquation = mathEquation.Replace("@VALUE", value.ToString());
 
             // Validate values and get list of numbers in equation
             var numbers = new List<double>();
-            double tmp;
 
             foreach (string s in mathEquation.Split(_allOperators))
             {
                 if (s != string.Empty)
                 {
-                    if (double.TryParse(s, out tmp))
+                    if (double.TryParse(s, out double tmp))
                     {
                         numbers.Add(tmp);
                     }
@@ -131,7 +133,7 @@ namespace UserCreationUI.Converters.Utilities
         }
 
         // Gets the next mathematical token in the equation
-        private string GetNextToken(string mathEquation)
+        private static string GetNextToken(string mathEquation)
         {
             // If we're at the end of the equation, return string.empty
             if (mathEquation == string.Empty)

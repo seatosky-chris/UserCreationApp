@@ -8,7 +8,7 @@ namespace UserCreationUI.GlobalSettings.ViewModels
     public class EmailDomainsViewModel : OtherSettingsViewModel
     {
         // Unique identifier for the routable view model.
-        public string UrlPathSegment { get; } = "EmailFormatsEdit";
+        public new string UrlPathSegment { get; } = "EmailFormatsEdit";
 
         public EmailDomainsViewModel(IScreen screen) : base(screen)
         {
@@ -19,6 +19,9 @@ namespace UserCreationUI.GlobalSettings.ViewModels
 
         public void AddDomain()
         {
+            if (AddNewPrimary is null)
+                return;
+
             // TODO: Add in check to ensure this is a domain
             // also only enable the button if AddNewPrimary is a proper domain
             CurrentDomains.Add(AddNewPrimary);

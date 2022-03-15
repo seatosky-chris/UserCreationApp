@@ -12,10 +12,10 @@ namespace UserCreationUI.GlobalSettings.Views
 {
     public partial class EmailDomainsView : ReactiveUserControl<EmailDomainsViewModel>
     {
-        private double SWidth = 700;
-        private double SHeight = 350;
-        private double SMinWidth = 300;
-        private double SMinHeight = 185;
+        private readonly double SWidth = 700;
+        private readonly double SHeight = 350;
+        private readonly double SMinWidth = 300;
+        private readonly double SMinHeight = 185;
 
         public EmailDomainsView()
         {
@@ -34,6 +34,9 @@ namespace UserCreationUI.GlobalSettings.Views
         
         public void DeleteListItem(object sender, RoutedEventArgs e)
         {
+            if (ViewModel is null)
+                return;
+
             Button DeleteBtn = (Button)sender;
             ListBox PrimaryListBox = DeleteBtn.FindAncestorOfType<ListBox>();
             ListBoxItem CurrentListItem = DeleteBtn.FindAncestorOfType<ListBoxItem>();
@@ -43,7 +46,7 @@ namespace UserCreationUI.GlobalSettings.Views
             ViewModel.DeleteDomain(index);
         }
 
-        public void ResizeWindow(object sender, System.EventArgs e)
+        public void ResizeWindow(object? sender, System.EventArgs e)
         {
             SettingsWindowResize.ResizeWindow(this, SWidth, SHeight, SMinWidth, SMinHeight);
         }

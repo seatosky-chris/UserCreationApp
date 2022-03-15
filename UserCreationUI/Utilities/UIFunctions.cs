@@ -1,4 +1,5 @@
 ﻿using Avalonia.Interactivity;
+using ReactiveUI;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -11,7 +12,7 @@ namespace UserCreationUI.Utilities
 {
     public static class UIFunctions
     {
-        public static void _openUrl(string url)
+        public static void UI_OpenUrl(string url)
         {
             try
             {
@@ -44,6 +45,35 @@ namespace UserCreationUI.Utilities
         public static void EventHandled(object? sender, RoutedEventArgs e)
         {
             e.Handled = true;
+        }
+
+        // Used by the DoFilter function for filtering datagrids
+        public static bool FilterDataGrid(object filterBy, ReactiveObject gridFilters)
+        {
+            foreach (var filterProp in gridFilters.GetType().GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.DeclaredOnly))
+            {
+                var filterVal = filterProp.GetValue(gridFilters, null);
+                if (filterVal is null || string.IsNullOrWhiteSpace(filterVal.ToString()))
+                    continue;
+
+                string? filterValString = filterVal.ToString();
+                if (filterValString is null)
+                    continue;
+
+                var curValueProp = filterBy.GetType().GetProperty(filterProp.Name);
+                if (curValueProp == null)
+                    return false;
+
+                var curValue = curValueProp.GetValue(filterBy, null);
+                if (curValue is null)
+                    return false;
+
+                string? curValueString = curValue.ToString();
+                if (curValueString is null || string.IsNullOrWhiteSpace(curValueString) || !curValueString.ToLower().Contains(filterValString.ToLower()))
+                    return false;
+            }
+
+            return true;
         }
     }
 }

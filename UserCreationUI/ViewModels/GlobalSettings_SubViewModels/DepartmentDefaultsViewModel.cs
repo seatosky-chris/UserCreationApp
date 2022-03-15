@@ -11,7 +11,7 @@ namespace UserCreationUI.GlobalSettings.ViewModels
     public class DepartmentDefaultsViewModel : OtherSettingsViewModel
     {
         // Unique identifier for the routable view model.
-        public string UrlPathSegment { get; } = "DepartmentDefaultsEdit";
+        public new string UrlPathSegment { get; } = "DepartmentDefaultsEdit";
 
         private string _editID = "";
 
@@ -35,11 +35,17 @@ namespace UserCreationUI.GlobalSettings.ViewModels
 
         public void EditDepartment()
         {
-            DepartmentDefaultModelExtended CurrentDepartmentItem = CurrentDepartments.Where(x => x.Id == EditID).FirstOrDefault();
+            if (CurrentDepartments is null)
+                return;
+
+            DepartmentDefaultModelExtended? CurrentDepartmentItem = CurrentDepartments.Where(x => x.Id == EditID).FirstOrDefault();
+
+            if (CurrentDepartmentItem is null)
+                return;
 
             AddEditDepartment(CurrentDepartmentItem.Id);
 
-            CurrentDepartments.Remove(CurrentDepartments.Where(x => x.Id == EditID).FirstOrDefault());
+            CurrentDepartments.Remove(CurrentDepartmentItem);
             EditID = "";
         }
 
@@ -80,6 +86,9 @@ namespace UserCreationUI.GlobalSettings.ViewModels
 
         public void CurrentDepartment_DoubleClick(ListBoxItem row)
         {
+            if (row.DataContext is null)
+                return;
+
             // Load format details
             DepartmentDefaultModelExtended SelectedDepartment = (DepartmentDefaultModelExtended)row.DataContext;
             EditID = SelectedDepartment.Id;

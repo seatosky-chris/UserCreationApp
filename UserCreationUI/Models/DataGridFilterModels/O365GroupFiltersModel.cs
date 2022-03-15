@@ -24,7 +24,7 @@ namespace UserCreationUI.Models.DataGridFilterModels
         /// The email address for the O365 group.
         /// </summary>
         private string? _email;
-        public string Email
+        public string? Email
         {
             get => _email;
             set => this.RaiseAndSetIfChanged(ref _email, value);

@@ -9,7 +9,7 @@ namespace UserCreationUI.Converters.Utilities
 {
     public class IfValueEqualsConverter : IValueConverter
     {
-        HashSet<Type> NumericTypes = new HashSet<Type>
+        readonly HashSet<Type> NumericTypes = new()
         {
             typeof(byte), typeof(sbyte),
             typeof(uint), typeof(int),
@@ -18,26 +18,28 @@ namespace UserCreationUI.Converters.Utilities
             typeof(decimal), typeof(double), typeof(float)
         };
 
-        public object Convert(object value, Type targetType, object parameter,
+        public object? Convert(object? value, Type targetType, object? parameter,
             System.Globalization.CultureInfo culture)
         {
-            if (parameter.GetType() == typeof(string) && NumericTypes.Contains(value.GetType()))
+            if (parameter is not null && value is not null &&
+                parameter.GetType() == typeof(string) && NumericTypes.Contains(value.GetType()))
             {
                 parameter = System.Convert.ChangeType(parameter, value.GetType());
             }
 
-            return value.Equals(parameter);
+            return Object.Equals(value, parameter);
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter,
+        public object? ConvertBack(object? value, Type targetType, object? parameter,
             System.Globalization.CultureInfo culture)
         {
-            if (parameter.GetType() == typeof(string) && NumericTypes.Contains(value.GetType()))
+            if (parameter is not null && value is not null && 
+                parameter.GetType() == typeof(string) && NumericTypes.Contains(value.GetType()))
             {
                 parameter = System.Convert.ChangeType(parameter, value.GetType());
             }
 
-            return value.Equals(true) ? parameter : false;
+            return Object.Equals(value, true) ? parameter : false;
         }
     }
 }
