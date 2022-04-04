@@ -30,16 +30,15 @@ namespace UserCreationUI
         {
             Locator.CurrentMutable.RegisterViewsForViewModels(Assembly.GetExecutingAssembly());
 
-            // Register icon provider(s)
-            IconProvider.Register<FontAwesomeIconProvider>();
-
             // Load config
             LoadGlobalConfig();
 
             return AppBuilder.Configure<App>()
                   .UsePlatformDetect() 
                   .LogToTrace()
-                  .UseReactiveUI();
+                  .UseReactiveUI()
+                  .WithIcons(container => container
+                    .Register<FontAwesomeIconProvider>());
         }
 
         private static void LoadGlobalConfig()
