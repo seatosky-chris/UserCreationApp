@@ -1,5 +1,6 @@
 ﻿using Avalonia.Collections;
 using Avalonia.Controls;
+using FluentValidation.Results;
 using ReactiveUI;
 using System;
 using System.Collections.ObjectModel;
@@ -70,18 +71,41 @@ namespace UserCreationUI.GlobalSettings.ViewModels
 
         private void AddEditLicenseSet(string? Id)
         {
-            // TODO: Add in validation
-            CurrentLicenseSets.Add(new O365LicenseSetModel
+            O365LicenseSetValidator validator = new();
+            var newO365LicenseSet = new O365LicenseSetModel
             {
                 Id = Id ?? System.Guid.NewGuid().ToString(),
                 Name = AddNewPrimary,
                 O365Licenses = O365Licenses_Selected.ToList(),
                 EmployeeTypes = (from employee in SelectedEmployeeTypes.SelectedItems select employee.Key).Distinct().ToList(),
                 Locations = (from location in SelectedLocations.SelectedItems select location.Key).Distinct().ToList()
-            });
+            };
 
-            ClearForm();
-            Saveable = true;
+            if (CurrentLicenseSets.Where(set => set.Name == newO365LicenseSet.Name).Any())
+            {
+                ShowError("That Set Name is already in use!", "Please choose a different name.");
+                return;
+            }
+            var existingSet = CurrentLicenseSets.Where(set => set.O365Licenses.All(newO365LicenseSet.O365Licenses.Contains)).Where(set => set.O365Licenses.Count == newO365LicenseSet.O365Licenses.Count);
+            if (existingSet.Any())
+            {
+                ShowError("A license set with those licenses already exists!", "You tried creating a duplicate. Take a look at: " + existingSet.First().Name);
+                return;
+            }
+
+            ValidationResult validationResult = validator.Validate(newO365LicenseSet);
+
+            if (validationResult.IsValid)
+            {
+                CurrentLicenseSets.Add(newO365LicenseSet);
+
+                ClearForm();
+                Saveable = true;
+            }
+            else
+            {
+                ShowError("Data Validation Failed. Please fix the following errors:", (validationResult.Errors.Count > 2 ? validationResult.ToString(" ") : validationResult.ToString()));
+            }
         }
 
         private void ClearForm()

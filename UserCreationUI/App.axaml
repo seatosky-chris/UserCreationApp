@@ -19,8 +19,9 @@
         <FluentTheme Mode="Light"/>
 		<StyleInclude Source="avares://Aura.UI.FluentTheme/AuraUI.xaml"/>
 		<StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml"/>
+		<StyleInclude Source="avares://Notification.Avalonia/Themes/Generic.xaml" />
 		<StyleInclude Source="avares://UserCreationUI/Icons.axaml" />
 		<StyleInclude Source="avares://UserCreationUI/FluentUiCore.axaml" />
 		<StyleInclude Source="avares://UserCreationUI/Styles.axaml" />
-    </Application.Styles>
+	</Application.Styles>
 </Application>

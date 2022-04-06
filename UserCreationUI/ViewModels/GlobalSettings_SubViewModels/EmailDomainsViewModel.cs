@@ -1,7 +1,9 @@
-﻿using ReactiveUI;
+﻿using FluentValidation.Results;
+using ReactiveUI;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive;
+using UserCreationLibrary;
 
 namespace UserCreationUI.GlobalSettings.ViewModels
 {
@@ -21,12 +23,21 @@ namespace UserCreationUI.GlobalSettings.ViewModels
         {
             if (AddNewPrimary is null)
                 return;
+            AddNewPrimary = AddNewPrimary.Trim();
 
-            // TODO: Add in check to ensure this is a domain
-            // also only enable the button if AddNewPrimary is a proper domain
-            CurrentDomains.Add(AddNewPrimary);
-            AddNewPrimary = "";
-            Saveable = true;
+            EmailDomainValidator validator = new();
+            ValidationResult validationResult = validator.Validate(AddNewPrimary);
+
+            if (validationResult.IsValid)
+            {
+                CurrentDomains.Add(AddNewPrimary);
+                AddNewPrimary = "";
+                Saveable = true;
+            }
+            else
+            {
+                ShowError("Data Validation Failed. Please fix the following errors:", (validationResult.Errors.Count > 2 ? validationResult.ToString(" ") : validationResult.ToString()));
+            }
         }
 
         public void DeleteDomain(int index)

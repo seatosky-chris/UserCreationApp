@@ -20,6 +20,7 @@
     <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.13" />
     <PackageReference Include="Avalonia.Xaml.Behaviors" Version="0.10.13.2" />
     <PackageReference Include="MessageBox.Avalonia" Version="2.0.0" />
+    <PackageReference Include="Notification.Avalonia" Version="1.0.0" />
     <PackageReference Include="Projektanker.Icons.Avalonia" Version="4.4.0" />
     <PackageReference Include="Projektanker.Icons.Avalonia.FontAwesome" Version="4.4.0" />
   </ItemGroup>
@@ -36,5 +37,10 @@
     <Compile Update="Views\SettingsWindow.axaml.cs">
       <DependentUpon>SettingsWindow.axaml</DependentUpon>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="NotificationStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
   </ItemGroup>
 </Project>

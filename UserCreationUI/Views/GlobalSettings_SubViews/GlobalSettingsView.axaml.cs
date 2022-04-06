@@ -52,10 +52,14 @@ namespace UserCreationUI.GlobalSettings.Views
             if (ViewModel is null)
                 return;
 
-            ViewModel.SaveGlobalSettings();
-            System.Diagnostics.Debug.WriteLine("Now closing");
-            SettingsWindow settingsWindow = this.FindAncestorOfType<SettingsWindow>();
-            settingsWindow.CloseWindow();
+            bool close = ViewModel.SaveGlobalSettings();
+
+            if (close)
+            {
+                System.Diagnostics.Debug.WriteLine("Now closing");
+                SettingsWindow settingsWindow = this.FindAncestorOfType<SettingsWindow>();
+                settingsWindow.CloseWindow();
+            }
         }
 
         public void ResizeWindow(object? sender, System.EventArgs e)

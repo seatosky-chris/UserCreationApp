@@ -1,8 +1,10 @@
-﻿using System;
+﻿using FluentValidation;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UserCreationLibrary.CustomValidators;
 
 namespace UserCreationLibrary
 {
@@ -30,5 +32,15 @@ namespace UserCreationLibrary
         /// <see cref="CompanyConfigurationModel.Locations"/>
         public List<int> Locations { get; set; } = new List<int>();
 
+    }
+
+    public class DepartmentDefaultValidator : AbstractValidator<DepartmentDefaultModel>
+    {
+        public DepartmentDefaultValidator()
+        {
+            RuleFor(departmentDefault => departmentDefault.Id).SetValidator(new UUIDValidator()).WithMessage("The ID is not a valid UUID. Something went horribly wrong!");
+            RuleFor(departmentDefault => departmentDefault.Priority).GreaterThan(0);
+            RuleFor(departmentDefault => departmentDefault.Department).NotEmpty();
+        }
     }
 }

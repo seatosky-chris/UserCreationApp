@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FluentValidation;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -241,5 +242,27 @@ namespace UserCreationLibrary
         /// </remarks>
         public string CustomFieldName5 { get; set; } = "";
 
+    }
+
+    public class CompanyConfigurationValidator : AbstractValidator<CompanyConfigurationModel>
+    {
+        public CompanyConfigurationValidator()
+        {
+            RuleFor(companyConfig => companyConfig.UsernameFormat).NotEmpty();
+            RuleFor(companyConfig => companyConfig.ADType).IsInEnum();
+            RuleFor(companyConfig => companyConfig.EmailType).IsInEnum();
+            RuleFor(companyConfig => companyConfig.ExchangeServerFQDN).NotEmpty().When(companyConfig => companyConfig.EmailType == CompanyConfigurationSharedModel.EmailTypeConfiguration.Exchange);
+            RuleFor(companyConfig => companyConfig.PasswordExpiryOn).NotNull();
+            RuleFor(companyConfig => companyConfig.ADO365SyncOn).NotNull();
+        }
+    }
+
+    public class EmailDomainValidator : AbstractValidator<string>
+    {
+        public EmailDomainValidator()
+        {
+            RuleFor(domain => domain).NotEmpty().WithName("Domain");
+            RuleFor(domain => domain).Must(domain => Uri.CheckHostName(domain) != UriHostNameType.Unknown).WithName("Domain").WithMessage("That is not a valid domain.");
+        }
     }
 }

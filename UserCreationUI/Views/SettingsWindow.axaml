@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:notificationctrl="clr-namespace:Avalonia.Notification.Controls;assembly=Notification.Avalonia"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="650"
 		Width="800" Height="650"
 		WindowStartupLocation="CenterOwner"
@@ -10,15 +11,22 @@
 		Icon="/Assets/settings.ico"
         Title="User Creation App - Global Settings">
 
-	<rxui:RoutedViewHost x:Name="RoutedViewHost" Router="{Binding Router}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-		<rxui:RoutedViewHost.DefaultContent>
-			<StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-				<ProgressRing IsIndeterminate="True" Margin="0,0,0,30" />
-				<TextBlock>
-					Loading Global Settings...
-				</TextBlock>
-			</StackPanel>
-		</rxui:RoutedViewHost.DefaultContent>
-	</rxui:RoutedViewHost>
+	<Grid ColumnDefinitions="*" RowDefinitions="Auto, *">
+		<Panel Grid.Row="0" Grid.Column="0">
+			<notificationctrl:NotificationMessageContainer Manager="{Binding NotificationsManager}" />
+		</Panel>
+		<Panel Grid.Row="1" Grid.Column="0">
+			<rxui:RoutedViewHost x:Name="RoutedViewHost" Router="{Binding Router}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+				<rxui:RoutedViewHost.DefaultContent>
+					<StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+						<ProgressRing IsIndeterminate="True" Margin="0,0,0,30" />
+						<TextBlock>
+							Loading Global Settings...
+						</TextBlock>
+					</StackPanel>
+				</rxui:RoutedViewHost.DefaultContent>
+			</rxui:RoutedViewHost>
+		</Panel>
+	</Grid>
 	
 </Window>

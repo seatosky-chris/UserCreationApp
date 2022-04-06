@@ -1,4 +1,5 @@
 ﻿using Avalonia.Controls;
+using FluentValidation.Results;
 using ReactiveUI;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -57,18 +58,34 @@ namespace UserCreationUI.GlobalSettings.ViewModels
 
         private void AddEditCompany(string? Id)
         {
-            // TODO: Add in validation
-
-            CurrentCompanies.Add(new CompanyDefaultModelExtended
+            CompanyDefaultValidator validator = new();
+            var newCompanyDefault = new CompanyDefaultModelExtended
             {
                 Id = Id ?? System.Guid.NewGuid().ToString(),
                 Priority = 1,
                 Company = AddNewPrimary,
                 Locations = (from location in SelectedLocations.SelectedItems select location.Key).Distinct().ToList()
-            });
+            };
 
-            ClearForm();
-            Saveable = true;
+            if (CurrentCompanies.Where(company => company.Company == newCompanyDefault.Company).Any())
+            {
+                ShowError("That Company Name is already in use!", "Please choose a different company name.");
+                return;
+            }
+
+            ValidationResult validationResult = validator.Validate(newCompanyDefault);
+
+            if (validationResult.IsValid)
+            {
+                CurrentCompanies.Add(newCompanyDefault);
+
+                ClearForm();
+                Saveable = true;
+            }
+            else
+            {
+                ShowError("Data Validation Failed. Please fix the following errors:", (validationResult.Errors.Count > 2 ? validationResult.ToString(" ") : validationResult.ToString()));
+            }
         }
 
         private void ClearForm()

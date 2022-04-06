@@ -1,8 +1,10 @@
-﻿using System;
+﻿using FluentValidation;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UserCreationLibrary.CustomValidators;
 
 namespace UserCreationLibrary
 {
@@ -36,5 +38,15 @@ namespace UserCreationLibrary
         /// <see cref="O365GroupModel"/>
         public List<O365GroupModel> O365Groups { get; set; } = new List<O365GroupModel>();
 
+    }
+
+    public class O365GroupSetValidator : AbstractValidator<O365GroupSetModel>
+    {
+        public O365GroupSetValidator()
+        {
+            RuleFor(o365GroupSet => o365GroupSet.Id).SetValidator(new UUIDValidator()).WithMessage("The ID is not a valid UUID. Something went horribly wrong!");
+            RuleFor(o365GroupSet => o365GroupSet.Name).NotEmpty();
+            RuleFor(o365GroupSet => o365GroupSet.O365Groups).NotEmpty();
+        }
     }
 }

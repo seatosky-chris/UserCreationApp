@@ -1,8 +1,10 @@
-﻿using System;
+﻿using FluentValidation;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UserCreationLibrary.CustomValidators;
 
 namespace UserCreationLibrary
 {
@@ -33,6 +35,16 @@ namespace UserCreationLibrary
         public string Domain { get; set; }
 
         /// <summary>
+        ///  The full email template.
+        /// </summary>
+        public string EmailTemplate { 
+            get
+            {
+                return $"{this.EmailFormat}@{this.Domain}";
+            }
+        }
+
+        /// <summary>
         /// A list of EmployeeTypes to apply this email template to by default.
         /// </summary>
         /// <see cref="CompanyConfigurationModel.EmployeeTypes"/>
@@ -44,5 +56,17 @@ namespace UserCreationLibrary
         /// <see cref="CompanyConfigurationModel.Locations"/>
         public List<int> Locations { get; set; } = new List<int>();
 
+    }
+
+    public class EmailDefaultValidator : AbstractValidator<EmailDefaultModel>
+    {
+        public EmailDefaultValidator()
+        {
+            RuleFor(emailDefault => emailDefault.Id).SetValidator(new UUIDValidator()).WithMessage("The ID is not a valid UUID. Something went horribly wrong!");
+            RuleFor(emailDefault => emailDefault.Priority).GreaterThan(0);
+            RuleFor(emailDefault => emailDefault.EmailFormat).NotEmpty();
+            RuleFor(emailDefault => emailDefault.Domain).NotEmpty();
+            RuleFor(emailDefault => emailDefault.EmailTemplate).EmailAddress().WithMessage("The email template does not appear to be a valid email address.");
+        }
     }
 }

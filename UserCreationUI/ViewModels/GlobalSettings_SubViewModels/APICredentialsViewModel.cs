@@ -1,4 +1,5 @@
 ﻿using Avalonia;
+using FluentValidation.Results;
 using ReactiveUI;
 using System;
 using System.Diagnostics;
@@ -6,6 +7,7 @@ using System.Linq;
 using System.Reactive;
 using System.Runtime.InteropServices;
 using UserAppSharedLibrary;
+using UserCreationUI.ViewModels;
 using static UserCreationUI.Utilities.UIFunctions;
 
 namespace UserCreationUI.GlobalSettings.ViewModels
@@ -95,24 +97,46 @@ namespace UserCreationUI.GlobalSettings.ViewModels
 
         public void SaveAPICredentials()
         {
+            APICredentialsValidator validator = new();
+
             // If loaded, modify instead (to keep data from disablement app)
-            Program.GlobalConfig.APICredentials.ITGCompanyID = ITGCompanyID;
-            Program.GlobalConfig.APICredentials.ITGURL = ITGURL;
-            Program.GlobalConfig.APICredentials.ITGKey = ITGKey;
+            var newAPICredentials = Program.GlobalConfig.APICredentials;
+            newAPICredentials.ITGCompanyID = ITGCompanyID;
+            newAPICredentials.ITGURL = ITGURL;
+            newAPICredentials.ITGKey = ITGKey;
 
-            Program.GlobalConfig.APICredentials.EmailForwarderURL = EmailForwarderURL;
-            Program.GlobalConfig.APICredentials.EmailForwarderKey = EmailForwarderKey;
+            newAPICredentials.EmailForwarderURL = EmailForwarderURL;
+            newAPICredentials.EmailForwarderKey = EmailForwarderKey;
 
-            Program.GlobalConfig.APICredentials.EmailUsername = O365LoginEmail;
-            Program.GlobalConfig.APICredentials.AppID = O365AppID;
-            Program.GlobalConfig.APICredentials.TenantID = O365TenantID;
-            Program.GlobalConfig.APICredentials.Organization = O365Organization;
-            Program.GlobalConfig.APICredentials.CertificateThumbprint = O365CertThumbprint;
+            newAPICredentials.EmailUsername = O365LoginEmail;
+            newAPICredentials.AppID = O365AppID;
+            newAPICredentials.TenantID = O365TenantID;
+            newAPICredentials.Organization = O365Organization;
+            newAPICredentials.CertificateThumbprint = O365CertThumbprint;
 
-            // Code to save data
+            // Validate new api creds
+            ValidationResult validationResult = validator.Validate(newAPICredentials);
 
-            System.Diagnostics.Debug.WriteLine("Saving API Creds");
-            HostScreen.Router.NavigateBack.Execute(Unit.Default);
+            if (validationResult.IsValid)
+            {
+                Program.GlobalConfig.APICredentials = newAPICredentials;
+                // Code to save data
+
+                System.Diagnostics.Debug.WriteLine("Saving API Creds");
+                HostScreen.Router.NavigateBack.Execute(Unit.Default);
+            }
+            else
+            {
+                var hostVM = this.HostScreen;
+
+                if (hostVM is SettingsWindowViewModel)
+                {
+                    SettingsWindowViewModel settingsVM = (SettingsWindowViewModel)hostVM;
+                    settingsVM.ShowNotification("Data Validation Failed. Please fix the following errors:", 
+                        (validationResult.Errors.Count > 2 ? validationResult.ToString(" ") : validationResult.ToString()), 
+                        SettingsWindowViewModel.notificationType.Error);
+                }
+            }
         }
 
         public void BackButton()

@@ -2,6 +2,7 @@
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using DynamicData;
+using FluentValidation.Results;
 using ReactiveUI;
 using System;
 using System.Collections.Generic;
@@ -74,18 +75,41 @@ namespace UserCreationUI.GlobalSettings.ViewModels
 
         private void AddEditPermissionSet(string? Id)
         {
-            // TODO: Add in validation
-            CurrentPermissionSets.Add(new ADPermissionSetModel
+            ADPermissionSetValidator validator = new();
+            var newPermissionSet = new ADPermissionSetModel
             {
                 Id = Id ?? System.Guid.NewGuid().ToString(),
                 Name = AddNewPrimary,
                 Permissions = ADPermissions_Selected.ToList(),
                 EmployeeTypes = (from employee in SelectedEmployeeTypes.SelectedItems select employee.Key).Distinct().ToList(),
                 Locations = (from location in SelectedLocations.SelectedItems select location.Key).Distinct().ToList()
-            });
+            };
 
-            ClearForm();
-            Saveable = true;
+            if (CurrentPermissionSets.Where(set => set.Name == newPermissionSet.Name).Any())
+            {
+                ShowError("That Set Name is already in use!", "Please choose a different name.");
+                return;
+            }
+            var existingSet = CurrentPermissionSets.Where(set => set.Permissions.All(newPermissionSet.Permissions.Contains)).Where(set => set.Permissions.Count == newPermissionSet.Permissions.Count);
+            if (existingSet.Any())
+            {
+                ShowError("A permission set with those permissions already exists!", "You tried creating a duplicate. Take a look at: " + existingSet.First().Name);
+                return;
+            }
+
+            ValidationResult validationResult = validator.Validate(newPermissionSet);
+
+            if (validationResult.IsValid)
+            {
+                CurrentPermissionSets.Add(newPermissionSet);
+
+                ClearForm();
+                Saveable = true;
+            }
+            else
+            {
+                ShowError("Data Validation Failed. Please fix the following errors:", (validationResult.Errors.Count > 2 ? validationResult.ToString(" ") : validationResult.ToString()));
+            }
         }
 
         private void ClearForm()

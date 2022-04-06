@@ -1,5 +1,6 @@
 ﻿using Avalonia.Collections;
 using Avalonia.Controls;
+using FluentValidation.Results;
 using ReactiveUI;
 using System;
 using System.Collections.Generic;
@@ -104,18 +105,50 @@ namespace UserCreationUI.GlobalSettings.ViewModels
 
         private void AddEditSoftware(string? Id)
         {
-            // TODO: Add in validation
-            CurrentSoftware.Add(new SoftwareModel
+            SoftwareValidator validator = new();
+            var newSoftware = new SoftwareModel
             {
                 Id = Id ?? System.Guid.NewGuid().ToString(),
                 Name = AddNewPrimary,
                 Permissions = ADPermissions_Selected.ToList(),
                 O365Groups = O365Groups_Selected.ToList(),
                 O365Licenses = O365Licenses_Selected.ToList()
-            });
+            };
 
-            ClearForm();
-            Saveable = true;
+            if (CurrentSoftware.Where(software => software.Name == newSoftware.Name).Any())
+            {
+                ShowError("That Software Name is already in use!", "Please choose a different name.");
+                return;
+            }
+
+            var existingSoftware = CurrentSoftware
+                .Where(software => (
+                    software.Permissions.All(newSoftware.Permissions.Contains) && 
+                    software.O365Groups.All(newSoftware.O365Groups.Contains) && 
+                    software.O365Licenses.All(newSoftware.O365Licenses.Contains)))
+                .Where(software => (
+                    software.Permissions.Count == newSoftware.Permissions.Count &&
+                    software.O365Groups.Count == newSoftware.O365Groups.Count &&
+                    software.O365Licenses.Count == newSoftware.O365Licenses.Count));
+            if (existingSoftware.Any())
+            {
+                ShowError("Software with those permissions/groups/licenses already exists!", "You tried creating a duplicate. Take a look at: " + existingSoftware.First().Name);
+                return;
+            }
+
+            ValidationResult validationResult = validator.Validate(newSoftware);
+
+            if (validationResult.IsValid)
+            {
+                CurrentSoftware.Add(newSoftware);
+
+                ClearForm();
+                Saveable = true;
+            }
+            else
+            {
+                ShowError("Data Validation Failed. Please fix the following errors:", (validationResult.Errors.Count > 2 ? validationResult.ToString(" ") : validationResult.ToString()));
+            }
         }
         
         private void ClearForm()

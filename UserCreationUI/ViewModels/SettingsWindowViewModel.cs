@@ -1,4 +1,5 @@
 ﻿using Avalonia;
+using Avalonia.Notification;
 using ReactiveUI;
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,9 @@ namespace UserCreationUI.ViewModels
         // The Router for moving between the various settings views
         public RoutingState Router { get; }
 
+        // The notifications manager
+        public INotificationMessageManager NotificationsManager { get; } = new NotificationMessageManager();
+
         public SettingsWindowViewModel()
         {
             // Initialize the Router.
@@ -27,6 +31,8 @@ namespace UserCreationUI.ViewModels
 
             // Setup navigation commands
             SetupNavigationCommands();
+
+           
         }
 
         // Navigation commands
@@ -34,6 +40,66 @@ namespace UserCreationUI.ViewModels
         public ReactiveCommand<Unit, IRoutableViewModel?> GoBack { get; private set; }
 
         public ReactiveCommand<string, Unit> GoEditView { get; private set; }
+
+        public enum notificationType
+        {
+           Info,
+           Success,
+           Alert,
+           Warning,
+           Error
+        }
+
+        public void ShowNotification(string header, string message, notificationType type, bool animate = true, string buttonTxt = "Close", int autoClose = 5)
+        {
+            string accent = "";
+            string background = "";
+            string foreground = "";
+
+            switch (type)
+            {
+                case notificationType.Success:
+                    accent = "#006400";
+                    background = "#BCF5BC";
+                    foreground = "#006400";
+                    break;
+                case notificationType.Alert:
+                    accent = "#444";
+                    background = "#dedede";
+                    foreground = "#444";
+                    break;
+                case notificationType.Warning:
+                    accent = "#826200";
+                    background = "#FFEAA8";
+                    foreground = "#826200";
+                    break;
+                case notificationType.Error:
+                    accent = "#C62828";
+                    background = "#F44336";
+                    foreground = "#FFFFFF";
+                    break;
+                case notificationType.Info:
+                default:
+                    accent = "#3badd6";
+                    background = "#78C5E7";
+                    foreground = "#FFFFFF";
+                    break;
+            }
+            
+            this.NotificationsManager
+                   .CreateMessage()
+                   .Accent(accent)
+                   .Background(background)
+                   .Foreground(foreground)
+                   .HasBadge(type.ToString())
+                   .Animates(animate)
+                   .HasHeader(header)
+                   .HasMessage(message)
+                   .Dismiss().WithButton(buttonTxt, button => { })
+                   .Dismiss().WithDelay(System.TimeSpan.FromSeconds(autoClose))
+                   .Queue();
+            return;
+        }
 
         /// <summary>
         /// Initializes all of the navigation commands

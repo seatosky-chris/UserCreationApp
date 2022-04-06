@@ -1,8 +1,10 @@
-﻿using System;
+﻿using FluentValidation;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UserCreationLibrary.CustomValidators;
 
 namespace UserCreationLibrary
 {
@@ -36,5 +38,15 @@ namespace UserCreationLibrary
         /// <see cref="O365LicenseModel"/>
         public List<O365LicenseModel> O365Licenses { get; set; } = new List<O365LicenseModel>();
 
+    }
+
+    public class O365LicenseSetValidator : AbstractValidator<O365LicenseSetModel>
+    {
+        public O365LicenseSetValidator()
+        {
+            RuleFor(o365LicenseSet => o365LicenseSet.Id).SetValidator(new UUIDValidator()).WithMessage("The ID is not a valid UUID. Something went horribly wrong!");
+            RuleFor(o365LicenseSet => o365LicenseSet.Name).NotEmpty();
+            RuleFor(o365LicenseSet => o365LicenseSet.O365Licenses).NotEmpty();
+        }
     }
 }

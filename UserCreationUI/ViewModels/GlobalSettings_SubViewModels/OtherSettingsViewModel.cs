@@ -10,6 +10,7 @@ using System.Reactive;
 using System.Text;
 using System.Threading.Tasks;
 using UserCreationUI.GlobalSettings.Views;
+using UserCreationUI.ViewModels;
 using static UserCreationUI.Utilities.UIFunctions;
 
 namespace UserCreationUI.GlobalSettings.ViewModels
@@ -91,6 +92,17 @@ namespace UserCreationUI.GlobalSettings.ViewModels
         public void BackButton()
         {
             HostScreen.Router.NavigateBack.Execute(Unit.Default);
+        }
+
+        public void ShowError(string header, string message)
+        {
+            var hostVM = this.HostScreen;
+
+            if (hostVM is SettingsWindowViewModel)
+            {
+                SettingsWindowViewModel settingsVM = (SettingsWindowViewModel)hostVM;
+                settingsVM.ShowNotification(header, message, SettingsWindowViewModel.notificationType.Error);
+            }
         }
 
         public static void OpenUrl(string url)

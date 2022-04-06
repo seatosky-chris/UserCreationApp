@@ -1,8 +1,10 @@
 ﻿using Avalonia.Controls;
+using FluentValidation.Results;
 using ReactiveUI;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive;
+using UserAppSharedLibrary;
 using UserCreationUI.Models.ExtendedModels;
 
 namespace UserCreationUI.GlobalSettings.ViewModels
@@ -63,9 +65,8 @@ namespace UserCreationUI.GlobalSettings.ViewModels
 
         private void AddEditFolderLocation(string? Id)
         {
-            // TODO: Add in validation
-
-            CurrentFolderLocations.Add(new ADFolderDefaultModelExtended
+            ADFolderDefaultValidator validator = new();
+            var newLocation = new ADFolderDefaultModelExtended
             {
                 Id = Id ?? System.Guid.NewGuid().ToString(),
                 Priority = 1,
@@ -73,10 +74,34 @@ namespace UserCreationUI.GlobalSettings.ViewModels
                 FolderLocation = AddNewSecondary,
                 IncludeSubfolders = IncludeSubfolders,
                 Locations = (from location in SelectedLocations.SelectedItems select location.Key).Distinct().ToList()
-            });
+            };
 
-            ClearForm();
-            Saveable = true;
+            if (CurrentFolderLocations.Where(folder => folder.FolderName == newLocation.FolderName).Any())
+            {
+                ShowError("That Folder Name is already in use!", "Please choose a different name.");
+                return;
+            }
+
+            var existingFolder = CurrentFolderLocations.Where(folder => folder.FolderLocation == newLocation.FolderLocation && folder.IncludeSubfolders == newLocation.IncludeSubfolders);
+            if (existingFolder.Any())
+            {
+                ShowError("That Folder location already exists!", "You tried creating a duplicate. Take a look at: " + existingFolder.First().FolderName);
+                return;
+            }
+
+            ValidationResult validationResult = validator.Validate(newLocation);
+
+            if (validationResult.IsValid)
+            {
+                CurrentFolderLocations.Add(newLocation);
+
+                ClearForm();
+                Saveable = true;
+            }
+            else
+            {
+                ShowError("Data Validation Failed. Please fix the following errors:", (validationResult.Errors.Count > 2 ? validationResult.ToString(" ") : validationResult.ToString()));
+            }
         }
 
         private void ClearForm()

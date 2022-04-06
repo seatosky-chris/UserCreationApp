@@ -1,4 +1,5 @@
 ﻿using Avalonia.Controls;
+using FluentValidation.Results;
 using ReactiveUI;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -60,11 +61,10 @@ namespace UserCreationUI.GlobalSettings.ViewModels
 
         private void AddEditFormat(string? Id)
         {
-            // TODO: Add in validation
             // TODO: Add in check to ensure this is a proper format
             // also only enable the button if AddNewPrimary is a proper format
-
-            CurrentFormats.Add(new EmailDefaultModelExtended
+            EmailDefaultValidator validator = new();
+            var newEmailDefault = new EmailDefaultModelExtended
             {
                 Id = Id ?? System.Guid.NewGuid().ToString(),
                 Priority = 1,
@@ -72,10 +72,27 @@ namespace UserCreationUI.GlobalSettings.ViewModels
                 Domain = Domains[SelectedDomain],
                 EmployeeTypes = (from employee in SelectedEmployeeTypes.SelectedItems select employee.Key).Distinct().ToList(),
                 Locations = (from location in SelectedLocations.SelectedItems select location.Key).Distinct().ToList()
-            });
+            };
 
-            ClearForm();
-            Saveable = true;
+            if (CurrentFormats.Where(set => set.EmailTemplate == $"{newEmailDefault.EmailFormat}@{newEmailDefault.Domain}").Any())
+            {
+                ShowError("That Email Format / Domain combo is already in use!", "You tried to create a duplicate.");
+                return;
+            }
+
+            ValidationResult validationResult = validator.Validate(newEmailDefault);
+
+            if (validationResult.IsValid)
+            {
+                CurrentFormats.Add(newEmailDefault);
+
+                ClearForm();
+                Saveable = true;
+            }
+            else
+            {
+                ShowError("Data Validation Failed. Please fix the following errors:", (validationResult.Errors.Count > 2 ? validationResult.ToString(" ") : validationResult.ToString()));
+            }
         }
 
         private void ClearForm()

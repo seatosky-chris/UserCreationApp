@@ -1,4 +1,5 @@
 ﻿using Avalonia.Controls;
+using FluentValidation.Results;
 using ReactiveUI;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -57,18 +58,34 @@ namespace UserCreationUI.GlobalSettings.ViewModels
 
         private void AddEditDepartment(string? Id)
         {
-            // TODO: Add in validation
-
-            CurrentDepartments.Add(new DepartmentDefaultModelExtended
+            DepartmentDefaultValidator validator = new();
+            var newDepartmentDefault = new DepartmentDefaultModelExtended
             {
                 Id = Id ?? System.Guid.NewGuid().ToString(),
                 Priority = 1,
                 Department = AddNewPrimary,
                 Locations = (from location in SelectedLocations.SelectedItems select location.Key).Distinct().ToList()
-            });
+            };
 
-            ClearForm();
-            Saveable = true;
+            if (CurrentDepartments.Where(department => department.Department == newDepartmentDefault.Department).Any())
+            {
+                ShowError("That Department Name is already in use!", "Please choose a different department name.");
+                return;
+            }
+
+            ValidationResult validationResult = validator.Validate(newDepartmentDefault);
+
+            if (validationResult.IsValid)
+            {
+                CurrentDepartments.Add(newDepartmentDefault);
+
+                ClearForm();
+                Saveable = true;
+            }
+            else
+            {
+                ShowError("Data Validation Failed. Please fix the following errors:", (validationResult.Errors.Count > 2 ? validationResult.ToString(" ") : validationResult.ToString()));
+            }
         }
 
         private void ClearForm()

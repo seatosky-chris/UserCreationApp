@@ -10,4 +10,8 @@
     <Compile Include="..\SharedLibrary\UserAppSharedLibrary\CompanyConfigurationSharedModel.cs" Link="CompanyConfigurationSharedModel.cs" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="10.4.0" />
+  </ItemGroup>
+
 </Project>

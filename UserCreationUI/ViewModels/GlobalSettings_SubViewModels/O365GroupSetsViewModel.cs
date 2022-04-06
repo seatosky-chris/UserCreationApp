@@ -1,5 +1,6 @@
 ﻿using Avalonia.Collections;
 using Avalonia.Controls;
+using FluentValidation.Results;
 using ReactiveUI;
 using System;
 using System.Collections.ObjectModel;
@@ -70,18 +71,41 @@ namespace UserCreationUI.GlobalSettings.ViewModels
 
         private void AddEditGroupSet(string? Id)
         {
-            // TODO: Add in validation
-            CurrentGroupSets.Add(new O365GroupSetModel
+            O365GroupSetValidator validator = new();
+            var newO365GroupSet = new O365GroupSetModel
             {
                 Id = Id ?? System.Guid.NewGuid().ToString(),
                 Name = AddNewPrimary,
                 O365Groups = O365Groups_Selected.ToList(),
                 EmployeeTypes = (from employee in SelectedEmployeeTypes.SelectedItems select employee.Key).Distinct().ToList(),
                 Locations = (from location in SelectedLocations.SelectedItems select location.Key).Distinct().ToList()
-            });
+            };
 
-            ClearForm();
-            Saveable = true;
+            if (CurrentGroupSets.Where(set => set.Name == newO365GroupSet.Name).Any())
+            {
+                ShowError("That Set Name is already in use!", "Please choose a different name.");
+                return;
+            }
+            var existingSet = CurrentGroupSets.Where(set => set.O365Groups.All(newO365GroupSet.O365Groups.Contains)).Where(set => set.O365Groups.Count == newO365GroupSet.O365Groups.Count);
+            if (existingSet.Any())
+            {
+                ShowError("A group set with those groups already exists!", "You tried creating a duplicate. Take a look at: " + existingSet.First().Name);
+                return;
+            }
+
+            ValidationResult validationResult = validator.Validate(newO365GroupSet);
+
+            if (validationResult.IsValid)
+            {
+                CurrentGroupSets.Add(newO365GroupSet);
+
+                ClearForm();
+                Saveable = true;
+            }
+            else
+            {
+                ShowError("Data Validation Failed. Please fix the following errors:", (validationResult.Errors.Count > 2 ? validationResult.ToString(" ") : validationResult.ToString()));
+            }
         }
 
         private void ClearForm()

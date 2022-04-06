@@ -1,8 +1,10 @@
-﻿using System;
+﻿using FluentValidation;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UserCreationLibrary.CustomValidators;
 
 namespace UserCreationLibrary
 {
@@ -35,5 +37,17 @@ namespace UserCreationLibrary
         /// </summary>
         public List<O365LicenseModel> O365Licenses { get; set; } = new List<O365LicenseModel>();
 
+    }
+
+    public class SoftwareValidator : AbstractValidator<SoftwareModel>
+    {
+        public SoftwareValidator()
+        {
+            RuleFor(software => software.Id).SetValidator(new UUIDValidator()).WithMessage("The ID is not a valid UUID. Something went horribly wrong!");
+            RuleFor(software => software.Name).NotEmpty();
+            RuleFor(software => software).Must(software => (software.Permissions.Any() || software.O365Groups.Any() || software.O365Licenses.Any()))
+                .WithName("EmptySoftware")
+                .WithMessage("You must select some AD permissions, O365 groups, or O365 licenses to apply for this software.");
+        }
     }
 }

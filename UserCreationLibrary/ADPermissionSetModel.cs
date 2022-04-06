@@ -1,8 +1,10 @@
-﻿using System;
+﻿using FluentValidation;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UserCreationLibrary.CustomValidators;
 
 namespace UserCreationLibrary
 {
@@ -36,5 +38,15 @@ namespace UserCreationLibrary
         /// <see cref="ADPermissionModel"/>
         public List<ADPermissionModel> Permissions { get; set; } = new List<ADPermissionModel>();
 
+    }
+
+    public class ADPermissionSetValidator : AbstractValidator<ADPermissionSetModel>
+    {
+        public ADPermissionSetValidator()
+        {
+            RuleFor(adPermissionSet => adPermissionSet.Id).SetValidator(new UUIDValidator()).WithMessage("The ID is not a valid UUID. Something went horribly wrong!");
+            RuleFor(adPermissionSet => adPermissionSet.Name).NotEmpty();
+            RuleFor(adPermissionSet => adPermissionSet.Permissions).NotEmpty();
+        }
     }
 }

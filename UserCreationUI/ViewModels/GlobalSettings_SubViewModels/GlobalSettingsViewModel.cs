@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using UserCreationLibrary;
 using UserAppSharedLibrary;
+using FluentValidation.Results;
+using UserCreationUI.ViewModels;
 
 namespace UserCreationUI.GlobalSettings.ViewModels
 {
@@ -195,18 +197,42 @@ namespace UserCreationUI.GlobalSettings.ViewModels
         }
 
 
-        public void SaveGlobalSettings()
+        public bool SaveGlobalSettings()
         {
-            // Update loaded global config
-            Program.GlobalConfig.UsernameFormat = UsernameFormat;
-            Program.GlobalConfig.ExchangeServerFQDN = ExchangeServerFQDN;
-            Program.GlobalConfig.PasswordExpiryOn = PasswordExpiry;
-            Program.GlobalConfig.ADO365SyncOn = ADO365Sync;
-            Program.GlobalConfig.ADType = (CompanyConfigurationSharedModel.ADTypeConfiguration)ADTypeSelected;
-            Program.GlobalConfig.EmailType = (CompanyConfigurationSharedModel.EmailTypeConfiguration)EmailTypeSelected;
+            CompanyConfigurationValidator validator = new();
 
-            // Code to save to DB here
-            System.Diagnostics.Debug.WriteLine("Saving Global Settings");
+            // Update loaded global config
+            var newGlobalConfig = Program.GlobalConfig;
+            newGlobalConfig.UsernameFormat = UsernameFormat;
+            newGlobalConfig.ExchangeServerFQDN = ExchangeServerFQDN;
+            newGlobalConfig.PasswordExpiryOn = PasswordExpiry;
+            newGlobalConfig.ADO365SyncOn = ADO365Sync;
+            newGlobalConfig.ADType = (CompanyConfigurationSharedModel.ADTypeConfiguration)ADTypeSelected;
+            newGlobalConfig.EmailType = (CompanyConfigurationSharedModel.EmailTypeConfiguration)EmailTypeSelected;
+
+            // Validate new global config
+            ValidationResult validationResult = validator.Validate(newGlobalConfig);
+
+            if (validationResult.IsValid)
+            {
+                Program.GlobalConfig = newGlobalConfig;
+                // Code to save to DB here
+                System.Diagnostics.Debug.WriteLine("Saving Global Settings");
+                return true;
+            }
+            else
+            {
+                var hostVM = this.HostScreen;
+
+                if (hostVM is SettingsWindowViewModel)
+                {
+                    SettingsWindowViewModel settingsVM = (SettingsWindowViewModel)hostVM;
+                    settingsVM.ShowNotification("Data Validation Failed. Please fix the following errors:",
+                        (validationResult.Errors.Count > 2 ? validationResult.ToString(" ") : validationResult.ToString()),
+                        SettingsWindowViewModel.notificationType.Error);
+                }
+            }
+            return false;
         }
     }
 }
